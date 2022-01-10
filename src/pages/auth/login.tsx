@@ -1,10 +1,16 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Box, FormControl, Typography } from '@mui/material';
-import { Button, Grid, Paper, TextField } from '@exam/uikit/src';
+import { Box, FormControl, Typography, Grid, Paper, Button } from '@mui/material';
+import { TextField } from '@exam/uikit/src';
 import { LoginSide } from './login.side';
+import { SxProps } from '@mui/system';
+import { jsx } from '@emotion/react';
 
 type FormData = { userName: string; password: string };
+
+// type Style = {
+//   [key: string]: SxProps;
+// };
 
 const style = {
   root: {
@@ -42,17 +48,18 @@ const style = {
   },
 };
 
-type user = {
-  username: string;
-};
+// type user = {
+//   username: string;
+// };
 
-const Login: React.ComponentType = (): JSX.Element => {
+const Login = () => {
   const {
     handleSubmit,
     control,
     register,
     formState: { errors },
   } = useForm<FormData>();
+  console.log('here');
 
   const onSubmit: SubmitHandler<FormData> = (data) => {};
 
@@ -60,7 +67,14 @@ const Login: React.ComponentType = (): JSX.Element => {
     <Box sx={style.root}>
       <Paper sx={style.paper}>
         <Grid container>
-          <Grid item sx={style.rightSide}>
+          <Grid
+            item
+            sx={{
+              borderRight: '1px solid #e5e5e5',
+              padding: '45px 45px 10px',
+              textAlign: 'center',
+            }}
+          >
             <LoginSide />
           </Grid>
           <Grid item sx={style.leftSide}>
@@ -79,7 +93,7 @@ const Login: React.ComponentType = (): JSX.Element => {
                       {...register('userName')}
                       {...props}
                       placeholder="نام کاربری"
-                      error={errors.userName}
+                      // error={errors.userName}
                       helperText={errors.userName?.message}
                     />
                   )}
@@ -104,7 +118,7 @@ const Login: React.ComponentType = (): JSX.Element => {
                       {...register('password')}
                       {...props}
                       placeholder="رمز عبور"
-                      error={errors.password}
+                      // error={errors.password}
                       helperText={errors.password?.message}
                     />
                   )}

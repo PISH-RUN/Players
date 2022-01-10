@@ -9,10 +9,10 @@ const cacheRtl = createCache({
   stylisPlugins: [rtlPlugin],
 });
 
-export type Props = {
-  children: JSX.Element;
-};
+// export type Props = {
+//   children: JSX.Element;
+// };
 
-export const RTL = (props: Props) => {
+export const RTL = (props: any) => {
   return <CacheProvider value={cacheRtl}> {props.children} </CacheProvider>;
 };

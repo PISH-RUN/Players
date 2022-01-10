@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@exam/uikit": "1.0.0",
     "@mui/material": "^5.2.7",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -54,5 +55,6 @@
     "packages": [
       "packages/*"
     ]
-  }
+  },
+  "packageManager": "yarn@3.1.1"
 }

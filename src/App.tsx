@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
 import './App.css';
-import { Grid, LinearProgress, ThemeProvider } from '@mui/material';
+import { Grid, LinearProgress, ThemeProvider, createTheme } from '@mui/material';
 import routes from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Direction, examTheme, RTL } from '@exam/uikit';
+import { examTheme, RTL } from '@exam/uikit/src';
 
 const AppRouter: React.ComponentType = () => {
   console.log(routes);
@@ -32,11 +32,11 @@ const AppRouter: React.ComponentType = () => {
 
 function App() {
   return (
-    <RTL>
-      <ThemeProvider theme={examTheme({ direction: Direction.rtl })}>
+    <ThemeProvider theme={examTheme()}>
+      <RTL>
         <AppRouter />
-      </ThemeProvider>
-    </RTL>
+      </RTL>
+    </ThemeProvider>
   );
 }
 
