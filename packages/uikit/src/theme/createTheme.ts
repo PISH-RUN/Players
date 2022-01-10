@@ -1,40 +1,39 @@
 import { createTheme } from '@mui/material/styles';
-// import { createTypography, responseTypography } from './createTypography';
+import { Theme } from '@mui/system';
+import { responseTypography, createTypography } from './createTypography';
 import { palettes } from './variables/_color';
-import { createOverrides } from './createOverrides';
 
-// declare module '@mui/material/styles' {
-//   interface Theme {
-//     status: {
-//       danger: string;
-//     };
-//   }
-//   // allow configuration using `createTheme`
-//   interface ThemeOptions {
-//     status?: {
-//       danger?: string;
-//     };
-//   }
-// }
+declare module '@mui/material/styles' {
+  interface Theme {
+    status: {
+      danger: string;
+    };
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
+}
 
-// export enum Direction {
-//   rtl = 'rtl',
-//   ltr = 'ltr',
-// }
-//
-// export type ExamTheme = {
-//   direction?: Direction;
-// };
+export enum Direction {
+  rtl = 'rtl',
+  ltr = 'ltr',
+}
 
-export const theme = createTheme({
+export type ExamTheme = {
+  direction?: Direction;
+};
+
+export const theme: Theme = createTheme({
   direction: 'rtl',
   ...palettes,
   // overrides: { ...createOverrides() },
-  // typography: createTypography(),
+  typography: createTypography(),
 });
 
-export const examTheme = () => {
-  // theme.direction = direction;
-  return theme;
-  // return responseTypography(theme);
+export const examTheme = ({ direction = Direction.rtl }: ExamTheme) => {
+  theme.direction = direction;
+  return responseTypography(theme);
 };

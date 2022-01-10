@@ -1,7 +1,13 @@
 /*
  *  Default textfiled font size
  */
-export const defaultTypographyFontSize = {
+import { Typography } from '@mui/material/styles/createTypography';
+
+export type TypographyProps = {
+  [key in keyof Typography]?: string | number;
+};
+
+export const defaultTypographyFontSize: TypographyProps = {
   h1: '32px',
   h2: '28px',
   h3: '24px',
@@ -14,13 +20,12 @@ export const defaultTypographyFontSize = {
   body1: '16px',
   body2: '14px',
   caption: '12px',
-  overline: '10px',
 };
 
 /*
  *  smTypography for small screen responsive mode
  */
-export const smTypographyFontSizes = {
+export const smTypographyFontSizes: TypographyProps = {
   h1: '29px',
   h2: '25px',
   h3: '20px',
@@ -32,7 +37,7 @@ export const smTypographyFontSizes = {
 /*
  *  xsTypography for small screen responsive mode
  */
-export const xsTypographyFontSizes = {
+export const xsTypographyFontSizes: TypographyProps = {
   h1: '26px',
   h2: '23px',
   h3: '18px',
@@ -41,7 +46,7 @@ export const xsTypographyFontSizes = {
   h6: '12px',
 };
 
-export const fontWeights = {
+export const fontWeights: TypographyProps = {
   h1: 900,
   h2: 700,
   h3: 700,
@@ -58,6 +63,7 @@ export const fontWeights = {
 };
 
 export const fontFamilies = [
+  'YekanBakh',
   '-apple-system',
   'BlinkMacSystemFont',
   '"Segoe UI"',
@@ -68,5 +74,4 @@ export const fontFamilies = [
   '"Apple Color Emoji"',
   '"Segoe UI Emoji"',
   '"Segoe UI Symbol"',
-  'YekanBakh',
 ];

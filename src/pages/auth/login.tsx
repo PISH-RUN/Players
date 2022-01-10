@@ -1,10 +1,9 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Box, FormControl, Typography, Grid, Paper, Button } from '@mui/material';
-import { TextField } from '@exam/uikit/src';
+import { Box, FormControl, Typography, Grid } from '@mui/material';
+import { Button, Paper, TextField } from '@exam/uikit';
 import { LoginSide } from './login.side';
 import { SxProps } from '@mui/system';
-import { jsx } from '@emotion/react';
 
 type FormData = { userName: string; password: string };
 
@@ -48,18 +47,17 @@ const style = {
   },
 };
 
-// type user = {
-//   username: string;
-// };
+type user = {
+  username: string;
+};
 
-const Login = () => {
+const Login: React.ComponentType = () => {
   const {
     handleSubmit,
     control,
     register,
     formState: { errors },
   } = useForm<FormData>();
-  console.log('here');
 
   const onSubmit: SubmitHandler<FormData> = (data) => {};
 
@@ -93,7 +91,7 @@ const Login = () => {
                       {...register('userName')}
                       {...props}
                       placeholder="نام کاربری"
-                      // error={errors.userName}
+                      error={!!errors.userName}
                       helperText={errors.userName?.message}
                     />
                   )}
@@ -118,7 +116,7 @@ const Login = () => {
                       {...register('password')}
                       {...props}
                       placeholder="رمز عبور"
-                      // error={errors.password}
+                      error={!!errors.password}
                       helperText={errors.password?.message}
                     />
                   )}

@@ -1,12 +1,11 @@
 import React, { Suspense } from 'react';
 import './App.css';
-import { Grid, LinearProgress, ThemeProvider, createTheme } from '@mui/material';
+import { Grid, LinearProgress, ThemeProvider } from '@mui/material';
 import routes from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { examTheme, RTL } from '@exam/uikit/src';
+import { Direction, examTheme, RTL } from '@exam/uikit/src';
 
 const AppRouter: React.ComponentType = () => {
-  console.log(routes);
   return (
     <Suspense
       fallback={
@@ -32,7 +31,7 @@ const AppRouter: React.ComponentType = () => {
 
 function App() {
   return (
-    <ThemeProvider theme={examTheme()}>
+    <ThemeProvider theme={examTheme({ direction: Direction.rtl })}>
       <RTL>
         <AppRouter />
       </RTL>
