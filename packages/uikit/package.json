@@ -1,0 +1,37 @@
+{
+  "name": "@exam/uikit",
+  "version": "0.0.1",
+  "description": "Mizan packages library",
+  "main": "index.js",
+  "types": "src/index.js",
+  "scripts": {
+    "build": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.inre.ir/iranhr-front-developers/iranhr-ziprecruiter.git",
+    "directory": "packages/iranhr-uikit"
+  },
+  "keywords": [
+    "iranhr",
+    "react",
+    "material-ui",
+    "uikit"
+  ],
+  "author": "IranHR Front Team",
+  "license": "ISC",
+  "dependencies": {
+    "@mui/material": "^5.2.5",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "stylis": "^4.0.13",
+    "stylis-plugin-rtl": "^2.1.1"
+  },
+  "devDependencies": {
+    "@mui/material": "^5.2.5",
+    "babel-preset-react-app": "^10.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}

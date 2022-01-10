@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "@exam/eslint-config"
+  ],
+  "root": true,
+  "plugins": [],
+  "rules": {
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}

@@ -10,10 +10,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "rootDir": [
-      "src",
-      "packages"
-    ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
@@ -26,6 +22,5 @@
   },
   "include": [
     "src",
-    "packages"
   ]
 }

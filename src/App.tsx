@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Suspense } from 'react';
 import './App.css';
+import { Grid, LinearProgress, ThemeProvider } from '@mui/material';
+import routes from './routes';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Direction, examTheme, RTL } from '@exam/uikit';
+
+const AppRouter: React.ComponentType = () => {
+  console.log(routes);
+  return (
+    <Suspense
+      fallback={
+        <Grid container>
+          <LinearProgress color="secondary" style={{ width: '100%' }} />
+        </Grid>
+      }
+    >
+      <BrowserRouter>
+        <Routes>
+          {routes.map(({ path, exact, component: Component, layout: Layout }) => (
+            <Route
+              key={path}
+              path={path}
+              element={!!Layout ? <Layout>{!!Component && <Component />}</Layout> : !!Component && <Component />}
+            />
+          ))}
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RTL>
+      <ThemeProvider theme={examTheme({ direction: Direction.rtl })}>
+        <AppRouter />
+      </ThemeProvider>
+    </RTL>
   );
 }
 
