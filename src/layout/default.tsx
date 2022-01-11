@@ -9,7 +9,7 @@ const DefaultLayout: React.ComponentType = ({ children }) => {
         <Grid item>
           <SideBar />
         </Grid>
-        <Grid item>
+        <Grid item xs>
           <Box sx={{ p: 2 }}>{children}</Box>
         </Grid>
       </Grid>
