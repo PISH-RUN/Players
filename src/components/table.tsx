@@ -9,8 +9,8 @@ import TableRow from '@mui/material/TableRow';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    // backgroundColor: theme.palette.common.black,
+    // color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -27,33 +27,30 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name: string, count: string) {
-  return { name, count };
-}
-
 type Props = {
-  header?: Array<string>;
+  headers: Array<string>;
   dataRows: Array<any>;
 };
 
-export default function CustomizedTables({ header = [], dataRows }: Props) {
-  const rows = dataRows.map((row: any) => createData(row.name, row.count));
-
+export default function CustomizedTables({ headers, dataRows }: Props) {
   return (
     <TableContainer>
       <Table>
-        {!!header && (
-          <TableHead>
-            <TableRow>
-              {header.map((head) => (
-                <StyledTableCell key={head}>{head}</StyledTableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-        )}
+        <TableHead>
+          <TableRow>
+            {headers.map((header) => {
+              <StyledTableCell>{header}</StyledTableCell>;
+            })}
+          </TableRow>
+        </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {dataRows.map((row) => (
+            <StyledTableRow key={row.id}>
+              {headers.map((header) => {
+                <StyledTableCell align="right" key={header}>
+                  {row[header]}
+                </StyledTableCell>;
+              })}
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>

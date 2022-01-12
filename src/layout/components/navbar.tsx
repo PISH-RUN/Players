@@ -15,7 +15,7 @@ const navLinks = [
   },
   {
     title: 'شایستگی‌ها',
-    path: '/competency',
+    path: '/abilities',
     icon: <MessageIcon />,
   },
   {

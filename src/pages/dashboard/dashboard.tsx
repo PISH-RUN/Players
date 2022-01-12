@@ -40,7 +40,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">موعد تحویل</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table dataRows={data.tableData_DeliveryDate} />
+            <Table headers={[]} dataRows={data.tableData_DeliveryDate} />
           </Paper>
         </Grid>
         <Grid item>
@@ -48,7 +48,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">وضعیت دفترچه‌ها</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table dataRows={data.tableData_booklets} />
+            <Table headers={[]} dataRows={data.tableData_booklets} />
           </Paper>
         </Grid>
         <Grid item>
@@ -56,7 +56,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">وضعیت کامنت‌ها</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table dataRows={data.tableData_comments} />
+            <Table headers={[]} dataRows={data.tableData_comments} />
           </Paper>
         </Grid>
       </Grid>

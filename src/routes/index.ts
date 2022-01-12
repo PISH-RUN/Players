@@ -8,7 +8,7 @@ export type Route = {
 };
 
 /***
- * project routers list with ability to define layouts and basic url auth setting
+ * project routers list with abilities to define layouts and basic url auth setting
  */
 const routes: Array<Route> = [
   {
@@ -23,9 +23,9 @@ const routes: Array<Route> = [
     layout: lazy(() => import('layout/default')),
   },
   {
-    path: '/competency',
+    path: '/abilities',
     exact: true,
-    component: lazy(() => import('../pages/competency/competency')),
+    component: lazy(() => import('../pages/abilities/abilities')),
     layout: lazy(() => import('layout/default')),
   },
 ];
