@@ -22,6 +22,12 @@ const routes: Array<Route> = [
     component: lazy(() => import('../pages/dashboard/dashboard')),
     layout: lazy(() => import('layout/default')),
   },
+  {
+    path: '/competency',
+    exact: true,
+    component: lazy(() => import('../pages/competency/competency')),
+    layout: lazy(() => import('layout/default')),
+  },
 ];
 
 export default routes;
