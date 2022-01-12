@@ -1,9 +1,10 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Box, FormControl, Typography, Grid } from '@mui/material';
+import { Box, FormControl, Typography, Grid, useRadioGroup } from '@mui/material';
 import { Button, Paper, TextField } from '@exam/uikit';
 import { LoginSide } from './login.side';
 import { gql, useMutation } from '@apollo/client';
+import { useLoginMutation, LoginInput, useCreateUserMutation, UserCreateInput, useGetUserQuery, GetUserQuery } from 'api';
 
 type FormData = { username: string; password: string };
 
@@ -62,12 +63,31 @@ const Login: React.ComponentType = () => {
     control,
     register,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<LoginInput>();
 
-  const [login, { data, loading }] = useMutation(LOGIN);
+  const { mutate } = useLoginMutation();
+  const { mutate: createUser } = useCreateUserMutation();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    login({ variables: { data } });
+  const { data } = useGetUserQuery({
+    where: { id: 1, username: 'user' },
+  });
+
+  console.log(data);
+
+  const onSubmit: SubmitHandler<LoginInput> = (data: LoginInput) => {
+    // login({ variables: { data } });
+
+    const user: UserCreateInput = {
+      username: 'user',
+      password: '123456',
+      canLogin: true,
+      role: 'superadmin',
+      lastLogin: 'Wed Jan 12 2022 11:25:32 GMT+0330 (Iran Standard Time)',
+    };
+
+    // createUser({ data: user });
+
+    mutate({ data });
   };
 
   return (
@@ -115,10 +135,10 @@ const Login: React.ComponentType = () => {
                 <Controller
                   rules={{
                     required: 'رمز خود را وارد نمایید',
-                    minLength: {
-                      value: 8,
-                      message: 'حداقل 8 کاراکتر شامل عدد و حروف انگلیسی',
-                    },
+                    // minLength: {
+                    //   value: 8,
+                    //   message: 'حداقل 8 کاراکتر شامل عدد و حروف انگلیسی',
+                    // },
                   }}
                   render={(props) => (
                     <TextField
