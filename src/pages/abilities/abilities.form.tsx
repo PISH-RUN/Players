@@ -23,11 +23,11 @@ type FormProps = {
 const style = {
   root: {
     width: 500,
-    m: '0 auto',
+    m: '12px auto',
     textAlign: 'center',
     border: '1px solid #e5e5e5',
     borderRadius: 1,
-    p: 2,
+    p: 3,
   },
   divider: {
     py: 1,
