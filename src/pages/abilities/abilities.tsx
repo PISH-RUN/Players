@@ -2,18 +2,28 @@ import React from 'react';
 import { Typography, Grid, Button, Divider } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Filter from './filter';
-import Table from 'components/table';
+import Table, { Cell } from 'components/table';
+import PersonIcon from '@mui/icons-material/Person';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
-const data = [
+const headers: Cell = {
+  booklets: 'نام دفترچه‌ها',
+  jobCategory: 'دسته شغلی | شغل',
+  abilities: 'شایستگی',
+  noQuestion: 'تعداد سوالات',
+  status: 'وضعیت تایید',
+};
+const data: Array<Cell> = [
   {
+    id: 1,
     booklets: 'مهندسی',
     jobCategory: 'مهندسی نرم‌افزار',
     abilities: 'تست',
     noQuestion: '۱۲ / ۲۰',
-    status: 'شسی',
+    // status: { admin: <PersonIcon />, superAdmin: <AdminPanelSettingsIcon />, supervisor: <VisibilityIcon /> },
   },
 ];
-const headers = ['نام دفترچه‌ها', 'دسته شغلی | شغل', 'شایستگی', 'تعداد سوالات', 'وضعیت تایید'];
 
 const Abilities: React.ComponentType = () => {
   return (
