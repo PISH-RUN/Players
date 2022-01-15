@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { TextField, Box, MenuItem, Button, FormControl, Grid, Typography, Collapse } from '@mui/material';
+import { TextField, Box, MenuItem, Button, FormControl, Grid, Typography, Collapse, Checkbox } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
@@ -18,6 +21,9 @@ type FormData = {
   jobCategory: string;
   job: string;
   ability: string;
+  admin: string;
+  superAdmin: string;
+  supervisor: string;
 };
 
 const style = {
@@ -50,18 +56,48 @@ const Filter: React.ComponentType = () => {
           </FormControl>
         </Grid>
         <Grid item>
-          <Grid container alignItems="center" spacing={1}>
+          <Grid container alignItems="center">
             <Grid item>
               <Typography variant="h5">وضعیت تایید:</Typography>
             </Grid>
             <Grid item>
-              <PersonIcon sx={style.icon} />
+              <Controller
+                control={control}
+                name="admin"
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    icon={<PersonOutlineOutlinedIcon sx={style.icon} />}
+                    checkedIcon={<PersonIcon />}
+                  />
+                )}
+              />
             </Grid>
             <Grid item>
-              <AdminPanelSettingsIcon sx={style.icon} />
+              <Controller
+                control={control}
+                name="superAdmin"
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    icon={<AdminPanelSettingsOutlinedIcon sx={style.icon} />}
+                    checkedIcon={<AdminPanelSettingsIcon />}
+                  />
+                )}
+              />
             </Grid>
             <Grid item>
-              <VisibilityIcon sx={style.icon} />
+              <Controller
+                control={control}
+                name="supervisor"
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    icon={<RemoveRedEyeOutlinedIcon sx={style.icon} />}
+                    checkedIcon={<VisibilityIcon />}
+                  />
+                )}
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -119,16 +155,6 @@ const Filter: React.ComponentType = () => {
           </FormControl>
         </Grid>
       </Grid>
-      <FormControl margin="normal">
-        <Button variant="contained" type="submit">
-          جستجو
-        </Button>
-      </FormControl>
-      <FormControl margin="normal">
-        <Button type="submit" onClick={() => setOpen(!open)} endIcon={open ? <ExpandLess /> : <ExpandMore />}>
-          جستجوی پیشرفته
-        </Button>
-      </FormControl>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Grid container spacing={1}>
           <Grid item xs>
@@ -184,6 +210,16 @@ const Filter: React.ComponentType = () => {
           </Grid>
         </Grid>
       </Collapse>
+      <FormControl margin="normal">
+        <Button variant="contained" type="submit">
+          جستجو
+        </Button>
+      </FormControl>
+      <FormControl margin="normal">
+        <Button type="submit" onClick={() => setOpen(!open)} endIcon={open ? <ExpandLess /> : <ExpandMore />}>
+          جستجوی پیشرفته
+        </Button>
+      </FormControl>
     </Box>
   );
 };

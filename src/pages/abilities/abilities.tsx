@@ -41,6 +41,66 @@ const data: Array<Cell> = [
       </Grid>
     ),
   },
+  {
+    id: 1,
+    booklets: 'مهندسی',
+    jobCategory: 'مهندسی نرم‌افزار',
+    abilities: 'تست',
+    noQuestion: '۱۲ / ۲۰',
+    status: (
+      <Grid container spacing={1}>
+        <Grid item>
+          <PersonIcon sx={style.icon} />
+        </Grid>
+        <Grid item>
+          <AdminPanelSettingsIcon sx={style.icon} />
+        </Grid>
+        <Grid item>
+          <VisibilityIcon sx={style.icon} />
+        </Grid>
+      </Grid>
+    ),
+  },
+  {
+    id: 1,
+    booklets: 'مهندسی',
+    jobCategory: 'مهندسی نرم‌افزار',
+    abilities: 'تست',
+    noQuestion: '۱۲ / ۲۰',
+    status: (
+      <Grid container spacing={1}>
+        <Grid item>
+          <PersonIcon sx={style.icon} />
+        </Grid>
+        <Grid item>
+          <AdminPanelSettingsIcon sx={style.icon} />
+        </Grid>
+        <Grid item>
+          <VisibilityIcon sx={style.icon} />
+        </Grid>
+      </Grid>
+    ),
+  },
+  {
+    id: 1,
+    booklets: 'مهندسی',
+    jobCategory: 'مهندسی نرم‌افزار',
+    abilities: 'تست',
+    noQuestion: '۱۲ / ۲۰',
+    status: (
+      <Grid container spacing={1}>
+        <Grid item>
+          <PersonIcon sx={style.icon} />
+        </Grid>
+        <Grid item>
+          <AdminPanelSettingsIcon sx={style.icon} />
+        </Grid>
+        <Grid item>
+          <VisibilityIcon sx={style.icon} />
+        </Grid>
+      </Grid>
+    ),
+  },
 ];
 
 const Abilities: React.ComponentType = () => {
