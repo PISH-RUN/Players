@@ -16,6 +16,12 @@ const routes: Array<Route> = [
     exact: true,
     component: lazy(() => import('../pages/auth/login')),
   },
+  {
+    path: '/dashboard',
+    exact: true,
+    component: lazy(() => import('../pages/dashboard/dashboard')),
+    layout: lazy(() => import('layout/default')),
+  },
 ];
 
 export default routes;
