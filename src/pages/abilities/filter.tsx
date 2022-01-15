@@ -223,7 +223,7 @@ const Filter: React.ComponentType = () => {
           </Button>
         </FormControl>
         <FormControl margin="normal">
-          <Button type="submit" onClick={() => setOpen(!open)} endIcon={open ? <ExpandLess /> : <ExpandMore />}>
+          <Button onClick={() => setOpen(!open)} endIcon={open ? <ExpandLess /> : <ExpandMore />}>
             جستجوی پیشرفته
           </Button>
         </FormControl>
