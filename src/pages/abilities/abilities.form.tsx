@@ -23,6 +23,7 @@ type FormProps = {
 const style = {
   root: {
     width: 500,
+    backgroundColor: '#fff',
     m: '12px auto',
     textAlign: 'center',
     border: '1px solid #e5e5e5',

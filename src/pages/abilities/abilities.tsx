@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Grid, Button, Divider } from '@mui/material';
+import { Typography, Grid, Button, Divider, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Filter from './filter';
 import Table, { Cell } from 'components/table';
@@ -9,6 +9,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from 'react-router-dom';
 
 const style = {
+  root: {
+    backgroundColor: '#fff',
+    border: '1px solid #e5e5e5',
+    borderRadius: 1,
+    p: 4,
+  },
   icon: {
     color: '#BDBDBD',
   },
@@ -108,7 +114,7 @@ const Abilities: React.ComponentType = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <Box sx={style.root}>
       <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
         <Typography variant="h2">شایستگی ها</Typography>
         <Button
@@ -125,7 +131,7 @@ const Abilities: React.ComponentType = () => {
       <Filter />
       <Divider light sx={{ my: 2 }} />
       <Table headers={headers} dataRows={data} />
-    </>
+    </Box>
   );
 };
 
