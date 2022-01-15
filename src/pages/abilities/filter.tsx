@@ -33,6 +33,12 @@ const style = {
   icon: {
     color: '#BDBDBD',
   },
+  activeIcon: {
+    color: '#46D7A7',
+  },
+  mainCheckbox: {
+    mx: 1,
+  },
 };
 
 const Filter: React.ComponentType = () => {
@@ -56,7 +62,7 @@ const Filter: React.ComponentType = () => {
           </FormControl>
         </Grid>
         <Grid item>
-          <Grid container alignItems="center">
+          <Grid container alignItems="center" sx={style.mainCheckbox}>
             <Grid item>
               <Typography variant="h5">وضعیت تایید:</Typography>
             </Grid>
@@ -68,7 +74,7 @@ const Filter: React.ComponentType = () => {
                   <Checkbox
                     {...field}
                     icon={<PersonOutlineOutlinedIcon sx={style.icon} />}
-                    checkedIcon={<PersonIcon />}
+                    checkedIcon={<PersonIcon sx={style.activeIcon} />}
                   />
                 )}
               />
@@ -81,7 +87,7 @@ const Filter: React.ComponentType = () => {
                   <Checkbox
                     {...field}
                     icon={<AdminPanelSettingsOutlinedIcon sx={style.icon} />}
-                    checkedIcon={<AdminPanelSettingsIcon />}
+                    checkedIcon={<AdminPanelSettingsIcon sx={style.activeIcon} />}
                   />
                 )}
               />
@@ -94,7 +100,7 @@ const Filter: React.ComponentType = () => {
                   <Checkbox
                     {...field}
                     icon={<RemoveRedEyeOutlinedIcon sx={style.icon} />}
-                    checkedIcon={<VisibilityIcon />}
+                    checkedIcon={<VisibilityIcon sx={style.activeIcon} />}
                   />
                 )}
               />

@@ -42,7 +42,7 @@ const data: Array<Cell> = [
     ),
   },
   {
-    id: 1,
+    id: 2,
     booklets: 'مهندسی',
     jobCategory: 'مهندسی نرم‌افزار',
     abilities: 'تست',
@@ -62,7 +62,7 @@ const data: Array<Cell> = [
     ),
   },
   {
-    id: 1,
+    id: 3,
     booklets: 'مهندسی',
     jobCategory: 'مهندسی نرم‌افزار',
     abilities: 'تست',
@@ -82,7 +82,7 @@ const data: Array<Cell> = [
     ),
   },
   {
-    id: 1,
+    id: 4,
     booklets: 'مهندسی',
     jobCategory: 'مهندسی نرم‌افزار',
     abilities: 'تست',
