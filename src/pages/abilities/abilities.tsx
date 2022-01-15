@@ -6,6 +6,7 @@ import Table, { Cell } from 'components/table';
 import PersonIcon from '@mui/icons-material/Person';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
   icon: {
@@ -104,11 +105,19 @@ const data: Array<Cell> = [
 ];
 
 const Abilities: React.ComponentType = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
         <Typography variant="h2">شایستگی ها</Typography>
-        <Button sx={{ borderRadius: 23 }} variant="contained" color="primary" startIcon={<AddIcon />}>
+        <Button
+          sx={{ borderRadius: 23 }}
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={() => navigate('/add-abilities')}
+        >
           افزودن شایستگی
         </Button>
       </Grid>

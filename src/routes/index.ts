@@ -28,6 +28,12 @@ const routes: Array<Route> = [
     component: lazy(() => import('../pages/abilities/abilities')),
     layout: lazy(() => import('layout/default')),
   },
+  {
+    path: '/add-abilities',
+    exact: true,
+    component: lazy(() => import('../pages/abilities/abilities.form')),
+    layout: lazy(() => import('layout/default')),
+  },
 ];
 
 export default routes;

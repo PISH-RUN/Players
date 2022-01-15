@@ -216,16 +216,18 @@ const Filter: React.ComponentType = () => {
           </Grid>
         </Grid>
       </Collapse>
-      <FormControl margin="normal">
-        <Button variant="contained" type="submit">
-          جستجو
-        </Button>
-      </FormControl>
-      <FormControl margin="normal">
-        <Button type="submit" onClick={() => setOpen(!open)} endIcon={open ? <ExpandLess /> : <ExpandMore />}>
-          جستجوی پیشرفته
-        </Button>
-      </FormControl>
+      <Box sx={{ mx: 1 }}>
+        <FormControl margin="normal">
+          <Button variant="contained" type="submit">
+            جستجو
+          </Button>
+        </FormControl>
+        <FormControl margin="normal">
+          <Button type="submit" onClick={() => setOpen(!open)} endIcon={open ? <ExpandLess /> : <ExpandMore />}>
+            جستجوی پیشرفته
+          </Button>
+        </FormControl>
+      </Box>
     </Box>
   );
 };
