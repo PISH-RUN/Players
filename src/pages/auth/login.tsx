@@ -1,15 +1,12 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Box, FormControl, Typography, Grid } from '@mui/material';
+import { Box, FormControl, Typography, Grid, useRadioGroup } from '@mui/material';
 import { Button, Paper, TextField } from '@exam/uikit';
 import { LoginSide } from './login.side';
-import { SxProps } from '@mui/system';
+import { gql, useMutation } from '@apollo/client';
+import { useLoginMutation, LoginInput, useCreateUserMutation, UserCreateInput, useGetUserQuery } from 'api';
 
-type FormData = { userName: string; password: string };
-
-// type Style = {
-//   [key: string]: SxProps;
-// };
+type FormData = { username: string; password: string };
 
 const style = {
   root: {
@@ -51,15 +48,47 @@ type user = {
   username: string;
 };
 
+const LOGIN = gql`
+  mutation Login($data: LoginInput!) {
+    login(data: $data) {
+      id
+      username
+    }
+  }
+`;
+
 const Login: React.ComponentType = () => {
   const {
     handleSubmit,
     control,
     register,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<LoginInput>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {};
+  const { mutate } = useLoginMutation();
+  const { mutate: createUser } = useCreateUserMutation();
+
+  const { data } = useGetUserQuery({
+    id: 1,
+  });
+
+  console.log(data);
+
+  const onSubmit: SubmitHandler<LoginInput> = (data: LoginInput) => {
+    // login({ variables: { data } });
+
+    const user: UserCreateInput = {
+      username: 'user',
+      password: '123456',
+      canLogin: true,
+      role: 'superadmin',
+      lastLogin: 'Wed Jan 12 2022 11:25:32 GMT+0330 (Iran Standard Time)',
+    };
+
+    // createUser({ data: user });
+
+    mutate({ data });
+  };
 
   return (
     <Box sx={style.root}>
@@ -88,15 +117,15 @@ const Login: React.ComponentType = () => {
                   rules={{ required: 'نام کاربری خود را وارد نمایید' }}
                   render={(props) => (
                     <TextField
-                      {...register('userName')}
+                      {...register('username')}
                       {...props}
                       placeholder="نام کاربری"
-                      error={!!errors.userName}
-                      helperText={errors.userName?.message}
+                      error={!!errors.username}
+                      helperText={errors.username?.message}
                     />
                   )}
                   control={control}
-                  name="userName"
+                  name="username"
                 />
               </FormControl>
               <FormControl margin="dense" fullWidth>
@@ -106,10 +135,10 @@ const Login: React.ComponentType = () => {
                 <Controller
                   rules={{
                     required: 'رمز خود را وارد نمایید',
-                    minLength: {
-                      value: 8,
-                      message: 'حداقل 8 کاراکتر شامل عدد و حروف انگلیسی',
-                    },
+                    // minLength: {
+                    //   value: 8,
+                    //   message: 'حداقل 8 کاراکتر شامل عدد و حروف انگلیسی',
+                    // },
                   }}
                   render={(props) => (
                     <TextField
