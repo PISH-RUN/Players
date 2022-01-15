@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.5.7",
     "@babel/core": "^7.16.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -10,7 +11,7 @@
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.7",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^6.2.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -29,13 +30,14 @@
     "clsx": "^1.1.1",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
-    "dotenv": "^10.0.0",
+    "dotenv": "^11.0.0",
     "dotenv-expand": "^5.1.0",
     "eslint": "^8.3.0",
     "eslint-config-react-app": "^7.0.0",
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
+    "graphql": "^16.2.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",
@@ -53,6 +55,7 @@
     "react-dev-utils": "^12.0.0",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.22.5",
+    "react-query": "^3.34.7",
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.2.1",
     "resolve": "^1.20.0",
@@ -68,14 +71,16 @@
     "typescript": "^4.5.4",
     "web-vitals": "^2.1.3",
     "webpack": "^5.64.4",
-    "webpack-dev-server": "^4.6.0",
-    "webpack-manifest-plugin": "^4.0.2",
+    "webpack-dev-server": "^4.7.3",
+    "webpack-manifest-plugin": "^4.1.1",
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "packages:upgrade": "yarn upgrade-interactive --latest",
+    "graphql:codegen": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
     "extends": [
@@ -96,7 +101,13 @@
     ]
   },
   "devDependencies": {
-    "@exam/eslint-config": "git+https://mizan:o47d-bazS_xGacGgbeys@git.inre.ir/frontend/eslint-config.git"
+    "@exam/eslint-config": "git+https://mizan:o47d-bazS_xGacGgbeys@git.inre.ir/frontend/eslint-config.git",
+    "@graphql-codegen/cli": "2.3.1",
+    "@graphql-codegen/introspection": "2.1.1",
+    "@graphql-codegen/typescript": "2.4.2",
+    "@graphql-codegen/typescript-operations": "2.2.2",
+    "@graphql-codegen/typescript-react-apollo": "3.2.3",
+    "@graphql-codegen/typescript-react-query": "^3.3.0"
   },
   "workspaces": {
     "packages": [

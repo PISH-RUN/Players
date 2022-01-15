@@ -4,6 +4,15 @@ import { Grid, LinearProgress, ThemeProvider } from '@mui/material';
 import routes from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Direction, examTheme, RTL } from '@exam/uikit/src';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { QueryClientProvider, QueryClient } from 'react-query';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000',
+  cache: new InMemoryCache(),
+});
+
+const queryClient = new QueryClient();
 
 const AppRouter: React.ComponentType = () => {
   return (
@@ -31,11 +40,15 @@ const AppRouter: React.ComponentType = () => {
 
 function App() {
   return (
-    <ThemeProvider theme={examTheme({ direction: Direction.rtl })}>
-      <RTL>
-        <AppRouter />
-      </RTL>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={examTheme({ direction: Direction.rtl })}>
+          <RTL>
+            <AppRouter />
+          </RTL>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ApolloProvider>
   );
 }
 

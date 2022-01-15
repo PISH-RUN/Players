@@ -1,0 +1,20 @@
+overwrite: true
+schema: http://localhost:4000
+documents: "src/**/*.graphql"
+generates:
+  src/api/index.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-query"
+    config:
+      fetcher:
+        endpoint: "http://localhost:4000"
+        fetchParams:
+          headers: [["content-type", "application/json"]]
+    hooks:
+      afterAllFileWrite:
+        - prettier --write
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
