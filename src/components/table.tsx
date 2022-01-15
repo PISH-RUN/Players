@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TablePagination from '@mui/material/TablePagination';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Box from '@mui/material/Box';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,21 +43,15 @@ export type Props = {
 };
 
 export default function CustomizedTables({ headers, dataRows, hideHeader = false, hidePagination = false }: Props) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const location = useLocation();
+  const ROWS_PER_PAGE = 15;
+  const USER_PATH = location.pathname;
+  const { pageNumber = 1 } = useParams();
 
   const cellProps = (head: string) => {
     const header = headers[head];
 
     return header.cellProps ? header.cellProps : {};
-  };
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
   };
 
   return (
@@ -73,7 +70,13 @@ export default function CustomizedTables({ headers, dataRows, hideHeader = false
             </TableHead>
           )}
           <TableBody>
-            {dataRows.map((row, index) => (
+            {(ROWS_PER_PAGE > 0
+              ? dataRows.slice(
+                  (Number(pageNumber) - 1) * ROWS_PER_PAGE,
+                  (Number(pageNumber) - 1) * ROWS_PER_PAGE + ROWS_PER_PAGE
+                )
+              : dataRows
+            ).map((row, index) => (
               <StyledTableRow key={index}>
                 {Object.keys(headers).map((header) => (
                   <StyledTableCell {...cellProps(header)} key={header}>
@@ -86,16 +89,16 @@ export default function CustomizedTables({ headers, dataRows, hideHeader = false
         </Table>
       </TableContainer>
       {!hidePagination && (
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={dataRows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelRowsPerPage="تعداد سطر در جدول"
-        />
+        <Box display="flex" justifyContent="flex-end" flex={1} p={1}>
+          <Pagination
+            page={Number(pageNumber)}
+            count={Math.ceil(dataRows.length / ROWS_PER_PAGE)}
+            shape="rounded"
+            color="primary"
+            boundaryCount={2}
+            renderItem={(item) => <PaginationItem component={Link} to={`${USER_PATH}/${item.page}`} {...item} />}
+          />
+        </Box>
       )}
     </>
   );
