@@ -7,6 +7,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
+const style = {
+  icon: {
+    color: '#BDBDBD',
+  },
+};
+
 const headers: Cell = {
   booklets: 'نام دفترچه‌ها',
   jobCategory: 'دسته شغلی | شغل',
@@ -21,7 +27,19 @@ const data: Array<Cell> = [
     jobCategory: 'مهندسی نرم‌افزار',
     abilities: 'تست',
     noQuestion: '۱۲ / ۲۰',
-    // status: { admin: <PersonIcon />, superAdmin: <AdminPanelSettingsIcon />, supervisor: <VisibilityIcon /> },
+    status: (
+      <Grid container spacing={1}>
+        <Grid item>
+          <PersonIcon sx={style.icon} />
+        </Grid>
+        <Grid item>
+          <AdminPanelSettingsIcon sx={style.icon} />
+        </Grid>
+        <Grid item>
+          <VisibilityIcon sx={style.icon} />
+        </Grid>
+      </Grid>
+    ),
   },
 ];
 
