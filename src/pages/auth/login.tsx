@@ -4,7 +4,7 @@ import { Box, FormControl, Typography, Grid, useRadioGroup } from '@mui/material
 import { Button, Paper, TextField } from '@exam/uikit';
 import { LoginSide } from './login.side';
 import { gql, useMutation } from '@apollo/client';
-import { useLoginMutation, LoginInput, useCreateUserMutation, UserCreateInput, useGetUserQuery, GetUserQuery } from 'api';
+import { useLoginMutation, LoginInput, useCreateUserMutation, UserCreateInput, useGetUserQuery } from 'api';
 
 type FormData = { username: string; password: string };
 
@@ -69,7 +69,7 @@ const Login: React.ComponentType = () => {
   const { mutate: createUser } = useCreateUserMutation();
 
   const { data } = useGetUserQuery({
-    where: { id: 1, username: 'user' },
+    id: 1,
   });
 
   console.log(data);
