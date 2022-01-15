@@ -8,6 +8,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@exam/uikit": "1.0.0",
+    "@graphql-codegen/near-operation-file-preset": "^2.2.3",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.7",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
