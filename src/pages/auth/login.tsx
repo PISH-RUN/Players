@@ -1,10 +1,11 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Box, FormControl, Typography, Grid, useRadioGroup } from '@mui/material';
+import { Box, FormControl, Typography, Grid } from '@mui/material';
 import { Button, Paper, TextField } from '@exam/uikit';
 import { LoginSide } from './login.side';
-import { gql, useMutation } from '@apollo/client';
-import { useLoginMutation, LoginInput, useCreateUserMutation, UserCreateInput, useGetUserQuery } from 'api';
+import { useLoginMutation } from 'api/auth';
+import { useCreateUserMutation, useGetUserQuery } from 'api/user';
+import { LoginInput, UserCreateInput } from 'api/types';
 
 type FormData = { username: string; password: string };
 
@@ -48,15 +49,6 @@ type user = {
   username: string;
 };
 
-const LOGIN = gql`
-  mutation Login($data: LoginInput!) {
-    login(data: $data) {
-      id
-      username
-    }
-  }
-`;
-
 const Login: React.ComponentType = () => {
   const {
     handleSubmit,
@@ -72,11 +64,7 @@ const Login: React.ComponentType = () => {
     id: 1,
   });
 
-  console.log(data);
-
   const onSubmit: SubmitHandler<LoginInput> = (data: LoginInput) => {
-    // login({ variables: { data } });
-
     const user: UserCreateInput = {
       username: 'user',
       password: '123456',

@@ -2,16 +2,24 @@ overwrite: true
 schema: http://localhost:4000
 documents: "src/**/*.graphql"
 generates:
-  src/api/index.ts:
+  src/api/types.ts:
+    - typescript:
+  src/api/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .ts
+      baseTypesPath: types.ts
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-query"
     config:
+#      useTypeImports: true
       fetcher:
-        endpoint: "http://localhost:4000"
-        fetchParams:
-          headers: [["content-type", "application/json"]]
+#        endpoint: "http://localhost:4000"
+        func: './fetcher#fetcher'
+#        fetchParams:
+#          headers: [["content-type", "application/json"]]
     hooks:
       afterAllFileWrite:
         - prettier --write
