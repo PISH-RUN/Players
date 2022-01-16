@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Grid, Typography } from '@mui/material';
-import Table from 'components/table';
+import Table, { Cell } from 'components/table';
 
 const style = {
   paperTop: {
@@ -15,20 +15,27 @@ const style = {
     minHeight: 400,
   },
 };
+const header: Cell = {
+  name: 'متسمینبت',
+  count: {
+    label: 'تعداد',
+    align: 'left',
+  },
+};
 const data = {
   tableData_DeliveryDate: [
-    { name: 'زمان باقیمانده برای وارد کردن سوالات', count: '۱۰ روز' },
-    { name: 'زمان باقیمانده برای اصلاح سوالات', count: '۱۲ روز' },
-    { name: 'حداکثر موعد وارد کردن سوالات', count: '۱۴۰۱/۰۲/۱۲' },
-    { name: 'حداکثر موعد نهایی کردن سوالات', count: '۱۴۰۱/۰۲/۲۳' },
+    { id: 1, name: 'زمان باقیمانده برای وارد کردن سوالات', count: '۱۰ روز' },
+    { id: 2, name: 'زمان باقیمانده برای اصلاح سوالات', count: '۱۲ روز' },
+    { id: 3, name: 'حداکثر موعد وارد کردن سوالات', count: '۱۴۰۱/۰۲/۱۲' },
+    { id: 4, name: 'حداکثر موعد نهایی کردن سوالات', count: '۱۴۰۱/۰۲/۲۳' },
   ],
   tableData_booklets: [
-    { name: 'تعداد کل دفترچه‌ها', count: '۲۵' },
-    { name: 'تکمیل شده', count: '۱۰' },
-    { name: 'تایید شده', count: '۱۴' },
-    { name: 'وارد نشده', count: '۵' },
+    { id: 1, name: 'تعداد کل دفترچه‌ها', count: '۲۵' },
+    { id: 2, name: 'تکمیل شده', count: '۱۰' },
+    { id: 3, name: 'تایید شده', count: '۱۴' },
+    { id: 4, name: 'وارد نشده', count: '۵' },
   ],
-  tableData_comments: [{ name: 'کامنت‌های دیده نشده', count: '۲۵' }],
+  tableData_comments: [{ id: 1, name: 'کامنت‌های دیده نشده', count: '۲۵' }],
 };
 
 const Dashboard: React.ComponentType = () => {
@@ -40,7 +47,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">موعد تحویل</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table dataRows={data.tableData_DeliveryDate} />
+            <Table headers={header} dataRows={data.tableData_DeliveryDate} hideHeader hidePagination />
           </Paper>
         </Grid>
         <Grid item>
@@ -48,7 +55,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">وضعیت دفترچه‌ها</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table dataRows={data.tableData_booklets} />
+            <Table headers={header} dataRows={data.tableData_booklets} hideHeader hidePagination />
           </Paper>
         </Grid>
         <Grid item>
@@ -56,7 +63,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">وضعیت کامنت‌ها</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table dataRows={data.tableData_comments} />
+            <Table headers={header} dataRows={data.tableData_comments} hideHeader hidePagination />
           </Paper>
         </Grid>
       </Grid>
