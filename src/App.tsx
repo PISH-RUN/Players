@@ -5,35 +5,9 @@ import routes from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Direction, examTheme, RTL } from '@exam/uikit/src';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('token');
-  console.log(token);
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
-
-// const client = new ApolloClient({
-//   uri: 'http://localhost:4000',
-//   cache: new InMemoryCache(),
-// });
+import { CookiesProvider } from 'react-cookie';
+import AuthProvider from 'modules/auth/auth';
+import { SnackbarProvider } from 'notistack';
 
 const queryClient = new QueryClient();
 
@@ -63,15 +37,19 @@ const AppRouter: React.ComponentType = () => {
 
 function App() {
   return (
-    // <ApolloProvider client={client}>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={examTheme({ direction: Direction.rtl })}>
-        <RTL>
-          <AppRouter />
-        </RTL>
-      </ThemeProvider>
+      <CookiesProvider>
+        <ThemeProvider theme={examTheme({ direction: Direction.rtl })}>
+          <SnackbarProvider maxSnack={5}>
+            <RTL>
+              <AuthProvider>
+                <AppRouter />
+              </AuthProvider>
+            </RTL>
+          </SnackbarProvider>
+        </ThemeProvider>
+      </CookiesProvider>
     </QueryClientProvider>
-    // </ApolloProvider>
   );
 }
 

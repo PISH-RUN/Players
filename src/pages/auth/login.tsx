@@ -1,11 +1,14 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Box, FormControl, Typography, Grid } from '@mui/material';
-import { Button, Paper, TextField } from '@exam/uikit';
+import { LoadingButton } from '@mui/lab';
+import { Paper, TextField } from '@exam/uikit';
 import { LoginSide } from './login.side';
 import { useLoginMutation } from 'api/auth';
-import { useCreateUserMutation, useGetUserQuery } from 'api/user';
-import { LoginInput, UserCreateInput } from 'api/types';
+import { LoginInput } from 'api/types';
+import { useAuth } from 'modules/auth/auth';
+import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = { username: string; password: string };
 
@@ -56,26 +59,23 @@ const Login: React.ComponentType = () => {
     register,
     formState: { errors },
   } = useForm<LoginInput>();
+  const { setLogin } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
+  const naviagate = useNavigate();
 
-  const { mutate } = useLoginMutation();
-  const { mutate: createUser } = useCreateUserMutation();
-
-  const { data } = useGetUserQuery({
-    id: 1,
+  const { mutate: login, isLoading } = useLoginMutation({
+    onSuccess: ({ login }) => {
+      setLogin(login);
+      enqueueSnackbar('خوش آمدید', { variant: 'success' });
+      naviagate('/dashboard');
+    },
+    onError: (error) => {
+      enqueueSnackbar('نام کاربری یا رمز عبور صحیح نمی باشد', { variant: 'error' });
+    },
   });
 
   const onSubmit: SubmitHandler<LoginInput> = (data: LoginInput) => {
-    const user: UserCreateInput = {
-      username: 'user',
-      password: '123456',
-      canLogin: true,
-      role: 'superadmin',
-      lastLogin: 'Wed Jan 12 2022 11:25:32 GMT+0330 (Iran Standard Time)',
-    };
-
-    // createUser({ data: user });
-
-    mutate({ data });
+    login({ data });
   };
 
   return (
@@ -107,6 +107,8 @@ const Login: React.ComponentType = () => {
                     <TextField
                       {...register('username')}
                       {...props}
+                      autoFocus
+                      align="left"
                       placeholder="نام کاربری"
                       error={!!errors.username}
                       helperText={errors.username?.message}
@@ -132,7 +134,9 @@ const Login: React.ComponentType = () => {
                     <TextField
                       {...register('password')}
                       {...props}
+                      type="password"
                       placeholder="رمز عبور"
+                      align="left"
                       error={!!errors.password}
                       helperText={errors.password?.message}
                     />
@@ -142,9 +146,15 @@ const Login: React.ComponentType = () => {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth sx={style.leftSide.mainButton}>
-                <Button type="submit" color="primary" variant="contained" sx={style.leftSide.button}>
+                <LoadingButton
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  sx={style.leftSide.button}
+                  loading={isLoading}
+                >
                   ورود
-                </Button>
+                </LoadingButton>
               </FormControl>
             </form>
           </Grid>
