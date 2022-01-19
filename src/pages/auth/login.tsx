@@ -8,7 +8,7 @@ import { useLoginMutation } from 'api/auth';
 import { LoginInput } from 'api/types';
 import { useAuth } from 'modules/auth/auth';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 type FormData = { username: string; password: string };
 
@@ -59,15 +59,15 @@ const Login: React.ComponentType = () => {
     register,
     formState: { errors },
   } = useForm<LoginInput>();
-  const { setLogin } = useAuth();
+  const { setLogin, isLogin } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
-  const naviagate = useNavigate();
+  const navigate = useNavigate();
 
   const { mutate: login, isLoading } = useLoginMutation({
     onSuccess: ({ login }) => {
       setLogin(login);
       enqueueSnackbar('خوش آمدید', { variant: 'success' });
-      naviagate('/dashboard');
+      navigate('/dashboard', { replace: true });
     },
     onError: (error) => {
       enqueueSnackbar('نام کاربری یا رمز عبور صحیح نمی باشد', { variant: 'error' });
@@ -77,6 +77,10 @@ const Login: React.ComponentType = () => {
   const onSubmit: SubmitHandler<LoginInput> = (data: LoginInput) => {
     login({ data });
   };
+
+  if (isLogin) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
     <Box sx={style.root}>

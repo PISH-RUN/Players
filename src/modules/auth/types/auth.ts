@@ -1,7 +1,7 @@
-import { User } from 'api/types';
+import { UserOutput } from 'api/types';
 export type Auth = {
   username?: string;
   isLogin: boolean;
-  setLogin: (user: Pick<User, 'username'>) => void;
+  setLogin: (user: Pick<UserOutput, 'username' | 'token'>) => void;
   setLogout: () => void;
 };

@@ -11,7 +11,8 @@ import Collapse from '@mui/material/Collapse';
 type MenuOption = {
   title: string;
   icon?: JSX.Element;
-  path: string;
+  path?: string;
+  onClick?: () => void;
   subItems?: null | MenuOption[];
 };
 
@@ -31,7 +32,7 @@ const style = {
   },
 };
 
-const ListItem = ({ icon, title, path, subItems }: MenuOption) => {
+const ListItem = ({ icon, title, onClick, path, subItems }: MenuOption) => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   let navigate = useNavigate();
@@ -40,8 +41,10 @@ const ListItem = ({ icon, title, path, subItems }: MenuOption) => {
   const handleClick = () => {
     if (!!subItems) {
       setOpen(!open);
-    } else {
-      navigate(path, { replace: true });
+    } else if (!!onClick) {
+      onClick();
+    } else if (!!path) {
+      navigate(path);
     }
   };
 
@@ -55,7 +58,7 @@ const ListItem = ({ icon, title, path, subItems }: MenuOption) => {
       {!!subItems && (
         <Collapse in={open} timeout="auto" unmountOnExit>
           {subItems.map((link, i) => (
-            <Link to={link.path} key={i}>
+            <Link to={link.path || ''} key={i}>
               <List component="a" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText primary={link.title} />
