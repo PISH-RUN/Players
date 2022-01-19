@@ -5,22 +5,24 @@ import Dashboard from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import GroupIcon from '@mui/icons-material/Group';
+import LogoutIcon from '@mui/icons-material/Logout';
 import ListItemButton from './ListItemButton';
+import { useAuth } from 'modules/auth/auth';
 
 const navLinks = [
   {
     title: 'داشبورد',
-    path: '/dashboard',
+    path: '/panel',
     icon: <Dashboard />,
   },
   {
     title: 'شایستگی‌ها',
-    path: '/abilities',
+    path: '/panel/abilities',
     icon: <MessageIcon />,
   },
   {
     title: 'دسته های شغلی',
-    path: '/job-categories',
+    path: '/panel/job-categories',
     icon: <AssignmentIcon />,
     subItems: [
       {
@@ -39,12 +41,18 @@ const navLinks = [
   },
   {
     title: 'مدیریت کاربران',
-    path: '/user-management',
+    path: '/panel/user-management',
     icon: <GroupIcon />,
   },
 ];
 
 const Navbar = (): JSX.Element => {
+  const { setLogout } = useAuth();
+
+  const logout = () => {
+    setLogout();
+  };
+
   return (
     <List
       sx={{
@@ -57,6 +65,7 @@ const Navbar = (): JSX.Element => {
         <ListItemButton title={title} path={path} icon={icon} subItems={subItems} key={i} />
       ))}
       <Divider />
+      <ListItemButton title="خروج" icon={<LogoutIcon />} key="logout" onClick={() => logout()} />
     </List>
   );
 };

@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import './App.css';
 import { Grid, LinearProgress, ThemeProvider } from '@mui/material';
-import routes from './routes';
+import { routes, RenderComponent } from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Direction, examTheme, RTL } from '@exam/uikit/src';
 import { QueryClientProvider, QueryClient } from 'react-query';
@@ -22,12 +22,12 @@ const AppRouter: React.ComponentType = () => {
     >
       <BrowserRouter>
         <Routes>
-          {routes.map(({ path, exact, component: Component, layout: Layout }) => (
-            <Route
-              key={path}
-              path={path}
-              element={!!Layout ? <Layout>{!!Component && <Component />}</Layout> : !!Component && <Component />}
-            />
+          {routes.map(({ path, subRoutes, exact, ...rest }) => (
+            <Route key={path} path={path} element={<RenderComponent {...rest} />}>
+              {subRoutes?.map(({ path, exact, ...rest }) => (
+                <Route key={path} path={path} element={<RenderComponent {...rest} />} />
+              ))}
+            </Route>
           ))}
         </Routes>
       </BrowserRouter>
