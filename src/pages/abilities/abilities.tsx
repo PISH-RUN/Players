@@ -2,17 +2,18 @@ import React from 'react';
 import { Typography, Grid, Button, Divider, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Filter from './filter';
-import Table, { Cell } from 'components/table';
 import PersonIcon from '@mui/icons-material/Person';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from 'react-router-dom';
+import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { Paper } from '@exam/uikit';
 
 const style = {
   root: {
     backgroundColor: '#fff',
     border: '1px solid #e5e5e5',
-    borderRadius: 1,
+    borderRadius: 2,
     p: 4,
   },
   icon: {
@@ -20,14 +21,7 @@ const style = {
   },
 };
 
-const headers: Cell = {
-  booklets: 'نام دفترچه‌ها',
-  jobCategory: 'دسته شغلی | شغل',
-  abilities: 'شایستگی',
-  noQuestion: 'تعداد سوالات',
-  status: 'وضعیت تایید',
-};
-const data: Array<Cell> = [
+const data: GridRowsProp = [
   {
     id: 1,
     booklets: 'مهندسی',
@@ -94,7 +88,20 @@ const data: Array<Cell> = [
     jobCategory: 'مهندسی نرم‌افزار',
     abilities: 'تست',
     noQuestion: '۱۲ / ۲۰',
-    status: (
+  },
+];
+
+const columns: GridColDef[] = [
+  { field: 'booklets', headerName: 'نام دفترچه‌ها', flex: 1 },
+  { field: 'jobCategory', headerName: 'دسته شغلی | شغل', flex: 1 },
+  { field: 'abilities', headerName: 'شایستگی', flex: 1 },
+  { field: 'noQuestion', headerName: 'تعداد سوالات', flex: 1 },
+  {
+    field: 'status',
+    headerName: 'وضعیت تایید',
+    flex: 2,
+    align: 'right',
+    renderCell: () => (
       <Grid container spacing={1}>
         <Grid item>
           <PersonIcon sx={style.icon} />
@@ -114,7 +121,7 @@ const Abilities: React.ComponentType = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={style.root}>
+    <Paper variant="outlined">
       <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
         <Typography variant="h2">شایستگی ها</Typography>
         <Button
@@ -130,8 +137,18 @@ const Abilities: React.ComponentType = () => {
       <Divider light sx={{ my: 2 }} />
       <Filter />
       <Divider light sx={{ my: 2 }} />
-      <Table headers={headers} dataRows={data} />
-    </Box>
+      <Box sx={{ '& .MuiDataGrid-row:nth-child(even)': { bgcolor: '#f9f9f9' } }}>
+        <DataGrid
+          disableSelectionOnClick
+          autoHeight
+          sx={{ border: 'none' }}
+          density="standard"
+          rows={data}
+          columns={columns}
+        />
+      </Box>
+      {/*<Table headers={headers} dataRows={data} />*/}
+    </Paper>
   );
 };
 

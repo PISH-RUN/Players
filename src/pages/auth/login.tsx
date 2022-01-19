@@ -79,7 +79,7 @@ const Login: React.ComponentType = () => {
   };
 
   if (isLogin) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/panel" />;
   }
 
   return (
