@@ -121,7 +121,7 @@ const Abilities: React.ComponentType = () => {
   const navigate = useNavigate();
 
   return (
-    <Paper variant="outlined">
+    <Paper variant="outlined" p={[1, 2]}>
       <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
         <Typography variant="h2">شایستگی ها</Typography>
         <Button
