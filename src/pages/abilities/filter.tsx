@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, FormProvider } from 'react-hook-form';
 import { TextField, Box, MenuItem, Button, FormControl, Grid, Typography, Collapse, Checkbox } from '@mui/material';
+import { TextInput, SelectInput } from '@exam/uikit/form';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
@@ -43,192 +44,101 @@ const style = {
 
 const Filter: React.ComponentType = () => {
   const [open, setOpen] = useState(false);
-  const { control, handleSubmit } = useForm<FormData>();
+  const { handleSubmit, ...formMethods } = useForm<FormData>();
 
   const onSubmit = (data: Array<string>) => {
     console.log(data);
   };
 
   return (
-    <Box component="form" sx={style.root} onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
-      <Grid container alignItems="center" spacing={1}>
-        <Grid item sm={4}>
-          <FormControl fullWidth>
-            <Controller
-              control={control}
-              name="bookletName"
-              render={({ field }) => <TextField {...field} label="نام دفترچه" />}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item>
-          <Grid container alignItems="center" sx={style.mainCheckbox}>
-            <Grid item>
-              <Typography variant="h5">وضعیت تایید:</Typography>
-            </Grid>
-            <Grid item>
-              <Controller
-                control={control}
-                name="admin"
-                render={({ field }) => (
-                  <Checkbox
-                    {...field}
-                    icon={<PersonOutlineOutlinedIcon sx={style.icon} />}
-                    checkedIcon={<PersonIcon sx={style.activeIcon} />}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item>
-              <Controller
-                control={control}
-                name="superAdmin"
-                render={({ field }) => (
-                  <Checkbox
-                    {...field}
-                    icon={<AdminPanelSettingsOutlinedIcon sx={style.icon} />}
-                    checkedIcon={<AdminPanelSettingsIcon sx={style.activeIcon} />}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item>
-              <Controller
-                control={control}
-                name="supervisor"
-                render={({ field }) => (
-                  <Checkbox
-                    {...field}
-                    icon={<RemoveRedEyeOutlinedIcon sx={style.icon} />}
-                    checkedIcon={<VisibilityIcon sx={style.activeIcon} />}
-                  />
-                )}
-              />
+    <FormProvider {...formMethods} handleSubmit={handleSubmit}>
+      <Box component="form" sx={style.root} onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
+        <Grid container alignItems="center" spacing={1}>
+          <Grid item sm={4}>
+            <TextInput name="bookletName" label="نام دفترچه" required disableLabel />
+          </Grid>
+          <Grid item>
+            <Grid container alignItems="center" sx={style.mainCheckbox}>
+              <Grid item>
+                <Typography variant="h5">وضعیت تایید:</Typography>
+              </Grid>
+              <Grid item>
+                <Controller
+                  name="admin"
+                  render={({ field }) => (
+                    <Checkbox
+                      {...field}
+                      icon={<PersonOutlineOutlinedIcon sx={style.icon} />}
+                      checkedIcon={<PersonIcon sx={style.activeIcon} />}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item>
+                <Controller
+                  name="superAdmin"
+                  render={({ field }) => (
+                    <Checkbox
+                      {...field}
+                      icon={<AdminPanelSettingsOutlinedIcon sx={style.icon} />}
+                      checkedIcon={<AdminPanelSettingsIcon sx={style.activeIcon} />}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item>
+                <Controller
+                  name="supervisor"
+                  render={({ field }) => (
+                    <Checkbox
+                      {...field}
+                      icon={<RemoveRedEyeOutlinedIcon sx={style.icon} />}
+                      checkedIcon={<VisibilityIcon sx={style.activeIcon} />}
+                    />
+                  )}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid container spacing={1}>
-        <Grid item xs>
-          <FormControl fullWidth>
-            <Controller
-              control={control}
-              name="jobCategory"
-              render={({ field }) => (
-                <TextField {...field} select label="دسته شغلی">
-                  {data.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs>
-          <FormControl fullWidth>
-            <Controller
-              control={control}
-              name="job"
-              render={({ field }) => (
-                <TextField {...field} select label="شغل">
-                  {data.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs>
-          <FormControl fullWidth>
-            <Controller
-              control={control}
-              name="ability"
-              render={({ field }) => (
-                <TextField {...field} select label="شایستگی">
-                  {data.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-            />
-          </FormControl>
-        </Grid>
-      </Grid>
-      <Collapse in={open} timeout="auto" unmountOnExit>
         <Grid container spacing={1}>
           <Grid item xs>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="jobCategory"
-                render={({ field }) => (
-                  <TextField {...field} select label="دسته شغلی">
-                    {data.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-            </FormControl>
+            <SelectInput name="jobCategory" label="دسته شغلی" disableLabel options={data} required />
           </Grid>
           <Grid item xs>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="job"
-                render={({ field }) => (
-                  <TextField {...field} select label="شغل">
-                    {data.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-            </FormControl>
+            <SelectInput name="job" label="شغل" disableLabel options={data} />
           </Grid>
           <Grid item xs>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="ability"
-                render={({ field }) => (
-                  <TextField {...field} select label="شایستگی">
-                    {data.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-            </FormControl>
+            <SelectInput name="ability" label="شایستگی" disableLabel options={data} />
           </Grid>
         </Grid>
-      </Collapse>
-      <Box sx={{ mx: 1 }}>
-        <FormControl margin="normal">
-          <Button variant="contained" type="submit">
-            جستجو
-          </Button>
-        </FormControl>
-        <FormControl margin="normal">
-          <Button onClick={() => setOpen(!open)} endIcon={open ? <ExpandLess /> : <ExpandMore />}>
-            جستجوی پیشرفته
-          </Button>
-        </FormControl>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <Grid container spacing={1}>
+            <Grid item xs>
+              <SelectInput name="jobCategory" label="دسته شغلی" disableLabel options={data} />
+            </Grid>
+            <Grid item xs>
+              <SelectInput name="job" label="شغل" disableLabel options={data} />
+            </Grid>
+            <Grid item xs>
+              <SelectInput name="ability" label="شایستگی" disableLabel options={data} />
+            </Grid>
+          </Grid>
+        </Collapse>
+        <Box sx={{ mx: 1 }}>
+          <FormControl margin="normal">
+            <Button variant="contained" type="submit">
+              جستجو
+            </Button>
+          </FormControl>
+          <FormControl margin="normal">
+            <Button onClick={() => setOpen(!open)} endIcon={open ? <ExpandLess /> : <ExpandMore />}>
+              جستجوی پیشرفته
+            </Button>
+          </FormControl>
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   );
 };
 

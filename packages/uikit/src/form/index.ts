@@ -1,4 +1,5 @@
-import TextInput from './TextInput';
-import PasswordInput from './PasswordInput';
+import TextInput from './textInput';
+import PasswordInput from './passwordInput';
+import SelectInput from './selectInput';
 
-export { TextInput, PasswordInput };
+export { TextInput, PasswordInput, SelectInput };

@@ -1,8 +1,5 @@
 import React from 'react';
-import { FormControl, Typography } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
-import TextField from '../components/textfiled';
-import TextInput, { TextInputProps } from './TextInput';
+import TextInput, { TextInputProps } from './textInput';
 
 export type PasswordInputProps = {} & Omit<TextInputProps, 'type' | 'align'>;
 
