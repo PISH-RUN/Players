@@ -1,16 +1,16 @@
 import React from 'react';
-import { Paper, Grid, Typography, Box } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
+import { Paper } from '@exam/uikit';
 import { styled } from '@mui/material/styles';
 import { DataGrid as MuiDataGrid, GridColDef, DataGridProps } from '@mui/x-data-grid';
 
 const style = {
   paperTop: {
-    width: '320px',
+    minWidth: '320px',
     p: 2,
     textAlign: 'center',
   },
   paper: {
-    width: '320px',
     p: 2,
     mt: 2,
     minHeight: 400,
