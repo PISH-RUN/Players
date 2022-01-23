@@ -1,6 +1,7 @@
 import React from 'react';
-import { Paper, Grid, Typography } from '@mui/material';
-import Table, { Cell } from 'components/table';
+import { Paper, Grid, Typography, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { DataGrid as MuiDataGrid, GridColDef, DataGridProps } from '@mui/x-data-grid';
 
 const style = {
   paperTop: {
@@ -15,13 +16,20 @@ const style = {
     minHeight: 400,
   },
 };
-const header: Cell = {
-  name: 'متسمینبت',
-  count: {
-    label: 'تعداد',
-    align: 'left',
+
+const columns: GridColDef[] = [
+  {
+    field: 'name',
+    headerName: 'نام',
+    flex: 1,
   },
-};
+  {
+    field: 'count',
+    headerName: 'نام',
+    flex: 0.5,
+  },
+];
+
 const data = {
   tableData_DeliveryDate: [
     { id: 1, name: 'زمان باقیمانده برای وارد کردن سوالات', count: '۱۰ روز' },
@@ -38,6 +46,22 @@ const data = {
   tableData_comments: [{ id: 1, name: 'کامنت‌های دیده نشده', count: '۲۵' }],
 };
 
+const DataGrid = styled((props: DataGridProps) => (
+  <MuiDataGrid
+    disableSelectionOnClick
+    autoHeight
+    components={{
+      Footer: () => <></>,
+    }}
+    {...props}
+  />
+))<DataGridProps>(() => ({
+  border: 'none',
+  '& .MuiDataGrid-columnHeaders': { display: 'none' },
+  '& .MuiDataGrid-virtualScroller': { marginTop: '0!important' },
+  '& .MuiDataGrid-row:nth-child(even)': { backgroundColor: '#f9f9f9' },
+}));
+
 const Dashboard: React.ComponentType = () => {
   return (
     <>
@@ -47,7 +71,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">موعد تحویل</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table headers={header} dataRows={data.tableData_DeliveryDate} hideHeader hidePagination />
+            <DataGrid rows={data.tableData_booklets} columns={columns} />
           </Paper>
         </Grid>
         <Grid item>
@@ -55,7 +79,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">وضعیت دفترچه‌ها</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table headers={header} dataRows={data.tableData_booklets} hideHeader hidePagination />
+            <DataGrid rows={data.tableData_booklets} columns={columns} />
           </Paper>
         </Grid>
         <Grid item>
@@ -63,7 +87,7 @@ const Dashboard: React.ComponentType = () => {
             <Typography variant="h5">وضعیت کامنت‌ها</Typography>
           </Paper>
           <Paper variant="outlined" sx={style.paper}>
-            <Table headers={header} dataRows={data.tableData_comments} hideHeader hidePagination />
+            <DataGrid rows={data.tableData_comments} columns={columns} />
           </Paper>
         </Grid>
       </Grid>

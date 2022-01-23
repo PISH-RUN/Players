@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Divider, TextField, FormControl, MenuItem, Button } from '@mui/material';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, FormProvider } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { TextInput } from '@exam/uikit/form';
 
@@ -50,85 +50,75 @@ const style = {
 
 const AbilitiesForm: React.ComponentType = () => {
   const navigate = useNavigate();
-  const { handleSubmit, control } = useForm<FormProps>();
+  const { handleSubmit, ...formMethods } = useForm<FormProps>();
 
   const onSubmit = (data: Array<string>) => {
     console.log(data);
   };
 
   return (
-    <Box sx={style.root}>
-      <Typography variant="h2">افزودن شایستگی</Typography>
-      <Divider light sx={style.divider} />
-      <Box component="form" sx={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <FormControl fullWidth>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field }) => <TextField {...field} label="نام دفترچه" />}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <Controller
-            control={control}
-            name="jobCategory"
-            render={({ field }) => (
-              <TextField {...field} select label="دسته شغلی">
-                {data.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <Controller
-            control={control}
-            name="bookletTime"
-            render={({ field }) => <TextField {...field} label="زمان کل هر دفترچه(به دقیقه)" />}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <Controller
-            control={control}
-            name="bookletNumber"
-            render={({ field }) => <TextField {...field} label="تعداد دفترچه ها" />}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <Controller control={control} name="jobs" render={({ field }) => <TextField {...field} label="شغل ها" />} />
-        </FormControl>
-        <FormControl fullWidth>
-          <Controller
-            control={control}
-            name="minQuestionHard"
-            render={({ field }) => <TextField {...field} label="حداقل تعداد سوال سخت" />}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <Controller
-            control={control}
-            name="minQuestionEasy"
-            render={({ field }) => <TextField {...field} label="حداقل تعداد سوال آسان" />}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <Controller control={control} name="heading" render={({ field }) => <TextField {...field} label="سرفصل" />} />
-        </FormControl>
-        <Box sx={style.mainButton}>
-          <FormControl>
-            <Button variant="contained" type="submit" sx={style.submitButton}>
-              ثبت
-            </Button>
+    <FormProvider {...formMethods} handleSubmit={handleSubmit}>
+      <Box sx={style.root}>
+        <Typography variant="h2">افزودن شایستگی</Typography>
+        <Divider light sx={style.divider} />
+        <Box component="form" sx={style.form} onSubmit={handleSubmit(onSubmit)}>
+          <FormControl fullWidth>
+            <Controller name="name" render={({ field }) => <TextField {...field} label="نام دفترچه" />} />
           </FormControl>
-          <FormControl>
-            <Button onClick={() => navigate('/abilities')}>بازگشت</Button>
+          <FormControl fullWidth>
+            <Controller
+              name="jobCategory"
+              render={({ field }) => (
+                <TextField {...field} select label="دسته شغلی">
+                  {data.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
           </FormControl>
+          <FormControl fullWidth>
+            <Controller
+              name="bookletTime"
+              render={({ field }) => <TextField {...field} label="زمان کل هر دفترچه(به دقیقه)" />}
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <Controller name="bookletNumber" render={({ field }) => <TextField {...field} label="تعداد دفترچه ها" />} />
+          </FormControl>
+          <FormControl fullWidth>
+            <Controller name="jobs" render={({ field }) => <TextField {...field} label="شغل ها" />} />
+          </FormControl>
+          <FormControl fullWidth>
+            <Controller
+              name="minQuestionHard"
+              render={({ field }) => <TextField {...field} label="حداقل تعداد سوال سخت" />}
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <Controller
+              name="minQuestionEasy"
+              render={({ field }) => <TextField {...field} label="حداقل تعداد سوال آسان" />}
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <Controller name="heading" render={({ field }) => <TextField {...field} label="سرفصل" />} />
+          </FormControl>
+          <Box sx={style.mainButton}>
+            <FormControl>
+              <Button variant="contained" type="submit" sx={style.submitButton}>
+                ثبت
+              </Button>
+            </FormControl>
+            <FormControl>
+              <Button onClick={() => navigate('/abilities')}>بازگشت</Button>
+            </FormControl>
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </FormProvider>
   );
 };
 
