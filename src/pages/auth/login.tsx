@@ -1,8 +1,9 @@
 import React from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { Box, FormControl, Typography, Grid } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { Paper, TextField } from '@exam/uikit';
+import { PasswordInput, TextInput } from '@exam/uikit/form';
 import { LoginSide } from './login.side';
 import { useLoginMutation } from 'api/auth';
 import { LoginInput } from 'api/types';
@@ -53,12 +54,8 @@ type user = {
 };
 
 const Login: React.ComponentType = () => {
-  const {
-    handleSubmit,
-    control,
-    register,
-    formState: { errors },
-  } = useForm<LoginInput>();
+  const { handleSubmit, ...formMethods } = useForm<LoginInput>();
+
   const { setLogin, isLogin } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -67,7 +64,7 @@ const Login: React.ComponentType = () => {
     onSuccess: ({ login }) => {
       setLogin(login);
       enqueueSnackbar('خوش آمدید', { variant: 'success' });
-      navigate('/dashboard', { replace: true });
+      navigate('/panel', { replace: true });
     },
     onError: (error) => {
       enqueueSnackbar('نام کاربری یا رمز عبور صحیح نمی باشد', { variant: 'error' });
@@ -100,67 +97,25 @@ const Login: React.ComponentType = () => {
             <Typography variant="h1" sx={style.leftSide.title}>
               ورود به سامانه
             </Typography>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <FormControl margin="dense" fullWidth>
-                <Typography variant="body1" mb={1}>
-                  نام کاربری:‌
-                </Typography>
-                <Controller
-                  rules={{ required: 'نام کاربری خود را وارد نمایید' }}
-                  render={(props) => (
-                    <TextField
-                      {...register('username')}
-                      {...props}
-                      autoFocus
-                      align="left"
-                      placeholder="نام کاربری"
-                      error={!!errors.username}
-                      helperText={errors.username?.message}
-                    />
-                  )}
-                  control={control}
-                  name="username"
-                />
-              </FormControl>
-              <FormControl margin="dense" fullWidth>
-                <Typography variant="body1" mb={1}>
-                  رمز عبور:‌
-                </Typography>
-                <Controller
-                  rules={{
-                    required: 'رمز خود را وارد نمایید',
-                    // minLength: {
-                    //   value: 8,
-                    //   message: 'حداقل 8 کاراکتر شامل عدد و حروف انگلیسی',
-                    // },
-                  }}
-                  render={(props) => (
-                    <TextField
-                      {...register('password')}
-                      {...props}
-                      type="password"
-                      placeholder="رمز عبور"
-                      align="left"
-                      error={!!errors.password}
-                      helperText={errors.password?.message}
-                    />
-                  )}
-                  control={control}
-                  name="password"
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth sx={style.leftSide.mainButton}>
-                <LoadingButton
-                  type="submit"
-                  color="primary"
-                  variant="contained"
-                  sx={style.leftSide.button}
-                  loading={isLoading}
-                >
-                  ورود
-                </LoadingButton>
-              </FormControl>
-            </form>
+            <FormProvider {...formMethods} handleSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <TextInput name="username" label="نام کاربری" align="left" />
+
+                <PasswordInput name="password" label="رمزعبور" />
+
+                <FormControl margin="normal" fullWidth sx={style.leftSide.mainButton}>
+                  <LoadingButton
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    sx={style.leftSide.button}
+                    loading={isLoading}
+                  >
+                    ورود
+                  </LoadingButton>
+                </FormControl>
+              </form>
+            </FormProvider>
           </Grid>
         </Grid>
       </Paper>
