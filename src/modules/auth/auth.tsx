@@ -13,7 +13,7 @@ export let TOKEN: TokenType;
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [cookies, setCookie, removeCookie] = useCookies(['token', 'username']);
-  const [{ isLogin, username }, setState] = useState({ isLogin: !!cookies?.token, username: cookies?.username });
+  const [{ isLogin, username }, setState] = useState({ isLogin: !cookies?.token, username: cookies?.username });
 
   const setLogin = (user: Pick<UserOutput, 'username' | 'token'>) => {
     if (!!user.username && !!user.token) {
