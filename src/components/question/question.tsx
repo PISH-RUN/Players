@@ -1,6 +1,21 @@
 import React from 'react';
 import { Paper } from '@exam/uikit';
-import { Typography, Box, Grid, Stack, Button, Divider, IconButton } from '@mui/material';
+import {
+  Typography,
+  Box,
+  Grid,
+  Stack,
+  Button,
+  Divider,
+  FormControl,
+  FormControlLabel as FormControlLabelComponent,
+  FormControlLabelProps,
+  RadioGroup,
+  Radio,
+  Chip as ChipComponent,
+  ChipProps,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import QuestionStatus from 'components/questionStatus';
 import CommentIcon from '@mui/icons-material/Comment';
 import AddIcon from '@mui/icons-material/Add';
@@ -12,7 +27,35 @@ const styles = {
     borderBottom: '1px solid #ddd',
     p: 1,
   },
+  questionNumber: {
+    height: 48,
+    background: '#e0e0e0',
+    borderRadius: 24,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexGrow: 0,
+    flexShrink: 0,
+    flexBasis: 48,
+  },
 };
+
+const FormControlLabel = (props: Omit<FormControlLabelProps, 'control'>) => (
+  <FormControlLabelComponent
+    control={<Radio />}
+    componentsProps={{
+      typography: {
+        variant: 'h4',
+      },
+    }}
+    {...props}
+  />
+);
+
+const Chip = styled((props: ChipProps) => <ChipComponent variant="outlined" {...props} />)(() => ({
+  borderRadius: 4,
+  fontWeight: 500,
+}));
 
 const Question = () => {
   return (
@@ -35,7 +78,7 @@ const Question = () => {
               <Typography variant="body1">سال 1400</Typography>
               <Typography variant="body1">سخت</Typography>
               <Button startIcon={<CommentIcon />} color="error" size="small">
-                3 پیام سخت
+                3 پیام جدید
               </Button>
             </Stack>
           </Grid>
@@ -51,6 +94,59 @@ const Question = () => {
             </Button>
           </Stack>
         </Grid>
+      </Box>
+      <Box sx={{ pl: 2, py: 2 }}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Box sx={styles.questionNumber}>
+            <Typography variant="h3">1</Typography>
+          </Box>
+          <Typography variant="h4">
+            کدام یک از گزینه های زیر صحیح نیست؟ کدام یک از گزینه های زیر صحیح نیست؟ کدام یک از گزینه های زیر صحیح نیست؟
+            کدام یک از گزینه های زیر صحیح نیست؟{' '}
+          </Typography>
+        </Stack>
+        <Box sx={{ pl: 6, pt: 2 }}>
+          <FormControl>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="radio-buttons-group"
+            >
+              <FormControlLabel value="female" label=" شاخص CPI از شاخص SPI حساس‌تر است." />
+              <FormControlLabel
+                value="male"
+                label="گزارش هزینه‌های پیش بینی و واقعی پروژه می تواند قسمتی از گزارش‌های تحلیلی کنترل پروژه باشد."
+              />
+              <FormControlLabel value="other" label="شاخص CPI برابر تقسیم BCWP بر BCWS است." />
+              <FormControlLabel
+                value="other"
+                label="در صورتی که شاخص بحرانی بودن از عدد یک کمتر باشد،‌بیانگر وجود مشکل در پروژه است."
+              />
+            </RadioGroup>
+          </FormControl>
+          <Box component={Divider} sx={{ my: 2 }} />
+          <Stack sx={{ my: 2 }} direction="row" alignItems="center" spacing={1}>
+            <Typography variant="body2">دسته های شغلی:</Typography>
+            <Chip label="مهندسی" />
+            <Chip label="سلامت" />
+            <Chip label="بازاریابی و فروش" />
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant="body2">سرفصل ها:</Typography>
+            <Chip label="سرفصل 1" />
+            <Chip label="سرفصل 2" />
+            <Chip label="سر فصل 3" />
+          </Stack>
+        </Box>
+      </Box>
+      <Divider />
+      <Box sx={{ pl: 8, py: 2 }}>
+        <Stack direction="row" spacing={2}>
+          <Typography variant="h4">متن پاسخ:</Typography>
+          <Typography variant="h5">
+            گزارش هزینه‌های پیش بینی و واقعی پروژه می تواند قسمتی از گزارش‌های تحلیلی کنترل پروژه باشد.
+          </Typography>
+        </Stack>
       </Box>
     </Paper>
   );
