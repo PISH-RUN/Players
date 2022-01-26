@@ -1,0 +1,11 @@
+query GetAbilities($take: Int, $skip: Int) {
+    abilities(take: $take, skip: $skip) {
+        id
+        name
+        examTime
+        questionCount
+        hardMinimum
+        easyMinimum
+        year
+    }
+}

@@ -1,9 +1,7 @@
-import {
-  MuiButton,
-} from './overrides';
+import { MuiButton, MuiPaper } from './overrides';
 
 export const createOverrides = () => {
   return {
-    MuiButton,
+    MuiPaper,
   };
 };

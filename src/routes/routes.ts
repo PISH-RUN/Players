@@ -33,6 +33,12 @@ export const routes: Array<RouteType> = [
         isPrivate: true,
       },
       {
+        path: '/panel/questions',
+        exact: true,
+        component: lazy(() => import('../pages/questions/questions')),
+        isPrivate: true,
+      },
+      {
         path: '/panel/users',
         exact: true,
         component: lazy(() => import('../pages/users/users')),

@@ -8,6 +8,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ListItemButton from './ListItemButton';
 import { useAuth } from 'modules/auth/auth';
+import CircleIcon from '@mui/icons-material/CircleTwoTone';
 
 const navLinks = [
   {
@@ -20,29 +21,26 @@ const navLinks = [
     path: '/panel/abilities',
     icon: <MessageIcon />,
   },
-  {
-    title: 'دسته های شغلی',
-    path: '/panel/job-categories',
-    icon: <AssignmentIcon />,
-    subItems: [
-      {
-        title: 'تست1',
-        path: '',
-      },
-      {
-        title: 'تست2',
-        path: '',
-      },
-      {
-        title: 'تست3',
-        path: '',
-      },
-    ],
-  },
+  // {
+  //   title: 'دسته های شغلی',
+  //   path: '/panel/job-categories',
+  //   icon: <AssignmentIcon />,
+  //   subItems: [
+  //     {
+  //       title: 'تست1',
+  //       path: '',
+  //     },
+  //   ],
+  // },
   {
     title: 'مدیریت کاربران',
     path: '/panel/users',
     icon: <GroupIcon />,
+  },
+  {
+    title: 'لیست سوالات',
+    path: '/panel/questions',
+    icon: <CircleIcon fontSize="small" />,
   },
 ];
 
@@ -61,8 +59,8 @@ const Navbar = (): JSX.Element => {
       }}
       component="nav"
     >
-      {navLinks.map(({ title, path, icon, subItems }, i) => (
-        <ListItemButton title={title} path={path} icon={icon} subItems={subItems} key={i} />
+      {navLinks.map(({ title, path, icon }, i) => (
+        <ListItemButton title={title} path={path} icon={icon} key={i} />
       ))}
       <Divider />
       <ListItemButton title="خروج" icon={<LogoutIcon />} key="logout" onClick={() => logout()} />
