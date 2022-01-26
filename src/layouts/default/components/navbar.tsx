@@ -41,7 +41,7 @@ const navLinks = [
   },
   {
     title: 'مدیریت کاربران',
-    path: '/panel/user-management',
+    path: '/panel/users',
     icon: <GroupIcon />,
   },
 ];

@@ -1,5 +1,5 @@
 overwrite: true
-schema: http://localhost:4000
+schema: ${SCHEMA_PATH:http://localhost:4000}
 documents: "src/**/*.graphql"
 generates:
   src/api/types.ts:
@@ -16,7 +16,7 @@ generates:
     config:
 #      useTypeImports: true
       fetcher:
-#        endpoint: "http://localhost:4000"
+#        endpoint: ${SCHEMA_PATH:http://localhost:4000}
         func: './fetcher#fetcher'
 #        fetchParams:
 #          headers: [["content-type", "application/json"]]
