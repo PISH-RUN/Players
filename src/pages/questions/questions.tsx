@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Grid, InputAdornment, Button } from '@mui/material';
+import { Box, Typography, Grid, InputAdornment, Button, Divider } from '@mui/material';
 import { Paper, TextField } from '@exam/uikit';
 import Question from 'components/question';
 import SearchIcon from '@mui/icons-material/Search';
@@ -45,7 +45,15 @@ const Questions: React.ComponentType = () => {
   return (
     <Box>
       <QuestionsHeader />
-      <Question />
+      <Box sx={{ maxWidth: 1170 }}>
+        <Question sx={{ mb: 4 }} />
+        <Question sx={{ mb: 4 }} />
+        <Box sx={{ border: '3px dashed #ccc', borderRadius: 4, overflow: 'hidden' }}>
+          <Question isSimilar isMainSimilar />
+          <Divider />
+          <Question isSimilar sx={{ background: '#f8fafd' }} />
+        </Box>
+      </Box>
     </Box>
   );
 };

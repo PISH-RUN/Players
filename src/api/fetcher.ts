@@ -1,6 +1,7 @@
+import { Server_Address } from 'configs';
 function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
   return async (): Promise<TData> => {
-    const res = await fetch('http://localhost:4000', {
+    const res = await fetch(Server_Address, {
       method: 'POST',
       ...{ headers: [['content-type', 'application/json']] },
       body: JSON.stringify({ query, variables }),

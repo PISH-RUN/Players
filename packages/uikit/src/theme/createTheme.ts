@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { Theme } from '@mui/system';
 import { responseTypography, createTypography } from './createTypography';
 import { palettes } from './variables/_color';
+import { createOverrides } from './createOverrides';
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -29,7 +30,7 @@ export type ExamTheme = {
 export const theme: Theme = createTheme({
   direction: 'rtl',
   ...palettes,
-  // overrides: { ...createOverrides() },
+  components: createOverrides(),
   typography: createTypography(),
 });
 

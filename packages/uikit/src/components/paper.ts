@@ -18,6 +18,9 @@ const calculatePadding = (theme: Theme, p: PaperProps['p']) => {
 
 const Paper = styled(PaperComponent)<PaperProps>(({ theme, p }) => ({
   padding: !!p || p === 0 ? calculatePadding(theme, p) : theme.spacing(1),
+  elevation1: {
+    boxShadow: '0 1px 8px rgba(0, 0, 0, 0.25)',
+  },
 }));
 
 export default Paper;

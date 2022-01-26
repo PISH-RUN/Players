@@ -8,6 +8,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { Paper } from '@exam/uikit';
+import { useGetAbilitiesQuery } from 'api/abilities';
 
 const style = {
   root: {
@@ -119,6 +120,7 @@ const columns: GridColDef[] = [
 
 const Abilities: React.ComponentType = () => {
   const navigate = useNavigate();
+  const { data: abilities, isLoading } = useGetAbilitiesQuery({ take: 10, skip: 0 });
 
   return (
     <Paper variant="outlined" p={[1, 2]}>

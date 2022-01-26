@@ -12,6 +12,7 @@ const style = {
     p: '20px 16px',
     borderRight: '1px solid #e5e5e5',
     minHeight: '100vh',
+    height: '100%',
     boxSizing: 'border-box',
   },
   avatar: {

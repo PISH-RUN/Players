@@ -6,10 +6,11 @@ import { Paper, TextField } from '@exam/uikit';
 import { PasswordInput, TextInput } from '@exam/uikit/form';
 import { LoginSide } from './login.side';
 import { useLoginMutation } from 'api/auth';
-import { LoginInput } from 'api/types';
+import { LoginInput, User_Roles } from 'api/types';
 import { useAuth } from 'modules/auth/auth';
 import { useSnackbar } from 'notistack';
 import { useNavigate, Navigate } from 'react-router-dom';
+import { useCreateUserMutation } from 'api/user';
 
 type FormData = { username: string; password: string };
 
@@ -60,6 +61,8 @@ const Login: React.ComponentType = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
+  const { mutate: createUser } = useCreateUserMutation();
+
   const { mutate: login, isLoading } = useLoginMutation({
     onSuccess: ({ login }) => {
       setLogin(login);
@@ -72,7 +75,19 @@ const Login: React.ComponentType = () => {
   });
 
   const onSubmit: SubmitHandler<LoginInput> = (data: LoginInput) => {
-    login({ data });
+    createUser({
+      data: {
+        id: 10,
+        username: 'user',
+        password: '123456',
+        firstName: 'علی',
+        lastName: 'سوری',
+        canLogin: true,
+        lastLogin: '2021-05-05',
+        role: User_Roles.Admin,
+      },
+    });
+    // login({ data });
   };
 
   if (isLogin) {
