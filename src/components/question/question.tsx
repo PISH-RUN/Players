@@ -21,6 +21,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import Conversations from 'components/conversations';
 
 const styles = {
   head: {
@@ -45,7 +46,7 @@ const FormControlLabel = (props: Omit<FormControlLabelProps, 'control'>) => (
     control={<Radio />}
     componentsProps={{
       typography: {
-        variant: 'h4',
+        variant: 'body1',
       },
     }}
     {...props}
@@ -55,6 +56,7 @@ const FormControlLabel = (props: Omit<FormControlLabelProps, 'control'>) => (
 const Chip = styled((props: ChipProps) => <ChipComponent variant="outlined" {...props} />)(() => ({
   borderRadius: 4,
   fontWeight: 500,
+  borderColor: '#ccc',
 }));
 
 const Question = () => {
@@ -100,28 +102,24 @@ const Question = () => {
           <Box sx={styles.questionNumber}>
             <Typography variant="h3">1</Typography>
           </Box>
-          <Typography variant="h4">
+          <Typography variant="h5">
             کدام یک از گزینه های زیر صحیح نیست؟ کدام یک از گزینه های زیر صحیح نیست؟ کدام یک از گزینه های زیر صحیح نیست؟
             کدام یک از گزینه های زیر صحیح نیست؟{' '}
           </Typography>
         </Stack>
-        <Box sx={{ pl: 6, pt: 2 }}>
+        <Box sx={{ pl: 8, pt: 2 }}>
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue="female"
+              value="female"
+              onChange={() => null}
               name="radio-buttons-group"
             >
               <FormControlLabel value="female" label=" شاخص CPI از شاخص SPI حساس‌تر است." />
-              <FormControlLabel
-                value="male"
-                label="گزارش هزینه‌های پیش بینی و واقعی پروژه می تواند قسمتی از گزارش‌های تحلیلی کنترل پروژه باشد."
-              />
-              <FormControlLabel value="other" label="شاخص CPI برابر تقسیم BCWP بر BCWS است." />
-              <FormControlLabel
-                value="other"
-                label="در صورتی که شاخص بحرانی بودن از عدد یک کمتر باشد،‌بیانگر وجود مشکل در پروژه است."
-              />
+              <FormControlLabel label="گزارش هزینه‌های پیش بینی و واقعی پروژه می تواند قسمتی از گزارش‌های تحلیلی کنترل پروژه باشد." />
+              <FormControlLabel label="شاخص CPI برابر تقسیم BCWP بر BCWS است." />
+              <FormControlLabel label="در صورتی که شاخص بحرانی بودن از عدد یک کمتر باشد،‌بیانگر وجود مشکل در پروژه است." />
             </RadioGroup>
           </FormControl>
           <Box component={Divider} sx={{ my: 2 }} />
@@ -142,11 +140,14 @@ const Question = () => {
       <Divider />
       <Box sx={{ pl: 8, py: 2 }}>
         <Stack direction="row" spacing={2}>
-          <Typography variant="h4">متن پاسخ:</Typography>
-          <Typography variant="h5">
+          <Typography variant="h5">متن پاسخ:</Typography>
+          <Typography variant="body1">
             گزارش هزینه‌های پیش بینی و واقعی پروژه می تواند قسمتی از گزارش‌های تحلیلی کنترل پروژه باشد.
           </Typography>
         </Stack>
+        <Box sx={{ my: 3, mr: 6, borderRadius: 2, border: '1px solid #eaeaea', bgcolor: '#f6f8fa' }}>
+          <Conversations />
+        </Box>
       </Box>
     </Paper>
   );
