@@ -131,7 +131,7 @@ const Abilities: React.ComponentType = () => {
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          onClick={() => navigate('/add-abilities')}
+          onClick={() => navigate('/panel/add-abilities')}
         >
           افزودن شایستگی
         </Button>

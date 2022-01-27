@@ -18,3 +18,7 @@ code {
 input::placeholder {
     text-align: right!important;
 }
+
+.text-center {
+    text-align: center;
+}

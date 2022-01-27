@@ -1,3 +1,4 @@
+import React from 'react';
 import { default as PaperComponent, PaperProps as PaperComponentProps } from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Theme } from '@mui/system';
@@ -6,6 +7,7 @@ import { SpacingArgument } from '@mui/system/createTheme/createSpacing';
 export type PaperProps = {
   p?: SpacingArgument | Array<SpacingArgument>;
   radius?: number | Array<Number>;
+  children: Array<JSX.Element> | JSX.Element;
 } & PaperComponentProps;
 
 const calculatePadding = (theme: Theme, p: PaperProps['p']) => {
@@ -16,11 +18,13 @@ const calculatePadding = (theme: Theme, p: PaperProps['p']) => {
   }
 };
 
-const Paper = styled(PaperComponent)<PaperProps>(({ theme, p }) => ({
-  padding: !!p || p === 0 ? calculatePadding(theme, p) : theme.spacing(1),
-  elevation1: {
-    boxShadow: '0 1px 8px rgba(0, 0, 0, 0.25)',
-  },
-}));
+const Paper = styled((props: PaperProps) => <PaperComponent {...props}>{props.children}</PaperComponent>)(
+  ({ theme, p }) => ({
+    padding: !!p || p === 0 ? calculatePadding(theme, p) : theme.spacing(1),
+    elevation1: {
+      boxShadow: '0 1px 8px rgba(0, 0, 0, 0.25)',
+    },
+  })
+);
 
 export default Paper;
