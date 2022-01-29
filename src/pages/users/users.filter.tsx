@@ -12,9 +12,6 @@ const data = [
 type FormData = {};
 
 const style = {
-  root: {
-    '& .MuiTextField-root': { m: 1 },
-  },
   icon: {
     color: '#BDBDBD',
   },
@@ -35,7 +32,7 @@ const Filter: React.ComponentType = () => {
 
   return (
     <FormProvider {...formMethods}>
-      <Box component="form" sx={style.root} onSubmit={formMethods.handleSubmit(onSubmit)} noValidate autoComplete="off">
+      <form onSubmit={formMethods.handleSubmit(onSubmit)} noValidate autoComplete="off">
         <Grid container spacing={1}>
           <Grid item xs>
             <SelectInput name="job" label="نوع کاربر" disableLabel options={data} />
@@ -47,7 +44,7 @@ const Filter: React.ComponentType = () => {
             <SelectInput name="ability" label="شایستگی" disableLabel options={data} />
           </Grid>
         </Grid>
-      </Box>
+      </form>
     </FormProvider>
   );
 };

@@ -44,6 +44,12 @@ export const routes: Array<RouteType> = [
         component: lazy(() => import('../pages/users/users')),
         isPrivate: true,
       },
+      {
+        path: '/panel/user/add',
+        exact: true,
+        component: lazy(() => import('../pages/user/addUser')),
+        isPrivate: true,
+      },
     ],
   },
 ];

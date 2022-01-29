@@ -18,3 +18,11 @@ code {
 input::placeholder {
     text-align: right!important;
 }
+
+.font-weight-400 {
+    font-weight: 500!important;
+}
+
+.text-center {
+    text-align: center;
+}

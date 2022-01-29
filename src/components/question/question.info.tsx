@@ -2,6 +2,7 @@ import React from 'react';
 import { BoxLvl2 } from './utils';
 import { Box, Chip as ChipComponent, ChipProps, Divider, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { QuestionType } from './types';
 
 const Chip = styled((props: ChipProps) => <ChipComponent variant="outlined" {...props} />)(() => ({
   borderRadius: 4,
@@ -9,12 +10,15 @@ const Chip = styled((props: ChipProps) => <ChipComponent variant="outlined" {...
   borderColor: '#ccc',
 }));
 
-export type QuestionInfoProps = {};
+export type QuestionInfoProps = {
+  type: QuestionType;
+  isMain: boolean;
+};
 
-const QuestionInfo = (props: QuestionInfoProps) => {
+const QuestionInfo = ({ type, isMain }: QuestionInfoProps) => {
   return (
     <BoxLvl2 sx={{ pb: 2, pt: 0 }}>
-      <Box component={Divider} sx={{ my: 2 }} />
+      {type !== QuestionType.group || (!isMain && <Box component={Divider} sx={{ my: 2 }} />)}
       <Stack sx={{ my: 2 }} direction="row" alignItems="center" spacing={1}>
         <Typography variant="body2">دسته های شغلی:</Typography>
         <Chip label="مهندسی" />

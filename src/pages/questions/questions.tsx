@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Typography, Grid, InputAdornment, Button, Divider } from '@mui/material';
-import { Paper, TextField } from '@exam/uikit';
-import Question from 'components/question';
+import { Box, Button, Divider, Grid, InputAdornment, Typography } from '@mui/material';
+import { TextField } from '@exam/uikit';
+import Question, { QuestionType } from 'components/question';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -48,10 +48,18 @@ const Questions: React.ComponentType = () => {
       <Box sx={{ maxWidth: 1170 }}>
         <Question sx={{ mb: 4 }} />
         <Question sx={{ mb: 4 }} />
-        <Box sx={{ border: '3px dashed #ccc', borderRadius: 4, overflow: 'hidden' }}>
-          <Question isSimilar isMainSimilar />
+        <Box sx={{ border: '3px dashed #ccc', mb: 4, borderRadius: 4, overflow: 'hidden' }}>
+          <Question type={QuestionType.similar} isMain />
           <Divider />
-          <Question isSimilar sx={{ background: '#f8fafd' }} />
+          <Question type={QuestionType.similar} sx={{ background: '#f8fafd' }} />
+        </Box>
+
+        <Box sx={{ border: '3px dashed #ccc', borderRadius: 4, overflow: 'hidden' }}>
+          <Question type={QuestionType.group} isMain />
+          <Divider />
+          <Question type={QuestionType.group} sx={{ background: '#f8fafd' }} />
+          <Divider />
+          <Question type={QuestionType.group} sx={{ background: '#f8fafd' }} />
         </Box>
       </Box>
     </Box>

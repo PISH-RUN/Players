@@ -4,17 +4,22 @@ import Conversations from '../conversations';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export type QuestionMoreInfoProps = {
-  isSimilar?: boolean;
+  hideInfo?: boolean;
 };
 
-const QuestionMoreInfo = ({ isSimilar = false }: QuestionMoreInfoProps) => {
-  const [showMore, setShowMore] = useState(!isSimilar);
+const QuestionMoreInfo = ({ hideInfo = false }: QuestionMoreInfoProps) => {
+  const [showMore, setShowMore] = useState(!hideInfo);
 
   return (
     <>
       <Collapse in={!showMore}>
         <Stack>
-          <Button startIcon={<ExpandMoreIcon />} onClick={() => setShowMore(true)}>
+          <Button
+            startIcon={<ExpandMoreIcon />}
+            size="small"
+            className="font-weight-400"
+            onClick={() => setShowMore(true)}
+          >
             مشاهده بیشتر
           </Button>
         </Stack>
@@ -27,8 +32,10 @@ const QuestionMoreInfo = ({ isSimilar = false }: QuestionMoreInfoProps) => {
               گزارش هزینه‌های پیش بینی و واقعی پروژه می تواند قسمتی از گزارش‌های تحلیلی کنترل پروژه باشد.
             </Typography>
           </Stack>
-          <Box sx={{ my: 3, mr: 6, borderRadius: 2, border: '1px solid #eaeaea', bgcolor: '#f6f8fa' }}>
-            <Conversations />
+          <Box
+            sx={{ my: 3, mr: 6, borderRadius: 2, border: '1px solid #eaeaea', bgcolor: '#f6f8fa', overflow: 'hidden' }}
+          >
+            <Conversations enAdd />
           </Box>
         </Box>
       </Collapse>
