@@ -6,21 +6,22 @@ import QuestionHead from './question.head';
 import QuestionText from './question.text';
 import QuestionInfo from './question.info';
 import QuestionMoreInfo from './question.moreInfo';
+import { QuestionType as qType } from './types';
 
 export type QuestionProps = {
   sx?: SxProps;
-  isSimilar?: boolean;
-  isMainSimilar?: boolean;
+  type?: qType;
+  isMain?: boolean;
 };
 
-const Question = ({ sx, isSimilar = false, isMainSimilar = false }: QuestionProps) => {
+const Question = ({ sx, type = qType.normal, isMain = false }: QuestionProps) => {
   return (
-    <Paper p={0} elevation={isSimilar ? 0 : 1} sx={sx}>
-      <QuestionHead isMainSimilar={isMainSimilar} isSimilar={isSimilar} question={{ number: 1 }} />
+    <Paper p={0} elevation={type === qType.normal ? 1 : 0} sx={sx}>
+      <QuestionHead isMain={isMain} type={type} question={{ number: 1 }} />
       <QuestionText question={{ number: 1 }} />
       <QuestionInfo />
       <Divider />
-      <QuestionMoreInfo isSimilar={isSimilar} />
+      <QuestionMoreInfo hideInfo={type !== 'normal'} />
     </Paper>
   );
 };

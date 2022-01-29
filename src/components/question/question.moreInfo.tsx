@@ -4,11 +4,11 @@ import Conversations from '../conversations';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export type QuestionMoreInfoProps = {
-  isSimilar?: boolean;
+  hideInfo?: boolean;
 };
 
-const QuestionMoreInfo = ({ isSimilar = false }: QuestionMoreInfoProps) => {
-  const [showMore, setShowMore] = useState(!isSimilar);
+const QuestionMoreInfo = ({ hideInfo = false }: QuestionMoreInfoProps) => {
+  const [showMore, setShowMore] = useState(!hideInfo);
 
   return (
     <>

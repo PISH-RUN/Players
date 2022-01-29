@@ -5,6 +5,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import { QuestionType as qType } from './types';
 
 const styles = {
   head: {
@@ -18,14 +19,15 @@ const styles = {
 };
 
 export type QuestionHeadProps = {
-  isMainSimilar?: boolean;
+  isMain?: boolean;
   isSimilar?: boolean;
+  type: qType;
   question: {
     number: number;
   };
 };
 
-const QuestionHead = ({ question, isSimilar = false, isMainSimilar = false }: QuestionHeadProps) => {
+const QuestionHead = ({ question, type, isMain = false }: QuestionHeadProps) => {
   return (
     <Box sx={styles.head}>
       <Grid container>
@@ -48,9 +50,14 @@ const QuestionHead = ({ question, isSimilar = false, isMainSimilar = false }: Qu
           </Stack>
         </Grid>
         <Stack component={Grid} item direction="row" spacing={1}>
-          {(!isSimilar || isMainSimilar) && (
+          {(type === qType.normal || (type === qType.similar && isMain)) && (
             <Button variant="outlined" startIcon={<AddIcon />} size="small">
               افزودن سوال مشابه
+            </Button>
+          )}
+          {type === qType.group && isMain && (
+            <Button variant="outlined" startIcon={<AddIcon />} size="small">
+              افزودن زیرسوال
             </Button>
           )}
           <Button variant="outlined" startIcon={<EditIcon />} size="small">
