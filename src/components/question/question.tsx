@@ -18,8 +18,8 @@ const Question = ({ sx, type = qType.normal, isMain = false }: QuestionProps) =>
   return (
     <Paper p={0} elevation={type === qType.normal ? 1 : 0} sx={sx}>
       <QuestionHead isMain={isMain} type={type} question={{ number: 1 }} />
-      <QuestionText question={{ number: 1 }} />
-      <QuestionInfo />
+      <QuestionText type={type} isMain={isMain} question={{ number: 1 }} />
+      <QuestionInfo type={type} isMain={isMain} />
       <Divider />
       <QuestionMoreInfo hideInfo={type !== 'normal'} />
     </Paper>

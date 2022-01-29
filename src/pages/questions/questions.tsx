@@ -58,6 +58,8 @@ const Questions: React.ComponentType = () => {
           <Question type={QuestionType.group} isMain />
           <Divider />
           <Question type={QuestionType.group} sx={{ background: '#f8fafd' }} />
+          <Divider />
+          <Question type={QuestionType.group} sx={{ background: '#f8fafd' }} />
         </Box>
       </Box>
     </Box>
