@@ -15,7 +15,7 @@ export const AvatarPin = (props: AvatarPinProps) => {
     const navigate = useNavigate();
 
     const pinOnClick = () => {
-        navigate(`/dashboard/tasks/${props.userID}`)
+        // navigate(`/dashboard/tasks/${props.userID}`)
     }
 
     return (

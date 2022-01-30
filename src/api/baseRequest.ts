@@ -1,4 +1,5 @@
 import axios, {Method} from 'axios';
+import { useAuth } from 'contexts/auth/auth';
 // @ts-ignore
 import queryString, {StringifyOptions} from 'query-string';
 
@@ -49,7 +50,6 @@ export const baseRequest = async (
     let timeout = null;
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
-
     cancelCB && cancelCB(source);
 
     timeout = setTimeout(() => {
@@ -116,8 +116,10 @@ export const baseRequest = async (
           path.indexOf('/auth/update_password') === -1 &&
           path.indexOf('/auth/change-password') === -1
         ) {
-            await loginWithToken();
-            return baseRequest(path, {data, method, needAuthenticated, params, otherOptions, isFormData, cancelCB});
+            // await loginWithToken();
+            document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+            location.href = '/';
+            // return baseRequest(path, {data, method, needAuthenticated, params, otherOptions, isFormData, cancelCB});
         }
         return Promise.reject({
             isTimeout: axios.isCancel(error),

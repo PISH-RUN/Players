@@ -13,6 +13,7 @@ export const routes: Array<RouteType> = [
   {
     path: '/dashboard',
     component: lazy(() => import('../pages/layout')),
+    isPrivate: true,
     subRoutes: [
       {
         path: '/dashboard/tasks',

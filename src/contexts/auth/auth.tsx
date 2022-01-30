@@ -41,7 +41,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const setLogout = () => {
     removeCookie('token');
+    removeCookie('user');
     setState((prevState) => ({ ...prevState, isLogin: false }));
+    location.href = '/';
   };
 
   return <AuthContext.Provider value={{ isLogin, user, setLogin, setLogout, participant, isParticipantLoading, isManager }}>{children}</AuthContext.Provider>;

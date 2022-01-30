@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { Size, useWindowSize } from '../../hooks/window-size';
-import { Earth } from '../earth/Earth';
 import { AllTasks } from '../cards/AllTasks';
 import '../../styles/const.less';
 import './styles/Dashboard.less';
@@ -12,12 +11,13 @@ import { TeamMembers } from '../cards/TeamMembers';
 import { tasksData } from './tasks-data';
 import { TaskPin } from '../earth/TaskPin';
 import { usePin } from 'contexts/pin';
-import { set } from 'react-hook-form';
+import { useTasksList } from 'hooks/tasks';
 
 const Tasks = (): JSX.Element => {
   const { setPins } = usePin();
   const windowSize: Size = useWindowSize();
   const [canvasSize, setCanvasSize] = useState<number>(0);
+  const { data: tasks } = useTasksList();
 
   useEffect(() => {
 

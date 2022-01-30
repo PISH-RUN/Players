@@ -11,7 +11,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps): React.ReactElement => {
   const navigate = useNavigate();
 
   if (!isLogin) {
-    navigate('/auth');
+    location.href = '/auth';
   }
 
   return isLogin ? children : <></>;
