@@ -1,0 +1,38 @@
+.all-tasks {
+    .ant-progress-text {
+        display: none;
+    }
+    .chart-description {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 17px;
+
+        p {
+            font-size: 12px
+        }
+
+        p:before {
+            content: "";
+            display: inline-block;
+            width: 0px;
+            height: 0px;
+            margin-left: 5px;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+        }
+
+        .complementary:before {
+            
+            border-bottom: 8px solid @green;
+        }
+
+        .secondary:before {
+            margin-left: 5px;
+            border-left: 6px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 8px solid @red;
+        }
+
+    }
+}

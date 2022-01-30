@@ -8,48 +8,12 @@ export const routes: Array<RouteType> = [
   {
     path: '/',
     exact: true,
-    component: lazy(() => import('../pages/auth/login')),
+    component: lazy(() => import('../pages/auth')),
   },
   {
     path: '/panel',
-    component: lazy(() => import('layouts/default')),
+    component: lazy(() => import('../components/dashboard/Dashboard')),
     subRoutes: [
-      {
-        path: '/panel',
-        exact: true,
-        component: lazy(() => import('../pages/dashboard/dashboard')),
-        isPrivate: true,
-      },
-      {
-        path: '/panel/abilities',
-        exact: true,
-        component: lazy(() => import('../pages/abilities/abilities')),
-        isPrivate: true,
-      },
-      {
-        path: '/panel/add-abilities',
-        exact: true,
-        component: lazy(() => import('../pages/abilities/abilities.form')),
-        isPrivate: true,
-      },
-      {
-        path: '/panel/questions',
-        exact: true,
-        component: lazy(() => import('../pages/questions/questions')),
-        isPrivate: true,
-      },
-      {
-        path: '/panel/users',
-        exact: true,
-        component: lazy(() => import('../pages/users/users')),
-        isPrivate: true,
-      },
-      {
-        path: '/panel/user/add',
-        exact: true,
-        component: lazy(() => import('../pages/user/addUser')),
-        isPrivate: true,
-      },
     ],
   },
 ];

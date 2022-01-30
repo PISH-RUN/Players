@@ -1,0 +1,22 @@
+.custom-radio {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    bottom: 95px;
+    position: absolute;
+    @media screen and (max-width: 1650px) {
+        bottom: 70px;
+    }
+    .radio-btn {
+        .ant-radio-wrapper {
+            margin-left: 50px;
+            color: #fff;
+        }
+
+        .ant-radio-wrapper:last-child {
+            margin-left: 0px;
+        }
+    }
+}

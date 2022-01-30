@@ -1,0 +1,28 @@
+.task-stop-watch-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .custom-dropdown {
+        width: 180px;
+        margin-left: 0 !important;
+        .ant-btn.ant-btn-primary.ant-btn-rtl {
+            width: 180px;
+            background-color: @green;
+            border-color: @green;
+        }
+        .ant-btn.ant-btn-primary.ant-btn-rtl:hover {
+            width: 180px;
+            background-color: @green-secondary;
+            border-color: @green-secondary;
+            border-left: none;
+        }
+        .ant-btn.ant-btn-primary.ant-btn-icon-only.ant-btn-rtl.ant-dropdown-trigger.ant-dropdown-rtl {
+            border-right-width: 1px;
+            width: 40px;
+        }
+    }
+}
+.ant-dropdown-menu {
+    width: 180px;
+}

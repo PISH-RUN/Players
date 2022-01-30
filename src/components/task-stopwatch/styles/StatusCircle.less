@@ -1,0 +1,39 @@
+.status-circle-wrapper {
+    position: absolute;
+    top: 6.2%;
+    right: 6.3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #B7B5CA;
+    width: 26.25vh;
+    height: 26.25vh;
+    .status-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+        border-radius: 50%;
+        background-color: #8675FF;
+        color: #FFFFFF;
+        width: 21.78vh;
+        height: 21.78vh;
+        .status-percentage {
+            position: relative;
+            font-size: 4.82vh;
+            font-weight: 500;
+        }
+        .status-percentage:before {
+            position: absolute;
+            left: -1.78vh;
+            font-size: 2.32vh;
+            content: "%";
+        }
+    }
+}
+
+h2 {
+    line-height: 10px;
+}

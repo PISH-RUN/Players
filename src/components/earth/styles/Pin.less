@@ -1,0 +1,73 @@
+.pin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    line-height: 50px;
+    padding: 4px;
+    position: absolute;
+    text-align: center;
+    vertical-align: top;
+    min-width: 60px;
+    border-radius: 10px;
+    filter: drop-shadow(1px 20px 4px rgba(0, 0, 0, 0.329));
+    transition: transform 250ms;
+    position: absolute;
+    transition: right  500ms linear,top  500ms linear,transform 300ms ease;
+    .pin-text-wrapper {
+        min-height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.pin:after {
+	border: 8.8px solid transparent;
+	content: '';
+	margin-left: -8.8px;
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	width: 0;
+	height: 0;
+}
+.pin:hover {
+    z-index: 2;
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.pin.done {
+    background-color: #FF9065;
+    color: #FFFFFF;
+}
+.pin.done:after {
+    border-top-color: #FF9065;
+}
+
+.pin.doing {
+    background-color: #FFC426;
+    color: #000000;
+}
+.pin.doing:after {
+    border-top-color: #FFC426;
+}
+
+.pin.todo {
+    background-color: #FFFFFF;
+    color: #000000;
+    line-height:0;
+}
+.pin.todo:after {
+    border-top-color: #FFFFFF;
+}
+
+.pin.disabled {
+    background-color: #8d8b9c;
+    filter: grayscale(1) drop-shadow(1px 20px 4px rgba(0, 0, 0, 0.116));
+    opacity: .8;
+}
+.pin.disabled:after {
+    border-top-color: #8d8b9c;
+}
+

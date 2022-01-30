@@ -1,0 +1,24 @@
+.avatar {
+    display: flex;
+    justify-content: center;
+    padding: 0 !important;
+    .ant-menu-title-content {
+        display: none !important;
+    }
+}
+
+.ant-layout-sider-children {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ant-menu-rtl.ant-menu-vertical {
+    border-left: none;
+}
+
+.ant-menu-item-selected::after {
+    transform: scaleY(1) !important;
+    opacity: 1 !important;
+    transition: transform .15s cubic-bezier(.645,.045,.355,1),opacity .15s cubic-bezier(.645,.045,.355,1) !important;
+}

@@ -1,0 +1,85 @@
+@font-face {
+  font-family: IRANSansBold;
+  src: url(/fonts/IRANSansWeb_Bold.ttf);
+}
+
+@font-face {
+  font-family: IRANSans;
+  src: url(/fonts/IRANSansWeb.ttf);
+}
+
+@font-face {
+  font-family: IRANSansLight;
+  src: url(/fonts/IRANSansWeb_Light.ttf);
+}
+
+@font-face {
+  font-family: IRANSansUltraLight;
+  src: url(/fonts/IRANSansWeb_UltraLight.ttf);
+}
+
+@font-face {
+  font-family: IRANSansMedium;
+  src: url(/fonts/IRANSansWeb_Medium.ttf);
+}
+
+
+
+html,
+body {
+  scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+  font-family: IRANSans;
+  direction: rtl;
+}
+html,
+body,
+a,
+p,
+span,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: IRANSans;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #adadad;
+}
+
+.ant-notification-notice-close {
+  right: auto!important;
+  left: 22px;
+}
+
+.ant-notification-notice-message {
+  padding-right: 0!important;
+  padding-left: 24px;
+}
+.ant-notification-notice-message, .ant-notification-notice-description {
+  margin-left: 0!important;
+  margin-right: 48px;
+}

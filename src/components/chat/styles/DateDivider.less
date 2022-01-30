@@ -1,0 +1,41 @@
+.custom-divider {
+    display: table;
+    font-size: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.custom-divider span {
+    display: table-cell;
+    position: relative;
+}
+
+.custom-divider span:first-child,
+.custom-divider span:last-child {
+    width: 50%;
+    top: 9px;
+    -moz-background-size: 100% 2px;
+    background-size: 100% 1px;
+    background-position: 0 0, 0 100%;
+    background-repeat: no-repeat;
+}
+
+.custom-divider span:first-child {
+    background-image: -moz-linear-gradient(180deg, transparent, #000);
+    background-image: linear-gradient(90deg, #F2F5FA, #F2F5FA);
+}
+
+.custom-divider span:nth-child(2) {
+    background: #F2F5FA;
+    border-radius: 29px;
+    color: #00000073;
+    padding: 2px 25px;
+    width: auto;
+    white-space: nowrap;
+
+}
+
+.custom-divider span:last-child {
+    background-image: -moz-linear-gradient(180deg, transparent, #000);
+    background-image: linear-gradient(90deg, #F2F5FA, #F2F5FA);
+}
