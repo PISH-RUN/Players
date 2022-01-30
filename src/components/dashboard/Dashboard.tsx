@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row, Space } from 'antd';
+import { Col, Row } from 'antd';
+import moment from 'jalali-moment';
+// @ts-ignore
+import persianJs from 'persianjs';
 import { Size, useWindowSize } from '../../hooks/window-size';
 import { Earth } from '../earth/Earth';
 import { AllTasks } from '../cards/AllTasks';
 import { Status } from '../cards/Status';
-import '../../styles/const.less'
-import './styles/Dashboard.less'
+import '../../styles/const.less';
+import './styles/Dashboard.less';
 import { MultiTitle } from '../common/MultiTitle';
 import { ProgressBar } from '../common/ProgressBar';
 import { PresentTeams } from './dashboard-page/PresentTeams';
@@ -13,59 +16,87 @@ import { AirLine } from '../cards/AirLine';
 import { AverageSpeed } from '../cards/AverageSpeed';
 import { HorizontalWrapper } from '../common/HorizontalWrapper';
 import { DashboardWrapper } from './DashboardWrapper';
-import { useParticipantsList } from '../../hooks/participants';
-import { useTasksList } from '../../hooks/tasks';
+import { useParticipant, useStatsList, useTasksList } from '../../hooks';
 
 const Dashboard = (): JSX.Element => {
+  const { data: participant, isLoading } = useParticipant();
+  const { data: tasks } = useTasksList();
+  const { data: stats } = useStatsList();
 
-    const { data: participants, isLoading } = useParticipantsList();
-    const { data: tasks } = useTasksList();
+  const windowSize: Size = useWindowSize();
+  const [canvasSize, setCanvasSize] = useState<number>(0);
 
-    console.log(participants, tasks);
+  useEffect(() => {
+    if (windowSize.width && windowSize.height) {
+      setCanvasSize(windowSize.width < windowSize.height ? windowSize.width * 0.85 : windowSize.height * 0.85);
+    }
+  }, [windowSize, canvasSize]);
 
-    const windowSize: Size = useWindowSize()
-    const [canvasSize, setCanvasSize] = useState<number>(0)
+  const startAt = moment(new Date(participant?.data?.team?.event?.startAt)).valueOf();
+  const now = moment().valueOf();
+  const passedTime = parseInt(
+    moment
+      .duration(now - startAt)
+      .asMinutes()
+      .toString(),
+    10
+  );
 
-    useEffect(() => {
-
-        if (windowSize.width && windowSize.height) {
-            setCanvasSize((windowSize.width < windowSize.height ? windowSize.width * 0.85 : windowSize.height * 0.85))
-        }
-
-    }, [windowSize, canvasSize]);
-
-
-
-    return (
-        <>
-
-            <Earth status="dashboard"/>
-            <DashboardWrapper>
-                <Row style={{height:"100%"}}>
-
-                    <Col md={11} className="col-align-evenly" style={{  paddingRight: 40 }}>
-                            <MultiTitle title="خلاصه آمار سفر" subTitle="همسفرمان ما" description="چهار صد و یازده مسافر - ۴۱۱" />
-                            <HorizontalWrapper>
-                                <ProgressBar percent={12} count="۱۵" text="جامانده‌ها" color="#FF9065" />
-                                <ProgressBar percent={89} count="۱۴" text="هم تیمی" />
-                            </HorizontalWrapper>
-                            <PresentTeams />
-                            <HorizontalWrapper>
-                                <AllTasks title="تعداد کل وظایف" subTitle="وضعیت فعالیت‌های انجام گرفته" />
-                                <Status text="نماز ظهر و عصر"/>
-                            </HorizontalWrapper>
-                        
-                    </Col>
-                    <Col md={7} xs={24}/>
-                    <Col md={6} xs={24} style={{  paddingLeft: 40 }}  className="col-align-evenly">
-                            <AirLine />
-                            <AverageSpeed passedTime={2541} title="میانگین سرعت حرکت" subTitle="چقدر از برنامه جلو هستیم" />
-                    </Col>
-                </Row>
-            </DashboardWrapper>
-
-        </>
-    )
-}
+  return (
+    <>
+      <Earth status="dashboard" />
+      <DashboardWrapper>
+        <Row style={{ height: '100%' }}>
+          <Col md={11} className="col-align-evenly" style={{ paddingRight: 40 }}>
+            <MultiTitle
+              title="خلاصه آمار سفر"
+              subTitle="همسفرمان ما"
+              description={`${persianJs(stats?.data?.participants?.total || '0').digitsToWords()} مسافر - ${
+                stats?.data?.participants?.total
+              }`}
+            />
+            <HorizontalWrapper>
+              <ProgressBar
+                bad
+                percent={
+                  !!stats?.data?.participants.absent
+                    ? (stats?.data?.participants.absent / stats?.data?.participants.total) * 100
+                    : 0
+                }
+                count={stats?.data?.participants.absent ? stats?.data?.participants.absent.toString() : '0'}
+                text="جا مانده‌ها"
+                color="#FF9065"
+              />
+              <ProgressBar
+                percent={
+                  stats?.data?.team.participants.present
+                    ? stats?.data?.team.participants.present / stats?.data?.team.participants.total
+                    : 0
+                }
+                count={stats?.data?.team.participants.total}
+                text="هم تیمی"
+              />
+            </HorizontalWrapper>
+            <PresentTeams teams={stats?.data?.teams} />
+            <HorizontalWrapper>
+              <AllTasks tasks={stats?.data?.tasks} title="تعداد کل وظایف" subTitle="وضعیت فعالیت‌های انجام گرفته" />
+              <Status text="نماز ظهر و عصر" />
+            </HorizontalWrapper>
+          </Col>
+          <Col md={7} xs={24} />
+          <Col md={6} xs={24} style={{ paddingLeft: 40 }} className="col-align-evenly">
+            <AirLine participant={participant} />
+            <AverageSpeed
+              successRate={25}
+              passedTime={passedTime}
+              title="میانگین سرعت حرکت"
+              subTitle="چقدر از برنامه جلو هستیم"
+            />
+          </Col>
+        </Row>
+      </DashboardWrapper>
+    </>
+  );
+};
 
 export default Dashboard;

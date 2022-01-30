@@ -1,35 +1,37 @@
-import { Progress } from "antd";
-import React, { useState, useEffect } from "react";
-import { ImageBox } from "./ImageBox";
-import { Title, Type } from "./Title";
-import './styles/ProgressBar.less'
-
+import { Col, Progress, Row } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Title, Type } from './Title';
+import './styles/ProgressBar.less';
 
 interface ProgressBarProps {
-    text?: string,
-    count?: string,
-    color?: string,
-    percent: number
+  text?: string;
+  count?: string;
+  color?: string;
+  percent: number;
+  bad?: boolean;
 }
 
 export const ProgressBar = (props: ProgressBarProps): JSX.Element => {
+  const { text, color, count, bad } = props;
+  const [percent, setPercent] = useState<number>(0);
 
-    const { text, color, count } = props
-    const [percent, setPercent] = useState<number>(0)
+  useEffect(() => {
+    setTimeout(() => {
+      setPercent(props.percent);
+    }, 500);
+  }, [props.percent]);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setPercent(props.percent)
-        }, 500)
-    }, [])
-
-    return (
-        <div className="progress-box">
-            <Progress type="circle" percent={percent} width={65} strokeColor={color} />
-            <div>
-                <Title type={Type.THIN}>{count}</Title>
-                <Title type={Type.THIN}>{text}</Title>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className={`progress-box ${bad && 'bad-progress'}`}>
+      <Row align="middle" gutter={10}>
+        <Col>
+          <Progress type="circle" format={(percent) => percent} percent={percent} width={65} strokeColor={color} />
+        </Col>
+        <Col>
+          <Title type={Type.THIN}>{count}</Title>
+          <Title type={Type.THIN}>{text}</Title>
+        </Col>
+      </Row>
+    </div>
+  );
+};

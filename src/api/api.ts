@@ -11,5 +11,8 @@ export const api = {
     },
     tasks: {
         list: () => baseRequest('/tasks', {method: 'get', needAuthenticated: true}),
+    },
+    stats: {
+        list: () => baseRequest('/stats', {method: 'get', needAuthenticated: true}),
     }
 }

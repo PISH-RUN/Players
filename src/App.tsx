@@ -10,6 +10,11 @@ import store from './redux/store';
 import fa_IR from 'antd/lib/locale/fa_IR';
 import { ConfigProvider } from 'antd';
 import { Provider } from 'react-redux';
+import 'moment/locale/fa';
+import moment from 'jalali-moment';
+
+moment.locale('fa');
+moment.defaultFormat = 'jD jMMMM jYYYY';
 
 const queryClient = new QueryClient();
 
