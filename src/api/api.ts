@@ -1,4 +1,5 @@
 import {baseRequest} from './baseRequest';
+import qs from 'query-string';
 import { Method } from 'axios';
 
 export const api = {
@@ -14,5 +15,8 @@ export const api = {
     },
     stats: {
         list: () => baseRequest('/stats', {method: 'get', needAuthenticated: true}),
+    },
+    team: {
+        list: () => baseRequest('/teams?populate[participants]=*&pagination[page]=1&pagination[pageSize]=400', {method: 'get', needAuthenticated: true}),
     }
 }

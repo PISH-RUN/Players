@@ -3,4 +3,7 @@ export type Auth = {
   isLogin: boolean;
   setLogin: (user: any) => void;
   setLogout: () => void;
+  participant: any;
+  isParticipantLoading: boolean;
+  isManager: boolean;
 };

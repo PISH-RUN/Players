@@ -1,13 +1,15 @@
 import React from 'react';
 import { Layout, Menu, Avatar } from 'antd';
-import { AppstoreOutlined, CheckSquareOutlined, UserOutlined, SettingOutlined, BellOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, CheckSquareOutlined, UserOutlined, SettingOutlined, BellOutlined, SecurityScanOutlined } from '@ant-design/icons';
 import { Logo } from '../common/Logo';
 import { DashboardMenuItem } from './DashboardMenuItem';
 import './styles/SideBar.less';
+import { useAuth } from 'contexts/auth/auth';
 
 const { Sider } = Layout;
 
 export const SideBar = (props: {selectedKey: string}): JSX.Element => {
+  const { isManager } = useAuth();
     return (
         <Sider style={{ minHeight: '100vh'}} collapsed theme="light">
             <Logo />
@@ -25,6 +27,11 @@ export const SideBar = (props: {selectedKey: string}): JSX.Element => {
                 <DashboardMenuItem key="users" icon={<UserOutlined style={{fontSize: '18px', marginTop: '5px'}} />} route="users">
                     همراهان سفر
                 </DashboardMenuItem>
+              {isManager &&
+                <DashboardMenuItem key="manageTasks" icon={<SecurityScanOutlined style={{fontSize: '18px', marginTop: '5px'}} />} route="adminTasks">
+                    تسک های تیم شما
+                </DashboardMenuItem>
+              }
                 <DashboardMenuItem key="settings" icon={<SettingOutlined style={{fontSize: '18px', marginTop: '5px'}} />} route="settings">
                     تنظیمات
                 </DashboardMenuItem>
