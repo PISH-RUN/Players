@@ -8,8 +8,14 @@ import './styles/User.less'
 import { DashboardWrapper } from './DashboardWrapper';
 import { usersData } from './users-data';
 import { AvatarPin } from '../earth/AvatarPin';
+import { usePin } from '../../contexts/pin';
+import { useParticipant } from 'hooks/participants';
 
 const Users = (): JSX.Element => {
+    const { setPins } = usePin();
+    const { data: participants } = useParticipant();
+
+    // console.log(participants);
 
     const windowSize: Size = useWindowSize()
     const [canvasSize, setCanvasSize] = useState<number>(0)
@@ -40,14 +46,19 @@ const Users = (): JSX.Element => {
         { label: 'غایبین', value: 'absent' },
     ];
 
-    const userPins = data.map((user,index) => {
-        return <AvatarPin key={index} userID={user.id} name={user.name} avatar={user.avatar} disabled={!user.present} />
-    });
+
+    useEffect(() => {
+        const userPins = data.map((user,index) => {
+            return <AvatarPin key={index} userID={user.id} name={user.name} avatar={user.avatar} disabled={!user.present} />
+        });
+        setPins(userPins);
+        return () => setPins([]);
+    }, [])
 
 
     return (
         <>
-                <Earth pins={userPins} status="persons"/>
+                {/*<Earth pins={userPins} status="persons"/>*/}
                 <DashboardWrapper style={{width:"30%",right:0}}>
                     <Row style={{height: '100%'}}>
                         <Col md={24} style={{ paddingTop: 110, paddingRight: 75 }}>

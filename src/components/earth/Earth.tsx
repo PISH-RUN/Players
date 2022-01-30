@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { Size, useWindowSize } from '../../hooks/window-size';
 import createGlobe from 'lib/cobe';
 import { AvatarPin } from './AvatarPin';
@@ -16,7 +16,6 @@ export interface EarthProps {
 
 
 export const Earth = (props: EarthProps): JSX.Element => {
-
   const [canvasSize, setCanvasSize] = useState<number>(0);
   const [positions, setPositions] = useState<Array<Position>>([]);
 
@@ -49,47 +48,57 @@ export const Earth = (props: EarthProps): JSX.Element => {
     },
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+
     if (windowSize.width && windowSize.height) {
-      if (!!globe.current) {
-        globe.current.destroy();
-        globe.current.remove();
-      }
-      setCanvasSize((windowSize.width < windowSize.height ? windowSize.width * statusAttributes[props.status].scale : windowSize.height * statusAttributes[props.status].scale));
-      let phi = 4;
-      globe.current = createGlobe(canvasRef.current, {
-        devicePixelRatio: 2,
-        width: canvasSize * 2,
-        height: canvasSize * 2,
-        phi: phi,
-        theta: 0,
-        dark: 0,
-        diffuse: 1.2,
-        mapSamples: 30000,
-        mapBrightness: 12,
-        baseColor: [0.36, 0.57, 0.90],
-        markerColor: [0.1, 0.8, 1],
-        glowColor: [0.36, 0.57, 0.90],
-        markers: [],
-        onRender: (state: any) => {
-          // Called on every animation frame.
-          // `state` will be an empty object, return updated params.
-          if (props.status === 'dashboard' || phi < 5.4) {
-            state.phi = phi;
-            phi += props.status === 'dashboard' ? 0.002 : 0.07;
-          }
-        },
-      });
+      const newCanvasSize = (windowSize.width < windowSize.height ? windowSize.width * statusAttributes[props.status].scale : windowSize.height * statusAttributes[props.status].scale);
+      setCanvasSize(newCanvasSize);
+    }
+  }, [windowSize, props.status]);
+
+  useLayoutEffect(() => {
+    if (!props.status) return;
+
+    if (windowSize.width && windowSize.height) {
+      setTimeout(() => {
+        let phi = 4;
+        globe.current = createGlobe(canvasRef.current, {
+          devicePixelRatio: 2,
+          width: canvasSize * 2,
+          height: canvasSize * 2,
+          phi: phi,
+          theta: 0,
+          dark: 0,
+          diffuse: 1.2,
+          mapSamples: 30000,
+          mapBrightness: 12,
+          baseColor: [0.36, 0.57, 0.90],
+          markerColor: [0.1, 0.8, 1],
+          glowColor: [0.36, 0.57, 0.90],
+          markers: [],
+          // onRender: (state: any) => {
+          //   // Called on every animation frame.
+          //   // `state` will be an empty object, return updated params.
+          //   if (props.status === 'dashboard' || phi < 5.4) {
+          //     state.phi = phi;
+          //     phi += props.status === 'dashboard' ? 0.002 : 0.07;
+          //   }
+          // },
+        });
+        window.setTimeout(() => globe.current?.toggle(false), 500)
+
+      }, 100);
 
       return () => {
-        globe.current.destroy();
+        globe.current?.destroy();
       };
     }
 
-  }, [windowSize, canvasSize]);
+  }, [canvasSize]);
+
 
   useEffect(() => {
-    if (canvasSize != 0 && props.pins) {
+    if (canvasSize != 0 && props.pins?.length) {
       const pinSize = props.pins[0].type == TaskPin ? { w: 220, h: 90 } : props.pins[0].type == AvatarPin ? {
         w: 60,
         h: 76,

@@ -11,9 +11,11 @@ import { DashboardWrapper } from './DashboardWrapper';
 import { TeamMembers } from '../cards/TeamMembers';
 import { tasksData } from './tasks-data';
 import { TaskPin } from '../earth/TaskPin';
+import { usePin } from 'contexts/pin';
+import { set } from 'react-hook-form';
 
 const Tasks = (): JSX.Element => {
-
+  const { setPins } = usePin();
   const windowSize: Size = useWindowSize();
   const [canvasSize, setCanvasSize] = useState<number>(0);
 
@@ -25,14 +27,19 @@ const Tasks = (): JSX.Element => {
 
   }, [windowSize, canvasSize]);
 
-  const taskPins = tasksData.all.map((task, index) => {
-    return <TaskPin key={index} taskID={task.taskID} difficulty={task.difficulty} title={task.title}
-                    description={task.description} />;
-  });
+
+  useEffect(() => {
+    const taskPins = tasksData.all.map((task, index) => {
+      return <TaskPin key={index} taskID={task.taskID} difficulty={task.difficulty} title={task.title}
+                      description={task.description} />;
+    });
+    setPins(taskPins);
+    return () => setPins([]);
+  }, []);
 
   return (
     <>
-      <Earth pins={taskPins} status='tasks' />
+      {/*<Earth pins={taskPins} status='tasks' />*/}
       <DashboardWrapper style={{ width: '30%', right: 0 }}>
         <Row style={{ height: '100%' }}>
           <Col md={22} className='col-align-evenly' style={{ paddingRight: 75 }}>
