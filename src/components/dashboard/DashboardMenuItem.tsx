@@ -12,7 +12,7 @@ export const DashboardMenuItem = (props: DashboardMenuItemProps): JSX.Element =>
     const navigate = useNavigate()
 
     return (
-        <Menu.Item onClick={() => navigate(props.route)} {...props}>
+        <Menu.Item onClick={() => navigate(props.route, { })} {...props}>
             {props.children}
         </Menu.Item>
     )

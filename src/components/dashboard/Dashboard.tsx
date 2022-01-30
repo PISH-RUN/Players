@@ -17,8 +17,10 @@ import { AverageSpeed } from '../cards/AverageSpeed';
 import { HorizontalWrapper } from '../common/HorizontalWrapper';
 import { DashboardWrapper } from './DashboardWrapper';
 import { useParticipant, useStatsList, useTasksList } from '../../hooks';
+import { usePin } from '../../contexts/pin';
 
 const Dashboard = (): JSX.Element => {
+  const { setPins } = usePin();
   const { data: participant, isLoading } = useParticipant();
   const { data: tasks } = useTasksList();
   const { data: stats } = useStatsList();
@@ -44,7 +46,6 @@ const Dashboard = (): JSX.Element => {
 
   return (
     <>
-      <Earth status="dashboard" />
       <DashboardWrapper>
         <Row style={{ height: '100%' }}>
           <Col md={11} className="col-align-evenly" style={{ paddingRight: 40 }}>
