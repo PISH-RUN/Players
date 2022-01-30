@@ -60,7 +60,10 @@ const Dashboard = (): JSX.Element => {
                 bad
                 percent={
                   !!stats?.data?.participants.absent
-                    ? (stats?.data?.participants.absent / stats?.data?.participants.total) * 100
+                    ? parseInt(
+                        ((stats?.data?.participants.absent / stats?.data?.participants.total) * 100).toString(),
+                        10
+                      )
                     : 0
                 }
                 count={stats?.data?.participants.absent ? stats?.data?.participants.absent.toString() : '0'}
