@@ -9,10 +9,13 @@ import { DashboardWrapper } from './DashboardWrapper';
 import { usersData } from './users-data';
 import { AvatarPin } from '../earth/AvatarPin';
 import { usePin } from '../../contexts/pin';
-import { set } from 'react-hook-form';
+import { useParticipant } from 'hooks/participants';
 
 const Users = (): JSX.Element => {
     const { setPins } = usePin();
+    const { data: participants } = useParticipant();
+
+    // console.log(participants);
 
     const windowSize: Size = useWindowSize()
     const [canvasSize, setCanvasSize] = useState<number>(0)
@@ -43,14 +46,14 @@ const Users = (): JSX.Element => {
         { label: 'غایبین', value: 'absent' },
     ];
 
-    const userPins = data.map((user,index) => {
-        return <AvatarPin key={index} userID={user.id} name={user.name} avatar={user.avatar} disabled={!user.present} />
-    });
 
     useEffect(() => {
+        const userPins = data.map((user,index) => {
+            return <AvatarPin key={index} userID={user.id} name={user.name} avatar={user.avatar} disabled={!user.present} />
+        });
         setPins(userPins);
         return () => setPins([]);
-    }, [userPins])
+    }, [])
 
 
     return (

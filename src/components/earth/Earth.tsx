@@ -62,7 +62,6 @@ export const Earth = (props: EarthProps): JSX.Element => {
     if (windowSize.width && windowSize.height) {
       setTimeout(() => {
         let phi = 4;
-        console.log('render', canvasSize);
         globe.current = createGlobe(canvasRef.current, {
           devicePixelRatio: 2,
           width: canvasSize * 2,
@@ -86,10 +85,11 @@ export const Earth = (props: EarthProps): JSX.Element => {
           //   }
           // },
         });
+        window.setTimeout(() => globe.current?.toggle(false), 500)
+
       }, 100);
 
       return () => {
-        console.log('destroy', globe.current);
         globe.current?.destroy();
       };
     }
