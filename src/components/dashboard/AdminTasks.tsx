@@ -12,7 +12,7 @@ import { TeamMembers } from '../cards/TeamMembers';
 import { tasksData } from './tasks-data';
 import { AdminTaskPin } from '../earth/AdminTaskPin';
 
-export const AdminTasks = (): JSX.Element => {
+const AdminTasks = (): JSX.Element => {
 
     const windowSize: Size = useWindowSize()
     const [canvasSize, setCanvasSize] = useState<number>(0)
@@ -74,3 +74,5 @@ export const AdminTasks = (): JSX.Element => {
         </>
     )
 }
+
+export default AdminTasks;

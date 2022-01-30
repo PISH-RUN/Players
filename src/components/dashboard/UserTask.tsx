@@ -8,7 +8,7 @@ import { TaskStopWatch } from '../task-stopwatch/TaskStopWatch';
 import { DashboardWrapper } from './DashboardWrapper';
 
 
-export const UserTask = (): JSX.Element => {
+const UserTask = (): JSX.Element => {
     return (
         <DashboardWrapper>
             <Row style={{ height: "100%" }} justify="space-around">
@@ -32,3 +32,5 @@ export const UserTask = (): JSX.Element => {
         </DashboardWrapper>
     )
 }
+
+export default UserTask;

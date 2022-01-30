@@ -9,7 +9,7 @@ import { DashboardWrapper } from './DashboardWrapper';
 import { usersData } from './users-data';
 import { AvatarPin } from '../earth/AvatarPin';
 
-export const Users = (): JSX.Element => {
+const Users = (): JSX.Element => {
 
     const windowSize: Size = useWindowSize()
     const [canvasSize, setCanvasSize] = useState<number>(0)
@@ -78,3 +78,5 @@ export const Users = (): JSX.Element => {
         </>
     )
 }
+
+export default Users;
