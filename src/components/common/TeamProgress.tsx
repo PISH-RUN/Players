@@ -18,7 +18,7 @@ export const TeamProgress = (props: TeamProgressProps): JSX.Element => {
 
   useEffect(() => {
     setStyle({ backgroundColor: color, width: `${percentage}%` });
-  }, []);
+  }, [percentage]);
 
   return (
     <div className="team-progress">

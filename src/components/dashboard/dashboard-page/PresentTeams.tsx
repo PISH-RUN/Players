@@ -23,7 +23,9 @@ export const PresentTeams: FC<PresentTeamsProps> = ({ teams }) => {
               key={team.id}
               color={teamsColor[index]}
               count={team.participants}
-              percentage={team.tasks.total > 0 ? (team.tasks.done / team.tasks.total).toString() : '0'}
+              percentage={
+                team.tasks.total > 0 ? ((team.tasks.done / team.tasks.total) * 100).toFixed(1).toString() : '0'
+              }
               text={team.name}
               icon={<Icon />}
             />
