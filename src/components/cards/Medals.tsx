@@ -21,28 +21,40 @@ export const Medals = (): JSX.Element => {
     );
   }
 
+  const { light, rocket, jet } = data.data?.medals;
+
+  if (light === 1 && rocket === 0 && jet === 0) {
+    return <></>;
+  }
+
   return (
     <Card>
       <CardCustomTitle title="مدال‌های شما" />
       <Row gutter={[0, 10]}>
-        <Col xs={24}>
-          <IconWithText
-            imgSrc={SunImage}
-            text={`${data.data?.medals.light} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
-          />
-        </Col>
-        <Col xs={24}>
-          <IconWithText
-            imgSrc={P2Image}
-            text={`${data.data?.medals.rocket} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
-          />
-        </Col>
-        <Col xs={24}>
-          <IconWithText
-            imgSrc={RacketImage}
-            text={`${data.data?.medals.jet} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
-          />
-        </Col>
+        {data.data?.medals.light > 0 && (
+          <Col xs={24}>
+            <IconWithText
+              imgSrc={SunImage}
+              text={`${data.data?.medals.light} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
+            />
+          </Col>
+        )}
+        {data.data?.medals.rocket > 0 && (
+          <Col xs={24}>
+            <IconWithText
+              imgSrc={P2Image}
+              text={`${data.data?.medals.rocket} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
+            />
+          </Col>
+        )}
+        {data.data?.medals.jet > 0 && (
+          <Col xs={24}>
+            <IconWithText
+              imgSrc={RacketImage}
+              text={`${data.data?.medals.jet} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
+            />
+          </Col>
+        )}
       </Row>
     </Card>
   );

@@ -35,7 +35,15 @@ const Dashboard = (): JSX.Element => {
   }, [windowSize, canvasSize]);
 
   const startAt = moment(new Date(participant?.data?.team?.event?.startAt)).valueOf();
+  const endAt = moment(new Date(participant?.data?.team?.event?.endAt)).valueOf();
   const now = moment().valueOf();
+  const EventDuration = parseInt(
+    moment
+      .duration(endAt - startAt)
+      .asMinutes()
+      .toString(),
+    10
+  );
   const passedTime = parseInt(
     moment
       .duration(now - startAt)
@@ -43,6 +51,8 @@ const Dashboard = (): JSX.Element => {
       .toString(),
     10
   );
+
+  const participants = stats?.data?.participants || {};
 
   return (
     <>
@@ -52,29 +62,27 @@ const Dashboard = (): JSX.Element => {
             <MultiTitle
               title="خلاصه آمار سفر"
               subTitle="همسفرمان ما"
-              description={`${persianJs(stats?.data?.participants?.total || '0').digitsToWords()} مسافر - ${
-                stats?.data?.participants?.total
-              }`}
+              description={`${persianJs(participants?.total || '0').digitsToWords()} مسافر - ${participants?.total}`}
             />
             <HorizontalWrapper>
               <ProgressBar
                 bad
                 percent={
-                  !!stats?.data?.participants.absent
-                    ? parseInt(
-                        ((stats?.data?.participants.absent / stats?.data?.participants.total) * 100).toString(),
-                        10
-                      )
+                  !!participants.absent
+                    ? parseInt(((participants.absent / participants.total) * 100).toString(), 10)
                     : 0
                 }
-                count={stats?.data?.participants.absent ? stats?.data?.participants.absent.toString() : '0'}
+                count={participants.absent ? participants.absent.toString() : '0'}
                 text="جا مانده‌ها"
                 color="#FF9065"
               />
               <ProgressBar
                 percent={
                   stats?.data?.team.participants.present
-                    ? stats?.data?.team.participants.present / stats?.data?.team.participants.total
+                    ? parseInt(
+                        (stats?.data?.team.participants.present / stats?.data?.team.participants.total) * 100 + '',
+                        10
+                      )
                     : 0
                 }
                 count={stats?.data?.team.participants.total}
@@ -93,6 +101,8 @@ const Dashboard = (): JSX.Element => {
             <AverageSpeed
               successRate={25}
               passedTime={passedTime}
+              speedRate={passedTime / EventDuration}
+              time={1 - passedTime / EventDuration}
               title="میانگین سرعت حرکت"
               subTitle="چقدر از برنامه جلو هستیم"
             />
