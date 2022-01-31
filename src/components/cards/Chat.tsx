@@ -19,7 +19,7 @@ type Message = {
 
 export const Chat = (props: { taskId: any }): JSX.Element => {
   const [form] = Form.useForm();
-  const { data, refetch } = useChats(1);
+  const { data, refetch } = useChats(props.taskId);
   const { participant } = useAuth();
   const { mutateAsync: sendMessage } = useSendMessage();
   const { data: manager, isLoading } = useTeamManager(participant?.team?.id, {
