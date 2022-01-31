@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Conversation } from '../chat/Conversation';
 import { Footer } from '../chat/Footer';
 import { Card } from '../common/Card';
 import './styles/Chat.less';
 import { Form } from 'antd';
-import moment from 'jalali-moment';
 import { useChats, useSendMessage } from '../../hooks/chat';
-import { useParticipant } from '../../hooks';
 import { useTeamManager } from '../../hooks/team';
 import { useAuth } from '../../contexts/auth/auth';
+import { useQueryClient } from 'react-query';
 
 type Message = {
   text: string;
@@ -17,17 +16,23 @@ type Message = {
   date: string;
 };
 
+let chatTimeout: any;
+
 export const Chat = (props: { taskId: any }): JSX.Element => {
   const [form] = Form.useForm();
-  const { data, refetch } = useChats(props.taskId);
+  const { data, isFetching: chatsLoading, isSuccess, refetch } = useChats(props.taskId);
   const { participant } = useAuth();
+  const queryClient = useQueryClient();
   const { mutateAsync: sendMessage } = useSendMessage();
   const { data: manager, isLoading } = useTeamManager(participant?.team?.id, {
-    enabled: !!participant,
+    enabled: !!participant?.team?.id,
   });
 
   const handleSendMessage = async () => {
     let obj = form.getFieldsValue();
+    if (!obj.text || obj.text.trim() === '') {
+      return;
+    }
     await sendMessage({
       data: {
         participant: participant.id,
@@ -38,6 +43,20 @@ export const Chat = (props: { taskId: any }): JSX.Element => {
     form.resetFields();
     await refetch();
   };
+
+  useEffect(() => {
+    if (chatsLoading) {
+      return;
+    }
+
+    chatTimeout = setTimeout(() => {
+      queryClient.invalidateQueries('chats');
+    }, 1000);
+
+    return () => {
+      clearTimeout(chatTimeout);
+    };
+  }, [chatsLoading]);
 
   if (isLoading) {
     return <></>;
