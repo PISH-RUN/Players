@@ -45,6 +45,11 @@ export const routes: Array<RouteType> = [
         exact: true,
         component: lazy(() => import('../components/dashboard/UserTask')),
       },
+      {
+        path: '/dashboard/settings',
+        exact: true,
+        component: lazy(() => import('../pages/setting')),
+      },
     ],
   },
 ];

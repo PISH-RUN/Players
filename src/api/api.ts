@@ -9,6 +9,7 @@ export const api = {
     },
     participant: {
         list: () => baseRequest('/participant', {method: 'get', needAuthenticated: true}),
+        update: (data: any) => baseRequest('/users/me', {data, method: 'put', needAuthenticated: true}),
     },
     tasks: {
         list: () => baseRequest('/tasks', {method: 'get', needAuthenticated: true}),
