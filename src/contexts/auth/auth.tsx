@@ -38,9 +38,7 @@ const isManager = participant?.role === 'manager';
   }, [cookies]);
 
   const setLogout = () => {
-    removeCookie('token');
-    removeCookie('user');
-    setState((prevState) => ({ ...prevState, isLogin: false }));
+    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
     location.href = '/';
   };
 

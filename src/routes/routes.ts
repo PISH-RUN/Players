@@ -41,7 +41,7 @@ export const routes: Array<RouteType> = [
         component: lazy(() => import('../components/dashboard/AdminTasks')),
       },
       {
-        path: '/dashboard/task/:taskId',
+        path: '/dashboard/tasks/:taskId',
         exact: true,
         component: lazy(() => import('../components/dashboard/UserTask')),
       },
