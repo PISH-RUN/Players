@@ -30,23 +30,18 @@ const Tasks = (): JSX.Element => {
 
   const { users_permissions_user: me, role, team, seat } = participant || {};
 
-
-  const tasks = tasksData1?.data?.map((t: any) => {
-    return ({ ...t.attributes, id: t.id });
-  }) || [];
+  const tasks =
+    tasksData1?.data?.map((t: any) => {
+      return { ...t.attributes, id: t.id };
+    }) || [];
 
   const startedTasks = tasks.filter((task: any) => task.status === 'inprogress');
 
-
-
   useEffect(() => {
-
     if (windowSize.width && windowSize.height) {
-      setCanvasSize((windowSize.width < windowSize.height ? windowSize.width * 0.85 : windowSize.height * 0.85));
+      setCanvasSize(windowSize.width < windowSize.height ? windowSize.width * 0.85 : windowSize.height * 0.85);
     }
-
   }, [windowSize, canvasSize]);
-
 
   useEffect(() => {
     if (tasks?.length === 0) {
@@ -56,7 +51,6 @@ const Tasks = (): JSX.Element => {
     const taskPins = tasks.map((task: any, index: number) => {
       return <TaskPin key={index} taskID={task.id} difficulty={task.level} title={task.title} />;
     });
-
 
     setPins(taskPins);
     return () => setPins([]);
@@ -83,7 +77,7 @@ const Tasks = (): JSX.Element => {
   );
 
   if (startedTasks.length > 0) {
-    navigate(`/dashboard/tasks/${startedTasks[0].id}`, { replace: true })
+    navigate(`/dashboard/tasks/${startedTasks[0].id}`, { replace: true });
     return <></>;
   }
 
@@ -96,18 +90,26 @@ const Tasks = (): JSX.Element => {
       {/*<Earth pins={taskPins} status='tasks' />*/}
       <DashboardWrapper style={{ width: '30%', right: 0 }}>
         <Row style={{ height: '100%' }}>
-          <Col md={22} className='col-align-evenly' style={{ paddingRight: 75 }}>
-
-            <MultiTitle title={`${me?.firstName} عزیز خوش آمدید`} subTitle={userRole} description={`سالن ${seat?.hall?.name}، صندلی ${seat?.slug}`} />
-            <AverageSpeed passedTime={passedTime} speedRate={passedTime / EventDuration} time={1 - (passedTime / EventDuration)} rmBackground title='میانگین سرعت حرکت شما'
-                          subTitle='چقدر از برنامه جلو هستید' />
-            <AllTasks title='تعداد وظایف شما' subTitle='وضعیت فعالیت های انجام گرفته شما' tasks={stats?.data?.tasks} />
+          <Col md={22} className="col-align-evenly" style={{ paddingRight: 75 }}>
+            <MultiTitle
+              title={`${me?.firstName} عزیز خوش آمدید`}
+              subTitle={userRole}
+              description={`سالن ${seat?.hall?.name}، صندلی ${seat?.slug}`}
+            />
+            <AverageSpeed
+              passedTime={passedTime}
+              speedRate={passedTime / EventDuration}
+              time={1 - passedTime / EventDuration}
+              rmBackground
+              title="میانگین سرعت حرکت شما"
+              subTitle="چقدر از برنامه جلو هستید"
+            />
+            <AllTasks title="تعداد وظایف شما" subTitle="وضعیت فعالیت های انجام گرفته شما" tasks={stats?.data?.tasks} />
             {/*{ isManager ? <TeamMembers /> : <Medals />} /!*or Medals (If you are user ) *!/*/}
             <Medals />
           </Col>
         </Row>
       </DashboardWrapper>
-
     </>
   );
 };
