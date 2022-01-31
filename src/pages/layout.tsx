@@ -29,7 +29,7 @@ const EarthStatuses: Array<EarthStatusProps> = [{
 const EarthContainer = () => {
   const { pathname } = useLocation();
   const { pins } = usePin();
-  const earthStatus = EarthStatuses.find(s => pathname.indexOf(s.path) > -1)?.status;
+  const earthStatus = EarthStatuses.find(s => pathname.indexOf(s.path) > -1 && pathname.split('/').length < 4)?.status;
 
   return !!earthStatus ? <Earth status={earthStatus} pins={pins} /> : <></>;
 };

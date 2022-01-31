@@ -17,8 +17,10 @@ import { Medals } from '../cards/Medals';
 import MarkDown from 'react-markdown';
 import moment from 'jalali-moment';
 import { useStatsList } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 const Tasks = (): JSX.Element => {
+  const navigate = useNavigate();
   const { setPins } = usePin();
   const { participant, isManager } = useAuth();
   const windowSize: Size = useWindowSize();
@@ -32,6 +34,9 @@ const Tasks = (): JSX.Element => {
   const tasks = tasksData1?.data?.map((t: any) => {
     return ({ ...t.attributes, id: t.id });
   }) || [];
+
+  const startedTasks = tasks.filter((task: any) => task.status === 'inprogress');
+
 
 
   useEffect(() => {
@@ -76,6 +81,11 @@ const Tasks = (): JSX.Element => {
       .toString(),
     10
   );
+
+  if (startedTasks.length > 0) {
+    navigate(`/dashboard/tasks/${startedTasks[0].id}`, { replace: true })
+    return <></>;
+  }
 
   if (isLoading) {
     return <></>;
