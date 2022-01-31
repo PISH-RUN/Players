@@ -25,10 +25,10 @@ const Setting: FC = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { data: participant, isLoading, refetch } = useParticipant();
-  const { mutateAsync: updateMe } = useUpdateParticipant({
+  const { mutateAsync: updateMe, isLoading: isUpdateLoading } = useUpdateParticipant({
     onSuccess: (res: any) => {
       navigate('/dashboard/main');
-      queryClient.invalidateQueries('participants');
+      queryClient.invalidateQueries('participants', {}, {});
       notification.success({
         message: 'اطلاعات شما بروز شد',
         placement: 'bottomLeft',
@@ -76,7 +76,7 @@ const Setting: FC = () => {
             className='page-header'
             title='حساب کاربری'
             extra={
-              <Button htmlType='submit' type='primary'>
+              <Button htmlType='submit' type='primary' loading={isUpdateLoading}>
                 ذخیره
               </Button>
             }

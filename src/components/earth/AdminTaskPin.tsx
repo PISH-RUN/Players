@@ -6,7 +6,8 @@ import { Pin, PinProps } from './Pin';
 
 interface AdminTaskPinProps extends PinProps {
     text: string
-    taskID: number
+    taskID: number,
+  suspended: boolean,
 }
 
 export const AdminTaskPin = (props: AdminTaskPinProps): JSX.Element => {

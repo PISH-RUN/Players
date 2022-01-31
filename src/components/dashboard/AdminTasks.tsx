@@ -52,7 +52,7 @@ const AdminTasks = (): JSX.Element => {
         }
 
         const taskPins = tasks.filter((t: any) => filterStatus === 'all' || t.status === filterStatus).map((task: any, index: number) => {
-            return <AdminTaskPin text={task.title} key={index} taskID={task.id} badgeCount={task.difficulty} type={task.status} />
+            return <AdminTaskPin text={task.title} key={index} taskID={task.id} badgeCount={task.difficulty} type={task.status} suspended={task.suspended} />
         })
         console.log(tasks);
 
