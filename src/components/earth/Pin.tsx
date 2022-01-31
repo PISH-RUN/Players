@@ -6,7 +6,7 @@ import './styles/Pin.less';
 export interface PinProps {
     children?: React.ReactNode
     position?: Position
-    type?: "todo" | "doing" | "done"
+    type?: "todo" | "doing" | "done" | 'failed'
     disabled?: boolean
     tooltip?: string
     badgeCount?: number

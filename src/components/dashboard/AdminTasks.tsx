@@ -22,9 +22,7 @@ const AdminTasks = (): JSX.Element => {
     const {data: team} = useTeam(participant?.team?.id, {
         enabled: !!participant
     });
-    console.log(team);
     const tasks = team?.data?.attributes.tasks.data.map((t: any) => ({id: t.id, ...t.attributes}));
-    console.log(tasks);
 
     const windowSize: Size = useWindowSize()
     const [canvasSize, setCanvasSize] = useState<number>(0)
@@ -56,6 +54,7 @@ const AdminTasks = (): JSX.Element => {
         const taskPins = tasks.filter((t: any) => filterStatus === 'all' || t.status === filterStatus).map((task: any, index: number) => {
             return <AdminTaskPin text={task.title} key={index} taskID={task.id} badgeCount={task.difficulty} type={task.status} />
         })
+        console.log(tasks);
 
         setPins(taskPins);
 
@@ -67,7 +66,6 @@ const AdminTasks = (): JSX.Element => {
         done: tasks?.filter((t:any) => t.status === 'done').length || 0,
         failed: tasks?.filter((t:any) => t.status === 'failed').length || 0
     }
-    console.log(taskStatus);
 
 
     return (
