@@ -31,8 +31,6 @@ const Setting: FC = () => {
 
   const me = participant?.data?.users_permissions_user;
 
-  console.log(moment.utc(new Date(me.birthdate)).format('jYYYY'));
-
   return (
     <Form
       onFinish={handleSubmit}
