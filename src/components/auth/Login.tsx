@@ -22,8 +22,10 @@ export const Login = (props: loginProps) => {
     const [form] = Form.useForm()
 
     const login = () => {
-        const obj = form.getFieldsValue()
-        sendCode(obj.phone);
+        let { phone } = form.getFieldsValue();
+        if (phone[0] === '0') phone = '+98' + phone.slice(1, phone.length);
+        else if (phone[0] === '9') phone = '+98' + phone;
+        sendCode(phone);
 
     }
     return (

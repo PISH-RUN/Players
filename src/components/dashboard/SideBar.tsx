@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Menu, Avatar } from 'antd';
+import { Layout, Menu, Avatar, Popover, Button } from 'antd';
 import {
   AppstoreOutlined,
   CheckSquareOutlined,
@@ -13,15 +13,20 @@ import { DashboardMenuItem } from './DashboardMenuItem';
 import './styles/SideBar.less';
 import { useAuth } from 'contexts/auth/auth';
 import { useLocation } from 'react-router-dom';
+import AvatarImage from 'public/images/avatar-sample.png';
 
 const { Sider } = Layout;
 
 const menuKeys = ['main', 'tasks', 'users', 'adminTasks', 'settings'];
 
 export const SideBar = (): JSX.Element => {
-  const { isManager } = useAuth();
+  const { isManager, participant, setLogout } = useAuth();
   const [selectedKey, setSelectedKey] = useState<string>('');
   const { pathname } = useLocation();
+
+  const { firstName, lastName } = participant?.users_permissions_user || {};
+
+  console.log(participant);
 
   useEffect(() => {
     if (pathname) {
@@ -29,51 +34,57 @@ export const SideBar = (): JSX.Element => {
     }
   }, [pathname]);
 
+  const logoutMenu = (
+    <Button type="link" onClick={() => setLogout()} key='1'>خروج</Button>
+  );
+
   return (
-    <Sider style={{ minHeight: '100vh' }} collapsed theme="light">
+    <Sider style={{ minHeight: '100vh' }} collapsed theme='light'>
       <Logo />
-      <Menu mode="inline" defaultSelectedKeys={['main']} selectedKeys={[selectedKey]}>
+      <Menu mode='inline' defaultSelectedKeys={['main']} selectedKeys={[selectedKey]}>
         <DashboardMenuItem
-          key="main"
+          key='main'
           icon={<AppstoreOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route="main"
+          route='main'
         >
           خلاصه آمار سفر
         </DashboardMenuItem>
         <DashboardMenuItem
-          key="tasks"
+          key='tasks'
           icon={<CheckSquareOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route="tasks"
+          route='tasks'
         >
           وظایف
         </DashboardMenuItem>
         <DashboardMenuItem
-          key="users"
+          key='users'
           icon={<UserOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route="users"
+          route='users'
         >
           همراهان سفر
         </DashboardMenuItem>
         {isManager && (
           <DashboardMenuItem
-            key="adminTasks"
+            key='adminTasks'
             icon={<SecurityScanOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-            route="adminTasks"
+            route='adminTasks'
           >
             تسک های تیم شما
           </DashboardMenuItem>
         )}
         <DashboardMenuItem
-          key="settings"
+          key='settings'
           icon={<SettingOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route="settings"
+          route='settings'
         >
           تنظیمات
         </DashboardMenuItem>
       </Menu>
-      <Menu mode="inline" selectable={false}>
+      <Menu mode='inline' selectable={false}>
         <Menu.Item icon={<BellOutlined style={{ fontSize: '18px' }} />} />
-        <Menu.Item className="avatar" icon={<Avatar src="https://joeschmoe.io/api/v1/random" />} />
+        <Popover placement='leftBottom' content={logoutMenu} trigger='click' title={`${firstName} ${lastName}`}>
+          <Menu.Item className='avatar' icon={<Avatar src={AvatarImage} />} />
+        </Popover>
       </Menu>
     </Sider>
   );
