@@ -2,7 +2,7 @@ import React from "react";
 
 
 export interface ImageBoxProps {
-    src: string
+    src: any
     className?: string
     style?: React.CSSProperties
     width?: string

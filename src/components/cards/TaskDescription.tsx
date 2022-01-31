@@ -1,31 +1,23 @@
-import { Button, Col, Row } from 'antd'
-import React from 'react'
-import { Card } from '../common/Card'
-import { ImageBox } from '../common/ImageBox'
-import { Title, Type } from '../common/Title'
+import { Button, Col, Row } from 'antd';
+import React from 'react';
+import { Card } from '../common/Card';
+import { ImageBox } from '../common/ImageBox';
+import { Title, Type } from '../common/Title';
+import imgExam from 'public/images/exam1.png';
 
 
 interface TaskDescriptionProps {
-    style?: React.CSSProperties
+  style?: React.CSSProperties,
+  description: any,
 }
 
 export const TaskDescription = (props: TaskDescriptionProps): JSX.Element => {
 
 
-
-
-
-    return (
-        <Card style={{...props.style}}>
-            <Title type={Type.MEDIUM} style={{ color: "#1890FF" }}>توضیح وظیفه</Title>
-            <Row gutter={[0, 7]} style={{ minHeight:"100%", maxHeight: "567px", overflowY: "scroll" }}>
-                <Col xs={24} style={{paddingLeft:10}}>
-                    <Title type={Type.P} >
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سواللورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                    </Title>
-                </Col>
-                <Col xs={24}><ImageBox src="/images/exam1.png" style={{width: "100%"}}/></Col>
-            </Row>
-        </Card>
-    )
-}
+  return (
+    <Card style={{ ...props.style }}>
+      <Title type={Type.MEDIUM} style={{ color: '#1890FF' }}>توضیح وظیفه</Title>
+      {props.description}
+    </Card>
+  );
+};

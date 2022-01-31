@@ -12,11 +12,16 @@ export const api = {
     },
     tasks: {
         list: () => baseRequest('/tasks', {method: 'get', needAuthenticated: true}),
+        get: (taskId:any) => baseRequest(`/tasks/${taskId}`, {method: 'get', needAuthenticated: true}),
+        start: (id: any) => baseRequest(`/tasks/${id}/start`, { method: 'get', needAuthenticated: true}),
+        finish: (id: any) => baseRequest(`/tasks/${id}/finish`, { method: 'get', needAuthenticated: true}),
+        suspend: (id: any) => baseRequest(`/tasks/${id}/suspend`, { method: 'get', needAuthenticated: true})
     },
     stats: {
         list: () => baseRequest('/stats', {method: 'get', needAuthenticated: true}),
     },
     team: {
         list: () => baseRequest('/teams?populate[participants]=*&pagination[page]=1&pagination[pageSize]=400', {method: 'get', needAuthenticated: true}),
+        get: (id: any) => baseRequest(`/teams/${id}?populate[tasks]=*&populate[participants]=*&pagination[page]=1&pagination[pageSize]=400`, {method: 'get', needAuthenticated: true}),
     }
 }

@@ -5,7 +5,7 @@ import './styles/CardCustomTitle.less';
 
 
 interface CardCustomTitleProps {
-    subTitle?: string,
+    subTitle?: string | JSX.Element,
     title : string,
     center?:boolean,
     subTitleStyle?: React.CSSProperties

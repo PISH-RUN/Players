@@ -21,6 +21,9 @@ const EarthStatuses: Array<EarthStatusProps> = [{
 }, {
   path: '/dashboard/users',
   status: 'persons',
+}, {
+  path: '/dashboard/adminTasks',
+  status: 'tasks',
 }];
 
 const EarthContainer = () => {

@@ -5,25 +5,37 @@ import { Earth } from '../earth/Earth';
 import { AllTasks } from '../cards/AllTasks';
 import '../../styles/const.less'
 import './styles/Dashboard.less'
+import './styles/User.less'
 import { MultiTitle } from '../common/MultiTitle';
 import { AverageSpeed } from '../cards/AverageSpeed';
 import { DashboardWrapper } from './DashboardWrapper';
 import { TeamMembers } from '../cards/TeamMembers';
 import { tasksData } from './tasks-data';
 import { AdminTaskPin } from '../earth/AdminTaskPin';
+import { useAuth } from 'contexts/auth/auth';
+import { useTeam } from 'hooks/team';
+import { usePin } from '../../contexts/pin';
 
 const AdminTasks = (): JSX.Element => {
+    const { setPins } = usePin();
+    const { participant } = useAuth();
+    const {data: team} = useTeam(participant?.team?.id, {
+        enabled: !!participant
+    });
+    console.log(team);
+    const tasks = team?.data?.attributes.tasks.data.map((t: any) => ({id: t.id, ...t.attributes}));
+    console.log(tasks);
 
     const windowSize: Size = useWindowSize()
     const [canvasSize, setCanvasSize] = useState<number>(0)
     const [data, setData] = useState<Array<{ [key: string]: any }>>(tasksData.all)
-    const [radioButton, setRadioButton] = useState<string>("all")
+    const [filterStatus, setFilterStatus] = useState<string>("all")
 
 
     const options = [
         { label: 'همه', value: 'all' },
         { label: 'انجام نشده', value: 'todo' },
-        { label: 'در حال انجام', value: 'doing' },
+        { label: 'در حال انجام', value: 'inprogress' },
         { label: 'انجام شده', value: 'done' },
     ];
 
@@ -35,20 +47,39 @@ const AdminTasks = (): JSX.Element => {
 
     }, [windowSize, canvasSize]);
 
-    const taskPins = data.map((task, index) => {
-        return <AdminTaskPin text={task.description} key={index} taskID={task.taskID} badgeCount={task.difficulty} type={task.status} />
-    })
+
+    useEffect(() => {
+        if (!tasks || tasks?.length === 0) {
+            return;
+        }
+
+        const taskPins = tasks.filter((t: any) => filterStatus === 'all' || t.status === filterStatus).map((task: any, index: number) => {
+            return <AdminTaskPin text={task.title} key={index} taskID={task.id} badgeCount={task.difficulty} type={task.status} />
+        })
+
+        setPins(taskPins);
+
+        return () => setPins([]);
+    }, [team, filterStatus]);
+
+    const taskStatus = {
+        total: tasks?.length || 0,
+        done: tasks?.filter((t:any) => t.status === 'done').length || 0,
+        failed: tasks?.filter((t:any) => t.status === 'failed').length || 0
+    }
+    console.log(taskStatus);
+
 
     return (
         <>
-            <Earth pins={taskPins} status="tasks" />
+            {/*<Earth pins={taskPins} status="tasks" />*/}
             <DashboardWrapper style={{ width: "30%", right: 0 }}>
                 <Row style={{height:"100%"}}>
                     <Col md={22} className="col-align-evenly" style={{ paddingRight: 75 }}>
 
                         <MultiTitle title="امیر عزیز خوش آمدید" subTitle="مدیریت محترم تیم فنی" description="سالن هاردتک" />
                         <AverageSpeed passedTime={2354} rmBackground title="میانگین سرعت تیم شما" subTitle="چقدر از برنامه جلو هستید" />
-                        <AllTasks title="تعداد وظایف تیم شما" subTitle="وضعیت فعالت های انجام گرفته شما" />
+                        <AllTasks title="تعداد وظایف تیم شما" subTitle="وضعیت فعالت های انجام گرفته شما" tasks={taskStatus} />
                         <TeamMembers /> {/*or Medals (If you are user ) */}
                     </Col>
                 </Row>
@@ -60,10 +91,10 @@ const AdminTasks = (): JSX.Element => {
                     size="large"
                     options={options}
                     onChange={(e) => {
-                        setRadioButton(e.target.value)
+                        setFilterStatus(e.target.value)
                         setData(tasksData[e.target.value])
                     }}
-                    value={radioButton}
+                    value={filterStatus}
                     optionType="button"
                 />
             </div>

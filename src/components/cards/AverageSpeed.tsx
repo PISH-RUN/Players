@@ -17,7 +17,6 @@ interface AverageSpeedProps {
 }
 
 export const AverageSpeed = (props: AverageSpeedProps): JSX.Element => {
-  console.log('successRate', props.successRate);
   return (
     <Card
       className="average-speed"

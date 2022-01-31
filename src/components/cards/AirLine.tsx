@@ -6,6 +6,8 @@ import { ImageBox } from '../common/ImageBox';
 import { Title, Type } from '../common/Title';
 import './styles/AirLine.less';
 import moment from 'jalali-moment';
+import ArrowImage from 'public/images/Arrow.png';
+import PlaneImage from 'public/images/plane.svg';
 
 interface LocationDetailsProps {
   origin?: boolean;
@@ -47,9 +49,9 @@ export const AirLine: FC<AirLineProps> = ({ participant }) => {
       <div className="flight-path">
         <LocationDetails location="برهوت" />
         <div className="avatars">
-          <ImageBox src="/images/Arrow 1.png" width="70" height="13" />
-          <ImageBox src="/images/plane.svg" width="37" height="32" />
-          <ImageBox src="/images/Arrow 1.png" width="70" height="13" />
+          <ImageBox src={ArrowImage} width="70" height="13" />
+          <ImageBox src={PlaneImage} width="37" height="32" />
+          <ImageBox src={ArrowImage} width="70" height="13" />
         </div>
         <LocationDetails origin location={team?.event.title} />
       </div>

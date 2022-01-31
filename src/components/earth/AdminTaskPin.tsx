@@ -14,7 +14,7 @@ export const AdminTaskPin = (props: AdminTaskPinProps): JSX.Element => {
     const navigate = useNavigate();
 
     const pinOnClick = () => {
-        navigate(`/dashboard/settings/${props.taskID}`)
+        navigate(`/dashboard/task/${props.taskID}`)
     }
 
     return (

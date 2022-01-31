@@ -19,8 +19,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const participant = participantData?.data || {};
 
-  const isManager = participant?.role === 'manager';
-  console.log(participant);
+const isManager = participant?.role === 'manager';
 
   const setLogin = (user: any) => {
     if (!!user.user && !!user.jwt) {
@@ -32,7 +31,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   useEffect(() => {
-    console.log(cookies);
     if (cookies?.token && cookies.token !== TOKEN) {
       TOKEN = cookies.token;
       setToken("Bearer " + TOKEN);

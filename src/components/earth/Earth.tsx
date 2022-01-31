@@ -87,7 +87,7 @@ export const Earth = (props: EarthProps): JSX.Element => {
         });
         window.setTimeout(() => globe.current?.toggle(false), 500)
 
-      }, 100);
+      }, 200);
 
       return () => {
         globe.current?.destroy();
@@ -110,7 +110,6 @@ export const Earth = (props: EarthProps): JSX.Element => {
   return (
     <>{(windowSize.width) &&
       <div style={{
-        overflow: 'hidden',
         position: 'relative',
         height: '100%',
         width: windowSize.width - 100,

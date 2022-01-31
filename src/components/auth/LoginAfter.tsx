@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { selectUserInfo, userPageSlice } from '../../redux/slices/user';
-import { PasswordInput } from '../common/inputs/PasswordInput';
+import { VerifyCodeInput } from '../common/inputs/VerifyCodeInput';
 import { Title, Type } from '../common/Title';
 import { useLogin } from '../../hooks/auth';
 import { useAuth } from '../../contexts/auth/auth';
+import AvatarImage from 'public/images/avatar-sample.png';
 
 interface LoginAfterProps {
   phone: string;
@@ -18,7 +19,7 @@ export const LoginAfter = ({ phone }: LoginAfterProps) => {
   const { mutate: login, isLoading } = useLogin({
     onSuccess: (res: any) => {
       setLogin(res);
-      navigate('/dashboard/tasks');
+      navigate('/dashboard/main');
       notification.success({
         message: 'خوش آمدید',
         placement: 'bottomLeft',
@@ -38,9 +39,9 @@ export const LoginAfter = ({ phone }: LoginAfterProps) => {
   const { setUserInfo } = userPageSlice.actions;
 
   const onFinish = () => {
-    const { password } = form.getFieldsValue();
+    const { token } = form.getFieldsValue();
     login({
-      token: password,
+      token: token,
       mobile: phone,
     });
     return;
@@ -60,13 +61,13 @@ export const LoginAfter = ({ phone }: LoginAfterProps) => {
 
   return (
     <Form form={form} onFinish={onFinish}>
-      <Avatar size={72} src="/images/avatar-sample.png" />
+      <Avatar size={72} src={AvatarImage} />
       <Title type={Type.THIN} style={{ fontSize: 16, margin: '16px auto' }}>
         لطفا کد ورود ارسالی را وارد نمایید
       </Title>
       <Row gutter={[10, 10]}>
         <Col xs={24}>
-          <PasswordInput placeholder="کد ورودیه" required />
+          <VerifyCodeInput placeholder="کد ورودیه" required />
         </Col>
         <Col sm={24} xs={24}>
           <Button size="large" htmlType="submit" style={{ width: '100%' }} loading={isLoading} type="primary">

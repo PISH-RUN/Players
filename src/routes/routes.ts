@@ -11,6 +11,11 @@ export const routes: Array<RouteType> = [
     component: lazy(() => import('../pages/auth')),
   },
   {
+    path: '/auth',
+    exact: true,
+    component: lazy(() => import('../pages/auth')),
+  },
+  {
     path: '/dashboard',
     component: lazy(() => import('../pages/layout')),
     isPrivate: true,
@@ -36,7 +41,7 @@ export const routes: Array<RouteType> = [
         component: lazy(() => import('../components/dashboard/AdminTasks')),
       },
       {
-        path: '/dashboard/settings',
+        path: '/dashboard/task/:taskId',
         exact: true,
         component: lazy(() => import('../components/dashboard/UserTask')),
       },

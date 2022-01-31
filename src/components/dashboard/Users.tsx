@@ -48,7 +48,7 @@ const Users = (): JSX.Element => {
   let allUsers:Array<any> = [];
 
   teams.filter((team: any) => attribute === 'all' || team.attributes.name === attribute).map((team: any) => {
-    allUsers = [...allUsers, ...team.attributes.participants.data];
+    allUsers = [...allUsers, ...team.attributes.participants?.data];
     return team;
   });
 

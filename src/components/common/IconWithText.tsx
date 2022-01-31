@@ -5,7 +5,7 @@ import { Title, Type } from "./Title";
 
 
 interface IconWithTextProps {
-    imgSrc:string,
+    imgSrc: any,
     text?: string
 }
 
