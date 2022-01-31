@@ -13,10 +13,12 @@ export const api = {
     },
     tasks: {
         list: () => baseRequest('/tasks', {method: 'get', needAuthenticated: true}),
-        get: (taskId:any) => baseRequest(`/tasks/${taskId}`, {method: 'get', needAuthenticated: true}),
-        start: (id: any) => baseRequest(`/tasks/${id}/start`, { method: 'get', needAuthenticated: true}),
-        finish: (id: any) => baseRequest(`/tasks/${id}/finish`, { method: 'get', needAuthenticated: true}),
-        suspend: (id: any) => baseRequest(`/tasks/${id}/suspend`, { method: 'get', needAuthenticated: true})
+        get: (taskId:any) => baseRequest(`/tasks/${taskId}?populate[link]=*`, {method: 'get', needAuthenticated: true}),
+        start: (id: any) => baseRequest(`/tasks/${id}/start`, { method: 'post', needAuthenticated: true}),
+        success: (id: any) => baseRequest(`/tasks/${id}/finish`, { method: 'post', needAuthenticated: true}),
+        fail: (id: any) => baseRequest(`/tasks/${id}/fail`, { method: 'post', needAuthenticated: true}),
+        suspend: (id: any) => baseRequest(`/tasks/${id}/suspend`, { method: 'post', needAuthenticated: true}),
+        unsuspend: (id: any) => baseRequest(`/tasks/${id}/unsuspend`, { method: 'post', needAuthenticated: true})
     },
     stats: {
         list: () => baseRequest('/stats', {method: 'get', needAuthenticated: true}),

@@ -38,11 +38,11 @@
 }
 
 .pin.done {
-    background-color: #FF9065;
+    background-color: #00B928;
     color: #FFFFFF;
 }
 .pin.done:after {
-    border-top-color: #FF9065;
+    border-top-color: #00B928;
 }
 
 .pin.doing {
@@ -62,6 +62,15 @@
     border-top-color: #FFFFFF;
 }
 
+.pin.failed {
+    background-color: #FF9065;
+    color: #fff;
+    line-height:0;
+}
+.pin.failed:after {
+    border-top-color: #FF9065;
+}
+
 .pin.disabled {
     background-color: #8d8b9c;
     filter: grayscale(1) drop-shadow(1px 20px 4px rgba(0, 0, 0, 0.116));
@@ -70,4 +79,5 @@
 .pin.disabled:after {
     border-top-color: #8d8b9c;
 }
+
 

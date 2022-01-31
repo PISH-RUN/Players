@@ -21,11 +21,11 @@ const priorities: prioritiesType = {
 
 const UserTask = (): JSX.Element => {
   const { taskId } = useParams();
+
   const { data: taskdata } = useTask(taskId);
 
   const task = !!taskdata?.data?.attributes ? { ...taskdata?.data?.attributes, id: taskdata?.data?.id } : {};
 
-  console.log(task);
   if (!taskdata)
     return <></>;
 
@@ -37,14 +37,21 @@ const UserTask = (): JSX.Element => {
         </Col>
         <Col md={11} style={{ textAlign: 'center' }} className='col-align-evenly'>
 
-          <Title type={Type.BOLD} style={{ textAlign: 'center' }}>عنوان وظیفه : راه اندازی سرور</Title>
-          <TaskStopWatch duration={task.estimation} importance={priorities[task.priority] || ''} difficultyMultiplier={task.level} id={task.id} suspended={task.suspended} />
-
+          <Title type={Type.BOLD} style={{ textAlign: 'center' }}>عنوان وظیفه : {task.title}</Title>
+          <TaskStopWatch duration={task.estimation}
+                         importance={priorities[task.priority] || ''}
+                         difficultyMultiplier={task.level}
+                         id={task.id}
+                         suspended={task.suspended}
+                         beganAt={task.beganAt}
+                         taskStatus={task.status}
+                         finishedAt={task.finishedAt}
+          />
 
         </Col>
         <Col md={6} className='col-align-evenly' style={{ paddingTop: 20, paddingLeft: 50 }}>
 
-          <Actions />
+          <Actions links={task.link} />
           <Chat />
 
         </Col>
