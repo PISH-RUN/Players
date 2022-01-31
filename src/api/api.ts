@@ -26,5 +26,10 @@ export const api = {
     team: {
         list: () => baseRequest('/teams?populate[participants]=*&pagination[page]=1&pagination[pageSize]=400', {method: 'get', needAuthenticated: true}),
         get: (id: any) => baseRequest(`/teams/${id}?populate[tasks]=*&populate[participants]=*&pagination[page]=1&pagination[pageSize]=400`, {method: 'get', needAuthenticated: true}),
-    }
+        getManager: (id: any) => baseRequest(`/team/${id}/manager`, {method: 'get', needAuthenticated: true}),
+    },
+    chat: {
+        list: (taskId: any) => baseRequest(`/tasks/${taskId}/discussions`, {method: 'get', needAuthenticated: true}),
+        send: (data: any) => baseRequest('/discussions', {data, method: 'post', needAuthenticated: true}),
+    },
 }
