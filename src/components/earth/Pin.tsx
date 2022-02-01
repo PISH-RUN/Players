@@ -26,12 +26,11 @@ export const Pin = (props: PinProps): JSX.Element => {
           top: props.position ? props.position.y : '50%',
         }}
         onClick={props.onClick}
-        className={`pin ${props.disabled ? 'disabled ' : ''}${props.type ? props.type : 'todo'} ${props.suspended && 'suspended'}`}
+        className={`pin ${props.className} ${props.disabled ? 'disabled ' : ''}${props.type ? props.type : 'todo'} ${props.suspended && 'suspended'}`}
       >
         <Badge count={props.badgeCount} overflowCount={99} style={{ backgroundColor: '#00B928' }}>
           {props.children}
         </Badge>
-
       </div>
     </Tooltip>
   );

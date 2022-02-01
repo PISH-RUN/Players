@@ -1,25 +1,67 @@
 .custom-radio {
-    width: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    bottom: 95px;
-    position: absolute;
-    @media screen and (max-width: 1650px) {
-        bottom: 70px;
-    }
-    .radio-btn {
-        .ant-radio-wrapper {
-            margin-left: 50px;
-            color: #fff;
-        }
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  bottom: 95px;
+  position: absolute;
+  @media screen and (max-width: 1650px) {
+    bottom: 70px;
+  }
 
-        .ant-radio-wrapper:last-child {
-            margin-left: 0px;
-        }
+  .radio-btn {
+    .ant-radio-wrapper {
+      margin-left: 50px;
+      color: #fff;
     }
-    .ant-radio-button-wrapper-checked span {
-        color: #fff!important;
+
+    .ant-radio-wrapper:last-child {
+      margin-left: 0px;
     }
+  }
+
+  .ant-radio-button-wrapper-checked span {
+    color: #fff !important;
+  }
+}
+
+.pin-status-green:not(.suspended) {
+  background: #00B928 !important;
+
+  &:after {
+    border-top-color: #00B928 !important;
+  }
+}
+
+.pin-status-blue:not(.suspended) {
+  background: #339AF0 !important;
+
+  &:after {
+    border-top-color: #339AF0 !important;
+  }
+}
+
+.pin-status-yellow:not(.suspended) {
+  background: #FFC426 !important;
+
+  &:after {
+    border-top-color: #FFC426 !important;
+  }
+}
+
+.pin-status-orange:not(.suspended) {
+  background: #FF9065 !important;
+
+  &:after {
+    border-top-color: #FF9065 !important;
+  }
+}
+
+.pin-status-red:not(.suspended) {
+  background: #F5222D !important;
+
+  &:after {
+    border-top-color: #F5222D !important;
+  }
 }
