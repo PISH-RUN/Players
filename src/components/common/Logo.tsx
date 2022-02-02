@@ -9,7 +9,7 @@ export const Logo = (props: { subject?: boolean }): JSX.Element => {
 
   return (
     <div className="logo-title">
-      <ImageBox src={LogoIcon} width="38" height="38" />
+      <ImageBox src={LogoIcon} width="38" />
       {subject && (
         <Title className="site-name" type={Type.THIN}>
           {' '}
