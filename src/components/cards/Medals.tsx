@@ -33,26 +33,17 @@ export const Medals = (): JSX.Element => {
       <Row gutter={[0, 10]}>
         {data.data?.medals.light > 0 && (
           <Col xs={24}>
-            <IconWithText
-              imgSrc={SunImage}
-              text={`${data.data?.medals.light} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
-            />
+            <IconWithText imgSrc={SunImage} text={`${data.data?.medals.light} مدال سریع‌تر از نور`} />
           </Col>
         )}
         {data.data?.medals.rocket > 0 && (
           <Col xs={24}>
-            <IconWithText
-              imgSrc={P2Image}
-              text={`${data.data?.medals.rocket} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
-            />
+            <IconWithText imgSrc={P2Image} text={`${data.data?.medals.rocket} مدال سریع‌تر از موشک`} />
           </Col>
         )}
         {data.data?.medals.jet > 0 && (
           <Col xs={24}>
-            <IconWithText
-              imgSrc={RacketImage}
-              text={`${data.data?.medals.jet} مدال طلای سریع‌تر از نور به ارزش ۶ کیلو طلا`}
-            />
+            <IconWithText imgSrc={RacketImage} text={`${data.data?.medals.jet} مدال سریع‌تر از جت`} />
           </Col>
         )}
       </Row>
