@@ -1,7 +1,6 @@
 # build environment
 FROM node:14.19.0-alpine as build
 WORKDIR /app
-RUN apk add g++ make python
 RUN apk add --no-cache git
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
