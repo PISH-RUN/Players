@@ -4,9 +4,9 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY yarn.lock ./
-RUN yarn i
+RUN yarn
 COPY . ./
-RUN yarn run build
+RUN yarn build
 
 # production environment
 FROM nginx:stable-alpine
