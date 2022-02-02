@@ -1,17 +1,17 @@
-FROM node:14.17.0-alpine as build-deps
-
-WORKDIR /usr/src/app
-RUN apk add g++ make python
-RUN apk add --no-cache git
-COPY package.json yarn.lock ./
-COPY packages packages
-RUN yarn install --pure-lockfile --no-progress
+# build environment
+FROM node:13.12.0-alpine as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm i
 COPY . ./
-RUN yarn build
+RUN npm run build
 
-# Stage 2 - the production environment
-FROM nginx:1.12-alpine
-COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 5000
+# production environment
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+# new
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
