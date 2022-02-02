@@ -3,7 +3,7 @@ import { useAuth } from 'contexts/auth/auth';
 // @ts-ignore
 import queryString, {StringifyOptions} from 'query-string';
 
-const SERVER_ADDRESS = process.env.REACT_APP_API_ADDRESS || 'https://beta.pish.run/api';
+const SERVER_ADDRESS = process.env.REACT_APP_API_ADDRESS || 'https://api.pish.run/api';
 
 const API = `${SERVER_ADDRESS}`;
 const TIMEOUT_DELAY = 1000000;
