@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
 import { Col, Row } from 'antd';
 import { Size, useWindowSize } from '../../hooks/window-size';
 import { AllTasks } from '../cards/AllTasks';
@@ -7,14 +8,11 @@ import './styles/Dashboard.less';
 import { MultiTitle } from '../common/MultiTitle';
 import { AverageSpeed } from '../cards/AverageSpeed';
 import { DashboardWrapper } from './DashboardWrapper';
-import { TeamMembers } from '../cards/TeamMembers';
-import { tasksData } from './tasks-data';
 import { TaskPin } from '../earth/TaskPin';
 import { usePin } from 'contexts/pin';
 import { useTasksList } from 'hooks/tasks';
 import { useAuth } from 'contexts/auth/auth';
 import { Medals } from '../cards/Medals';
-import MarkDown from 'react-markdown';
 import moment from 'jalali-moment';
 import { useStatsList } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
@@ -30,10 +28,27 @@ const Tasks = (): JSX.Element => {
 
   const { users_permissions_user: me, role, team, seat } = participant || {};
 
-  const tasks =
-    tasksData1?.data?.map((t: any) => {
-      return { ...t.attributes, id: t.id };
-    }) || [];
+  const getTasks: any = (tasks: any, order = 1) => {
+    const levelTasks = _.filter(tasks, { order });
+    const levelTodo = _.filter(levelTasks, { status: 'todo' });
+    if (levelTodo && levelTodo.length > 0) {
+      return levelTodo;
+    }
+
+    if (levelTasks && levelTasks.length > 0) {
+      return getTasks(tasks, order + 1);
+    }
+
+    return [];
+  };
+
+  const tasks = tasksData1?.data
+    ? getTasks(
+        tasksData1?.data?.map((t: any) => {
+          return { ...t.attributes, id: t.id };
+        })
+      )
+    : [];
 
   const startedTasks = tasks.filter((task: any) => task.status === 'inprogress');
 

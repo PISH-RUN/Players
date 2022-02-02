@@ -51,7 +51,7 @@ export const Chat = (props: { taskId: any }): JSX.Element => {
 
     chatTimeout = setTimeout(() => {
       queryClient.invalidateQueries('chats');
-    }, 30000);
+    }, 3000);
 
     return () => {
       clearTimeout(chatTimeout);

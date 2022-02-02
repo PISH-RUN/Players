@@ -1,102 +1,110 @@
 .air-line-card {
-    .flight-path {
-        display: flex;
-        justify-content: space-between;
+  .flight-path {
+    display: flex;
+    justify-content: space-between;
 
-        .avatars {
-            display: flex;
-            justify-content: space-between;
-            width: 57%;
+    .avatars {
+      display: flex;
+      justify-content: space-between;
+      width: 57%;
 
-            @media screen and (max-width: 1650px) {
-                width: 60%;
-            }
+      @media screen and (max-width: 1650px) {
+        width: 60%;
+      }
 
-            img:nth-child(1),
-            img:nth-child(3) {
-                margin-top: 15px;
+      img:nth-child(1),
+      img:nth-child(3) {
+        margin-top: 15px;
 
-                @media screen and (max-width: 1650px) {
-                    margin-top: 7px;
-                }
-            }
-
-            img:nth-child(2) {
-                margin-top: 5px;
-                margin-left: 5px;
-                margin-right: 5px;
-                @media screen and (max-width: 1650px) {
-                    margin-top: -1px;
-
-                }
-            }
+        @media screen and (max-width: 1650px) {
+          margin-top: 7px;
         }
+      }
 
-        .location {
-            text-align: center;
-
-            .bold {
-                margin-bottom: 5px;
-
-                @media screen and (max-width: 1650px) {
-                    font-size: 15px;
-                }
-            }
-
-            .paragraph {
-                @media screen and (max-width: 1650px) {
-                    font-size: 12px;
-                    margin-bottom: 10px;
-                }
-            }
+      img:nth-child(2) {
+        margin-top: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+        @media screen and (max-width: 1650px) {
+          margin-top: -1px;
 
         }
+      }
     }
 
-    .passenger {
-        .name {
-            .thin {
-                font-size: 14px;
-                margin-bottom: 6;
+    .location {
+      text-align: center;
 
-                @media screen and (max-width: 1650px) {
-                    font-size: 12px;
+      .bold {
+        margin-bottom: 5px;
 
-                }
-            }
-
-            .bold {
-                font-size: 18px;
-
-                @media screen and (max-width: 1650px) {
-                    font-size: 14px;
-                    margin-bottom: 8px;
-                }
-            }
+        @media screen and (max-width: 1650px) {
+          font-size: 15px;
         }
-        .paragraph{
-            font-size: 12px;
+      }
+
+      .paragraph {
+        @media screen and (max-width: 1650px) {
+          font-size: 12px;
+          margin-bottom: 10px;
         }
+      }
+
     }
+  }
+
+  .passenger {
+    .name {
+      .thin {
+        font-size: 14px;
+        margin-bottom: 6;
+
+        @media screen and (max-width: 1650px) {
+          font-size: 12px;
+
+        }
+      }
+
+      .bold {
+        font-size: 18px;
+
+        @media screen and (max-width: 1650px) {
+          font-size: 14px;
+          margin-bottom: 8px;
+        }
+      }
+    }
+
+    .paragraph {
+      font-size: 12px;
+    }
+  }
 }
 
 .flight-information {
-    .thin {
-        font-size: 12px;
-        margin-bottom: 6px;
+  .thin {
+    font-size: 12px;
+    margin-bottom: 6px;
 
-        @media screen and (max-width: 1650px) {
-            font-size: 10px;
-            margin-bottom: 5px;
-        }
+    @media screen and (max-width: 1650px) {
+      font-size: 10px;
+      margin-bottom: 5px;
     }
+  }
 
-    .bold {
-        font-size: 14px;
+  .bold {
+    font-size: 14px;
 
-        @media screen and (max-width: 1650px) {
-            font-size: 12px;
-            margin-bottom: 5px;
-        }
+    @media screen and (max-width: 1650px) {
+      font-size: 12px;
+      margin-bottom: 5px;
     }
+  }
+}
+
+.event-description {
+  max-height: 200px;
+  overflow: auto;
+  text-align: justify;
+  padding-left: 15px;
 }

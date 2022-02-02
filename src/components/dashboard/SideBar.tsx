@@ -35,55 +35,57 @@ export const SideBar = (): JSX.Element => {
   }, [pathname]);
 
   const logoutMenu = (
-    <Button type="link" onClick={() => setLogout()} key='1'>خروج</Button>
+    <Button type="link" onClick={() => setLogout()} key="1">
+      خروج
+    </Button>
   );
 
   return (
-    <Sider style={{ minHeight: '100vh' }} collapsed theme='light'>
+    <Sider style={{ minHeight: '100vh' }} collapsed theme="light">
       <Logo />
-      <Menu mode='inline' defaultSelectedKeys={['main']} selectedKeys={[selectedKey]}>
+      <Menu mode="inline" defaultSelectedKeys={['main']} selectedKeys={[selectedKey]}>
         <DashboardMenuItem
-          key='main'
+          key="main"
           icon={<AppstoreOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route='main'
+          route="main"
         >
           خلاصه آمار سفر
         </DashboardMenuItem>
         <DashboardMenuItem
-          key='tasks'
+          key="tasks"
           icon={<CheckSquareOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route='tasks'
+          route="tasks"
         >
           وظایف
         </DashboardMenuItem>
         <DashboardMenuItem
-          key='users'
+          key="users"
           icon={<UserOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route='users'
+          route="users"
         >
           همراهان سفر
         </DashboardMenuItem>
         {isManager && (
           <DashboardMenuItem
-            key='adminTasks'
+            key="adminTasks"
             icon={<SecurityScanOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-            route='adminTasks'
+            route="adminTasks"
           >
             تسک های تیم شما
           </DashboardMenuItem>
         )}
         <DashboardMenuItem
-          key='settings'
+          key="settings"
           icon={<SettingOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route='settings'
+          route="settings"
         >
           تنظیمات
         </DashboardMenuItem>
       </Menu>
-      <Menu mode='inline' selectable={false}>
+      <Menu mode="inline" selectable={false}>
         <Menu.Item icon={<BellOutlined style={{ fontSize: '18px' }} />} />
-        <Popover placement='leftBottom' content={logoutMenu} trigger='click' title={`${firstName} ${lastName}`}>
-          <Menu.Item className='avatar' icon={<Avatar src={AvatarImage} />} />
+        <Popover placement="leftBottom" content={logoutMenu} trigger="click" title={`${firstName} ${lastName}`}>
+          <Menu.Item className="avatar" icon={<Avatar src={AvatarImage} />} />
         </Popover>
       </Menu>
     </Sider>

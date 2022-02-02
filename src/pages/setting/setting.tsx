@@ -131,7 +131,7 @@ const Setting: FC = () => {
                   <Input style={{ width: 40 }} placeholder="روز" />
                 </Form.Item>
                 <Form.Item name="month" noStyle>
-                  <Input style={{ width: 40 }} placeholder="ماه" />
+                  <Input style={{ width: 50 }} placeholder="ماه" />
                 </Form.Item>
                 <Form.Item name="year" noStyle>
                   <Input style={{ width: 60 }} placeholder="سال" />

@@ -24,7 +24,7 @@ export const api = {
         list: () => baseRequest('/stats', {method: 'get', needAuthenticated: true}),
     },
     team: {
-        list: () => baseRequest('/teams?populate[participants]=*&pagination[page]=1&pagination[pageSize]=400', {method: 'get', needAuthenticated: true}),
+        list: (event: any) => baseRequest(`/teams?filters[event][id][$eq]=${event}&populate[participants]=*&pagination[page]=1&pagination[pageSize]=400`, {method: 'get', needAuthenticated: true}),
         get: (id: any) => baseRequest(`/teams/${id}?populate[tasks]=*&populate[participants]=*&pagination[page]=1&pagination[pageSize]=400`, {method: 'get', needAuthenticated: true}),
         getManager: (id: any) => baseRequest(`/team/${id}/manager`, {method: 'get', needAuthenticated: true}),
         getMembers: (id: any) => baseRequest(`/team/${id}/members`, {method: 'get', needAuthenticated: true}),

@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { api } from '../api';
 
-export const useTeams = () => useQuery('teams', () => api.team.list(), {});
+export const useTeams = (event: any, options: any) => useQuery('teams', () => api.team.list(event), options || {});
 
 export const useTeam = (id: any, options: any) => useQuery(['team', id], () => api.team.get(id), options);
 

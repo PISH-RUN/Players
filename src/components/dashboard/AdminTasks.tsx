@@ -72,7 +72,6 @@ const AdminTasks = (): JSX.Element => {
             text={task.title}
             key={index}
             taskID={task.id}
-            badgeCount={task.level}
             className={`pin-status-${state}`}
             suspended={task.suspended}
           />
@@ -98,7 +97,7 @@ const AdminTasks = (): JSX.Element => {
             <MultiTitle
               title={`${participant.users_permissions_user.firstName} عزیز خوش آمدید`}
               subTitle={`مدیریت محترم تیم ${participant.team.name}`}
-              description={`سالن ${participant.seat.hall.name}`}
+              description={`سالن ${participant.seat?.hall?.name}`}
             />
             <AverageSpeed
               passedTime={2354}

@@ -1,4 +1,4 @@
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Divider, Row } from 'antd';
 import ReactMarkdown from 'react-markdown';
 import React, { FC } from 'react';
 import { Card } from '../common/Card';
@@ -90,7 +90,10 @@ export const AirLine: FC<AirLineProps> = ({ participant }) => {
         </Col>
         <Col xs={24}>
           <Title type={Type.P} style={{ textAlign: 'justify' }}>
-            <ReactMarkdown>{team?.event.description}</ReactMarkdown>
+            <Divider />
+            <div className="event-description">
+              <ReactMarkdown>{team?.event.description}</ReactMarkdown>
+            </div>
           </Title>
         </Col>
         <Button size="large" type="primary" style={{ width: '100%', borderRadius: 5 }}>
