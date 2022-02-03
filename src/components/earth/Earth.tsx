@@ -14,7 +14,6 @@ export interface EarthProps {
   status: 'persons' | 'tasks' | 'dashboard';
 }
 
-
 export const Earth = (props: EarthProps): JSX.Element => {
   const [canvasSize, setCanvasSize] = useState<number>(0);
   const [positions, setPositions] = useState<Array<Position>>([]);
@@ -25,21 +24,21 @@ export const Earth = (props: EarthProps): JSX.Element => {
   const windowSize: Size = useWindowSize();
 
   const statusAttributes = {
-    'persons': {
+    persons: {
       largeCircle: canvasSize + 200,
       mediumCircle: canvasSize + 150,
       smallCircle: canvasSize,
       scale: 1.15,
       marginRight: 0,
     },
-    'tasks': {
+    tasks: {
       largeCircle: 0,
       mediumCircle: 0,
       smallCircle: canvasSize - 100,
       scale: !!windowSize.width && windowSize.width < 1400 ? 1.3 : 1.7,
       marginRight: `calc(50% - ${canvasSize / 4}px)`,
     },
-    'dashboard': {
+    dashboard: {
       largeCircle: canvasSize + 300,
       mediumCircle: canvasSize + 220,
       smallCircle: canvasSize + 50,
@@ -49,9 +48,11 @@ export const Earth = (props: EarthProps): JSX.Element => {
   };
 
   useLayoutEffect(() => {
-
     if (windowSize.width && windowSize.height) {
-      const newCanvasSize = (windowSize.width < windowSize.height ? windowSize.width * statusAttributes[props.status].scale : windowSize.height * statusAttributes[props.status].scale);
+      const newCanvasSize =
+        windowSize.width < windowSize.height
+          ? windowSize.width * statusAttributes[props.status].scale
+          : windowSize.height * statusAttributes[props.status].scale;
       setCanvasSize(newCanvasSize);
     }
   }, [windowSize, props.status]);
@@ -72,9 +73,9 @@ export const Earth = (props: EarthProps): JSX.Element => {
           diffuse: 1.2,
           mapSamples: 30000,
           mapBrightness: 12,
-          baseColor: [0.36, 0.57, 0.90],
+          baseColor: [0.36, 0.77, 0.90],
           markerColor: [0.1, 0.8, 1],
-          glowColor: [0.36, 0.57, 0.90],
+          glowColor: [0.36, 0.57, 0.9],
           markers: [],
           // onRender: (state: any) => {
           //   // Called on every animation frame.
@@ -85,60 +86,68 @@ export const Earth = (props: EarthProps): JSX.Element => {
           //   }
           // },
         });
-        window.setTimeout(() => globe.current?.toggle(false), 500)
-
+        window.setTimeout(() => globe.current?.toggle(false), 500);
       }, 200);
 
       return () => {
         globe.current?.destroy();
       };
     }
-
   }, [canvasSize]);
-
 
   useEffect(() => {
     if (canvasSize != 0 && props.pins?.length) {
-      const pinSize = props.pins[0].type == TaskPin ? { w: 220, h: 90 } : props.pins[0].type == AvatarPin ? {
-        w: 60,
-        h: 76,
-      } : { w: 150, h: 70 };
-      setPositions(shufflePosition(props.pins.length, canvasSize, canvasSize, pinSize.w, pinSize.h, props.status == 'persons'));
+      const pinSize =
+        props.pins[0].type == TaskPin
+          ? { w: 220, h: 90 }
+          : props.pins[0].type == AvatarPin
+          ? {
+              w: 60,
+              h: 76,
+            }
+          : { w: 150, h: 70 };
+      setPositions(
+        shufflePosition(props.pins.length, canvasSize, canvasSize, pinSize.w, pinSize.h, props.status == 'persons')
+      );
     }
   }, [canvasSize, props.pins]);
 
   return (
-    <>{(windowSize.width) &&
-      <div style={{
-        position: 'relative',
-        height: '100%',
-        width: windowSize.width - 100,
-        marginRight: statusAttributes[props.status].marginRight,
-      }}>
-        <CircleBack earthWidth={canvasSize} circleSizes={statusAttributes[props.status]} />
+    <>
+      {windowSize.width && (
         <div
           style={{
-            position: 'absolute',
-            width: canvasSize,
-            height: canvasSize,
-            right: `calc( 50% - ${canvasSize / 2}px )`,
-            top: `calc( 50% - ${canvasSize / 2}px )`,
+            position: 'relative',
+            height: '100%',
+            width: windowSize.width - 100,
+            marginRight: statusAttributes[props.status].marginRight,
           }}
         >
-          <canvas
-            ref={canvasRef}
+          <CircleBack earthWidth={canvasSize} circleSizes={statusAttributes[props.status]} />
+          <div
             style={{
+              position: 'absolute',
               width: canvasSize,
               height: canvasSize,
+              right: `calc( 50% - ${canvasSize / 2}px )`,
+              top: `calc( 50% - ${canvasSize / 2}px )`,
             }}
-          />
-          {props.pins?.map((pin, index) => {
-            return React.cloneElement(pin, { position: positions[index] });
-          })}
+          >
+            <canvas
+              ref={canvasRef}
+              style={{
+                width: canvasSize,
+                height: canvasSize,
+              }}
+            />
+            {props.pins?.map((pin, index) => {
+              return React.cloneElement(pin, { position: positions[index] });
+            })}
+          </div>
         </div>
-
-      </div>
-    }</>);
+      )}
+    </>
+  );
 };
 
 Earth.defaultProps = {

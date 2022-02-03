@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Row, Space, Radio } from 'antd';
+import { WarningOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { Size, useWindowSize } from '../../hooks/window-size';
-import { Earth } from '../earth/Earth';
 import { AllTasks } from '../cards/AllTasks';
 import '../../styles/const.less';
 import './styles/Dashboard.less';
@@ -50,13 +50,18 @@ const AdminTasks = (): JSX.Element => {
     }
 
     const taskPins = tasks
-      .filter((t: any) => filterStatus === 'all' || t.status === filterStatus)
+      .filter((t: any) => {
+        if (filterStatus === 'done' && t.status === 'failed') {
+          return true;
+        }
+        return filterStatus === 'all' || t.status === filterStatus;
+      })
       .map((task: any, index: number) => {
         let state = '';
         if (!!task.beganAt) {
           const finishTime = task.finishedAt ? new Date(task.finishedAt).getTime() : Date.now();
-          const passedTime = finishTime - new Date(task.beganAt).getTime();
-          const percent = passedTime / 60 / 1000 / task.estimation;
+          const passedTime = (finishTime - new Date(task.beganAt).getTime()) / 1000 / 60;
+          const percent = (passedTime / task.estimation) * 100;
           if (percent <= 25) {
             state = 'green';
           } else if (percent <= 50) {
@@ -74,6 +79,10 @@ const AdminTasks = (): JSX.Element => {
             text={task.title}
             key={index}
             taskID={task.id}
+            icon={
+              (task.status === 'failed' && <WarningOutlined className="badge-icon" />) ||
+              (task.status === 'done' && <CheckCircleOutlined className="badge-icon success" />)
+            }
             className={`pin-status-${state}`}
             suspended={task.suspended}
           />
@@ -121,8 +130,8 @@ const AdminTasks = (): JSX.Element => {
         <Row style={{ height: '100%' }}>
           <Col md={22} className="col-align-evenly" style={{ paddingRight: 75 }}>
             <MultiTitle
-              title={`${participant.users_permissions_user.firstName} عزیز خوش آمدید`}
-              subTitle={`مدیریت محترم تیم ${participant.team.name}`}
+              title={`${participant?.users_permissions_user?.firstName} عزیز خوش آمدید`}
+              subTitle={`مدیریت محترم تیم ${participant?.team?.name}`}
               description={`سالن ${participant.seat?.hall?.name}`}
             />
             <AverageSpeed

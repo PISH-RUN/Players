@@ -105,9 +105,9 @@ const Tasks = (): JSX.Element => {
   });
 
   const taskStatus = {
-    total: tasks?.length || 0,
-    done: tasks?.filter((t: any) => t.status === 'done').length || 0,
-    failed: tasks?.filter((t: any) => t.status === 'failed').length || 0,
+    total: myTasks?.length || 0,
+    done: myTasks?.filter((t: any) => t.status === 'done').length || 0,
+    failed: myTasks?.filter((t: any) => t.status === 'failed').length || 0,
   };
 
   return (
@@ -130,7 +130,11 @@ const Tasks = (): JSX.Element => {
               title="میانگین سرعت حرکت شما"
               subTitle="چقدر از برنامه جلو هستید"
             />
-            <AllTasks title="تعداد وظایف شما" subTitle="وضعیت فعالیت های انجام گرفته شما" tasks={myTasks} />
+            <AllTasks
+              title="تعداد وظایف شما"
+              subTitle="وضعیت فعالیت های انجام گرفته شما"
+              tasks={taskStatus}
+            />
             {/*{ isManager ? <TeamMembers /> : <Medals />} /!*or Medals (If you are user ) *!/*/}
             <Medals />
           </Col>

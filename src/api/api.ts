@@ -19,7 +19,8 @@ export const api = {
         success: (id: any) => baseRequest(`/tasks/${id}/finish`, { method: 'post', needAuthenticated: true}),
         fail: (id: any) => baseRequest(`/tasks/${id}/fail`, { method: 'post', needAuthenticated: true}),
         suspend: (id: any) => baseRequest(`/tasks/${id}/suspend`, { method: 'post', needAuthenticated: true}),
-        unsuspend: (id: any) => baseRequest(`/tasks/${id}/unsuspend`, { method: 'post', needAuthenticated: true})
+        unsuspend: (id: any) => baseRequest(`/tasks/${id}/unsuspend`, { method: 'post', needAuthenticated: true}),
+        taskParticipant: (id: any) => baseRequest(`/tasks/${id}/participant`, { method: 'get', needAuthenticated: true})
     },
     stats: {
         list: () => baseRequest('/stats', {method: 'get', needAuthenticated: true}),

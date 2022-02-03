@@ -50,7 +50,9 @@ export const TeamMembers = (): JSX.Element => {
       key: 'taskState',
       align: 'center',
       render: (state) => {
-        if (state <= 25) {
+        if (state === false) {
+          return <span className="member-status" />;
+        } else if (state <= 25) {
           return <span className="member-status status-green" />;
         } else if (state <= 50) {
           return <span className="member-status status-blue" />;

@@ -37,6 +37,10 @@
 .pin-status-blue:not(.suspended) {
   background: #339AF0 !important;
 
+  * {
+    color: white;
+  }
+
   &:after {
     border-top-color: #339AF0 !important;
   }
@@ -63,5 +67,20 @@
 
   &:after {
     border-top-color: #F5222D !important;
+  }
+}
+
+.badge-icon {
+  position: absolute;
+  left: -14px;
+  top: -18px;
+  font-size: 20px;
+  color: white;
+  border-radius: 25px;
+  background: red;
+  padding: 9px;
+
+  &.success {
+    background: green;
   }
 }

@@ -8,6 +8,8 @@ import { useChats, useSendMessage } from '../../hooks/chat';
 import { useTeamManager } from '../../hooks/team';
 import { useAuth } from '../../contexts/auth/auth';
 import { useQueryClient } from 'react-query';
+import { UPLOADS_ADDRESS } from '../../api/baseRequest';
+import { useTaskParticipant } from '../../hooks';
 
 type Message = {
   text: string;
@@ -24,6 +26,7 @@ export const Chat = (props: { taskId: any }): JSX.Element => {
   const { participant } = useAuth();
   const queryClient = useQueryClient();
   const { mutateAsync: sendMessage } = useSendMessage();
+  const { data: taskParticipant } = useTaskParticipant(props.taskId);
   const { data: manager, isLoading } = useTeamManager(participant?.team?.id, {
     enabled: !!participant?.team?.id,
   });
@@ -62,16 +65,24 @@ export const Chat = (props: { taskId: any }): JSX.Element => {
     return <></>;
   }
 
+  let user = manager?.data;
+  if (participant.role === 'manager') {
+    user = taskParticipant?.data;
+  }
+
   return (
     <Form form={form}>
       <Card
         chatHeader
-        cardTitle={`${manager?.data?.firstName} ${manager?.data?.lastName}`}
-        avatarSrc="https://picsum.photos/48/48"
+        cardTitle={`${user?.firstName} ${user?.lastName}`}
+        avatarSrc={user?.avatar?.url ? `${UPLOADS_ADDRESS}${user?.avatar?.url}` : 'https://picsum.photos/48/48'}
         className="chat-wrapper"
       >
-        <Conversation participant={participant} data={data?.data || []} />
-        <Footer onSend={handleSendMessage} />
+        <Conversation contact={user} participant={participant} data={data?.data || []} />
+        <Footer
+          placeholder={participant.role === 'manager' ? 'جواب شما به کاربر' : 'سوال شما از مدیر'}
+          onSend={handleSendMessage}
+        />
       </Card>
     </Form>
   );

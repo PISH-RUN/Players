@@ -3,12 +3,12 @@ import React from 'react';
 import { SendOutlined } from '@ant-design/icons';
 import './styles/Footer.less';
 
-export const Footer = (props: { onSend: () => void }): JSX.Element => {
+export const Footer = (props: { onSend: () => void; placeholder: string }): JSX.Element => {
   return (
     <Form.Item name="text" className="send-box">
       <Input
         onPressEnter={props.onSend}
-        placeholder="متن سوال شما از مدیر"
+        placeholder={props.placeholder}
         suffix={<SendOutlined onClick={props.onSend} />}
       />
     </Form.Item>
