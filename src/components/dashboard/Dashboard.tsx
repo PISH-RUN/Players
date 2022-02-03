@@ -92,17 +92,17 @@ const Dashboard = (): JSX.Element => {
             <PresentTeams teams={stats?.data?.teams} />
             <HorizontalWrapper>
               <AllTasks tasks={stats?.data?.tasks} title="تعداد کل وظایف" subTitle="وضعیت فعالیت‌های انجام گرفته" />
-              <Status text="نماز ظهر و عصر" />
+              {participant?.data?.team?.event?.status && <Status text={participant?.data?.team?.event?.status} />}
             </HorizontalWrapper>
           </Col>
           <Col md={7} xs={24} />
           <Col md={6} xs={24} style={{ paddingLeft: 40 }} className="col-align-evenly">
             <AirLine participant={participant} />
             <AverageSpeed
-              successRate={85}
-              passedTime={passedTime}
+              successRate={stats?.data?.tasks?.done / stats?.data?.tasks?.total}
+              passedTime={passedTime * stats?.data?.participants?.present}
               speedRate={passedTime / EventDuration}
-              time={1 - passedTime / EventDuration}
+              time={passedTime / EventDuration}
               title="میانگین سرعت حرکت"
               subTitle="چقدر از برنامه جلو هستیم"
             />

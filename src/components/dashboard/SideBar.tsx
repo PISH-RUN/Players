@@ -51,13 +51,15 @@ export const SideBar = (): JSX.Element => {
         >
           خلاصه آمار سفر
         </DashboardMenuItem>
-        <DashboardMenuItem
-          key="tasks"
-          icon={<CheckSquareOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
-          route="tasks"
-        >
-          وظایف
-        </DashboardMenuItem>
+        {!isManager && (
+          <DashboardMenuItem
+            key="tasks"
+            icon={<CheckSquareOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}
+            route="tasks"
+          >
+            وظایف
+          </DashboardMenuItem>
+        )}
         <DashboardMenuItem
           key="users"
           icon={<UserOutlined style={{ fontSize: '18px', marginTop: '5px' }} />}

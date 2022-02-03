@@ -15,6 +15,7 @@ import { AdminTaskPin } from '../earth/AdminTaskPin';
 import { useAuth } from 'contexts/auth/auth';
 import { useTeam } from 'hooks/team';
 import { usePin } from '../../contexts/pin';
+import moment from 'jalali-moment';
 
 const AdminTasks = (): JSX.Element => {
   const { setPins } = usePin();
@@ -23,6 +24,7 @@ const AdminTasks = (): JSX.Element => {
     enabled: !!participant,
   });
   const tasks = team?.data?.attributes.tasks.data.map((t: any) => ({ id: t.id, ...t.attributes }));
+  const participants = team?.data?.attributes.participants.data.map((t: any) => ({ id: t.id, ...t.attributes }));
 
   const windowSize: Size = useWindowSize();
   const [canvasSize, setCanvasSize] = useState<number>(0);
@@ -83,10 +85,34 @@ const AdminTasks = (): JSX.Element => {
     return () => setPins([]);
   }, [team, filterStatus]);
 
+  const startAt = moment(new Date(participant?.team?.event?.startAt)).valueOf();
+  const endAt = moment(new Date(participant?.team?.event?.endAt)).valueOf();
+  const now = moment().valueOf();
+  const EventDuration = parseInt(
+    moment
+      .duration(endAt - startAt)
+      .asMinutes()
+      .toString(),
+    10
+  );
+  const passedTime = parseInt(
+    moment
+      .duration(now - startAt)
+      .asMinutes()
+      .toString(),
+    10
+  );
+
   const taskStatus = {
     total: tasks?.length || 0,
     done: tasks?.filter((t: any) => t.status === 'done').length || 0,
     failed: tasks?.filter((t: any) => t.status === 'failed').length || 0,
+  };
+
+  const participantsStatus = {
+    total: participants?.length || 0,
+    present: participants?.filter((t: any) => t.enteredAt !== null).length || 0,
+    absent: participants?.filter((t: any) => t.enteredAt === null).length || 0,
   };
 
   return (
@@ -100,7 +126,10 @@ const AdminTasks = (): JSX.Element => {
               description={`سالن ${participant.seat?.hall?.name}`}
             />
             <AverageSpeed
-              passedTime={2354}
+              successRate={taskStatus?.done / taskStatus?.total}
+              passedTime={passedTime * participantsStatus?.present}
+              speedRate={passedTime / EventDuration}
+              time={passedTime / EventDuration}
               rmBackground
               title="میانگین سرعت تیم شما"
               subTitle="چقدر از برنامه جلو هستید"

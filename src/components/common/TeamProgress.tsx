@@ -36,7 +36,7 @@ export const TeamProgress = (props: TeamProgressProps): JSX.Element => {
         <Title type={Type.P} style={{ fontSize: 10, margin: 0 }}>
           <Space>
             <span>{percentage}</span>
-            <span className="mr-1">درصد پیشرفت</span>
+            <span className="mr-1 percent-text">درصد پیشرفت</span>
           </Space>
         </Title>
       </div>

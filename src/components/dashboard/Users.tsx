@@ -9,22 +9,19 @@ import { DashboardWrapper } from './DashboardWrapper';
 import { usersData } from './users-data';
 import { AvatarPin } from '../earth/AvatarPin';
 import { usePin } from '../../contexts/pin';
-import { useTeams } from 'hooks/team';
+import { useTeamManager, useTeamMembers, useTeams } from 'hooks/team';
 import AvatarIcon from 'public/images/avatar-sample.png';
 import { useAuth } from '../../contexts/auth/auth';
+import { useParticipants } from '../../hooks';
+import { UPLOADS_ADDRESS } from '../../api/baseRequest';
 
 const Users = (): JSX.Element => {
+  const [attribute, setAttribute] = useState<string>('all');
   const { setPins } = usePin();
-  const { participant } = useAuth();
-  const { data: teamsData } = useTeams(participant?.team?.event?.id, {
-    enabled: !!participant?.team?.event?.id,
-  });
-
-  const teams = teamsData?.data || [];
+  const { data: participants } = useParticipants();
 
   const windowSize: Size = useWindowSize();
   const [canvasSize, setCanvasSize] = useState<number>(0);
-  const [attribute, setAttribute] = useState<string>('all');
   const [present, setPresent] = useState<string>('all');
   const [data, setData] = useState<Array<{ [key: string]: any }>>(usersData.all);
 
@@ -35,12 +32,12 @@ const Users = (): JSX.Element => {
   }, [windowSize, canvasSize]);
 
   const options =
-    teams?.length > 0
+    participants?.data?.teams?.length > 0
       ? [
           { label: 'همه', value: 'all' },
-          ...teams.map((p: any) => ({
-            label: p.attributes.name,
-            value: p.attributes.name,
+          ...participants?.data?.teams.map((p: any) => ({
+            label: p.name,
+            value: p.id,
           })),
         ]
       : [{ label: 'همه', value: 'all' }];
@@ -50,45 +47,36 @@ const Users = (): JSX.Element => {
     { label: 'غایبین', value: 'absent' },
   ];
 
-  let allUsers: Array<any> = [];
-
-  teams
-    .filter((team: any) => attribute === 'all' || team.attributes.name === attribute)
-    .map((team: any) => {
-      allUsers = [...allUsers, ...team.attributes.participants?.data];
-      return team;
-    });
+  let allUsers: Array<any> = participants?.participants;
 
   useEffect(() => {
-    if (teams?.length === 0) return;
+    if (participants?.data?.teams?.length === 0) return;
 
     let pins: Array<any> = [];
-    teams
-      .filter((team: any) => attribute === 'all' || team.attributes.name === attribute)
-      .map((team: any) => {
-        pins = [...pins, ...team.attributes.participants.data];
-        return team;
-      });
+    if (attribute === 'all') {
+      pins = participants?.data?.participants;
+    } else {
+      pins = participants?.data?.participants.filter((user: any) => user.team === attribute);
+    }
 
-    const userPins = pins
-      .filter(
-        (user) =>
-          present === 'all' || (present === 'present' ? !!user.attributes.enteredAt : !user.attributes.enteredAt)
-      )
-      .map((user, index) => {
-        return (
-          <AvatarPin
-            key={index}
-            userID={user.id}
-            name={user.name}
-            avatar={AvatarIcon}
-            disabled={!user.attributes.enteredAt}
-          />
-        );
-      });
+    const userPins =
+      pins &&
+      pins
+        .filter((user) => present === 'all' || (present === 'present' ? !!user.enteredAt : !user.enteredAt))
+        .map((user, index) => {
+          return (
+            <AvatarPin
+              key={index}
+              userID={user.id}
+              name={`${user.firstName} ${user.lastName}`}
+              avatar={user.avatar ? `${UPLOADS_ADDRESS}${user.avatar}` : AvatarIcon}
+              disabled={!user.enteredAt}
+            />
+          );
+        });
     setPins(userPins);
     return () => setPins([]);
-  }, [present, attribute, teams]);
+  }, [present, attribute, participants?.data?.teams]);
 
   return (
     <>
@@ -99,7 +87,7 @@ const Users = (): JSX.Element => {
             <MultiTitle
               title="همراهان پیش‌ران"
               subTitle="کیدنید"
-              description={`${allUsers.filter((u) => !u.attributes?.enteredAt).length} حاضر از ${allUsers?.length}`}
+              description={`${participants?.data?.participantsState.present} نفر حاضر از ${participants?.data?.participantsState.total} نفر`}
               style={{ top: 110, right: 37 }}
             />
           </Col>

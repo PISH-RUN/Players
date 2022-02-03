@@ -26,7 +26,9 @@ export const AverageSpeed = (props: AverageSpeedProps): JSX.Element => {
       <CardCustomTitle center title={props.title} subTitle={props.subTitle} />
       <Row>
         <Col md={6} className="chart-area-2">
-          <Title type={Type.THIN}>زمان باقی‌مانده</Title>
+          <Title type={Type.THIN} style={{ minWidth: 71 }}>
+            زمان باقی‌مانده
+          </Title>
           <CustomGauge percentage={props.time} type="time" height={80} />
         </Col>
         <Col md={12} className="chart-area-1">

@@ -21,10 +21,10 @@ export const CustomGauge = (props: CustomGaugeProps): JSX.Element => {
           : [0, 1 / 2, 1],
       color:
         props.type === 'success-rate'
-          ? ['#00B928', '#F5222D']
+          ? ['#F5222D', '#00B928']
           : props.type === 'speed-rate'
           ? ['#00B928', '#339AF0', '#F5222D']
-          : ['#F5222D', '#00B928'],
+          : ['#00B928', '#F5222D'],
       width: 8,
     },
     indicator: {

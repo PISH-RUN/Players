@@ -100,6 +100,16 @@ const Tasks = (): JSX.Element => {
     return <></>;
   }
 
+  const myTasks = tasksData1?.data?.map((t: any) => {
+    return { ...t.attributes, id: t.id };
+  });
+
+  const taskStatus = {
+    total: tasks?.length || 0,
+    done: tasks?.filter((t: any) => t.status === 'done').length || 0,
+    failed: tasks?.filter((t: any) => t.status === 'failed').length || 0,
+  };
+
   return (
     <>
       {/*<Earth pins={taskPins} status='tasks' />*/}
@@ -112,14 +122,15 @@ const Tasks = (): JSX.Element => {
               description={`سالن ${seat?.hall?.name}، صندلی ${seat?.slug}`}
             />
             <AverageSpeed
+              successRate={taskStatus?.done / taskStatus?.total || 0}
               passedTime={passedTime}
               speedRate={passedTime / EventDuration}
-              time={1 - passedTime / EventDuration}
+              time={passedTime / EventDuration}
               rmBackground
               title="میانگین سرعت حرکت شما"
               subTitle="چقدر از برنامه جلو هستید"
             />
-            <AllTasks title="تعداد وظایف شما" subTitle="وضعیت فعالیت های انجام گرفته شما" tasks={stats?.data?.tasks} />
+            <AllTasks title="تعداد وظایف شما" subTitle="وضعیت فعالیت های انجام گرفته شما" tasks={myTasks} />
             {/*{ isManager ? <TeamMembers /> : <Medals />} /!*or Medals (If you are user ) *!/*/}
             <Medals />
           </Col>
