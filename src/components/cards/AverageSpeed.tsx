@@ -35,7 +35,9 @@ export const AverageSpeed = (props: AverageSpeedProps): JSX.Element => {
           <CustomGauge percentage={props.speedRate} type="speed-rate" height={90} />
         </Col>
         <Col md={6} className="chart-area-2">
-          <Title type={Type.THIN}>نرخ موفقیت</Title>
+          <Title type={Type.THIN} style={{ minWidth: 71 }}>
+            نرخ موفقیت
+          </Title>
           <CustomGauge percentage={props.successRate} type="success-rate" height={80} />
         </Col>
       </Row>

@@ -126,7 +126,7 @@ const AdminTasks = (): JSX.Element => {
               description={`سالن ${participant.seat?.hall?.name}`}
             />
             <AverageSpeed
-              successRate={taskStatus?.done / taskStatus?.total}
+              successRate={taskStatus?.done / taskStatus?.total || 0}
               passedTime={passedTime * participantsStatus?.present}
               speedRate={passedTime / EventDuration}
               time={passedTime / EventDuration}
