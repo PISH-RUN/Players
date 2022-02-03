@@ -18,7 +18,7 @@ export const AvatarPin = (props: AvatarPinProps) => {
 
   return (
     <Pin {...props} tooltip={props.name} onClick={pinOnClick}>
-      <ImageBox style={{ borderRadius: '10px' }} src={props.avatar} width="50" height="50" />
+      <ImageBox style={{ objectFit: 'cover', borderRadius: '10px' }} src={props.avatar} width="50" height="50" />
     </Pin>
   );
 };

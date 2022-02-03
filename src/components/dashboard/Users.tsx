@@ -68,7 +68,7 @@ const Users = (): JSX.Element => {
             <AvatarPin
               key={index}
               userID={user.id}
-              name={`${user.firstName} ${user.lastName}`}
+              name={user.firstName ? `${user.firstName} ${user.lastName}` : undefined}
               avatar={user.avatar ? `${UPLOADS_ADDRESS}${user.avatar}` : AvatarIcon}
               disabled={!user.enteredAt}
             />

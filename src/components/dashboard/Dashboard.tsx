@@ -99,7 +99,7 @@ const Dashboard = (): JSX.Element => {
           <Col md={6} xs={24} style={{ paddingLeft: 40 }} className="col-align-evenly">
             <AirLine participant={participant} />
             <AverageSpeed
-              successRate={stats?.data?.tasks?.done / stats?.data?.tasks?.total || 0}
+              successRate={stats?.data?.tasks?.done / stats?.data?.tasks?.total || 1 / 2}
               passedTime={passedTime * stats?.data?.participants?.present}
               speedRate={passedTime / EventDuration}
               time={passedTime / EventDuration}

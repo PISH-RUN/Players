@@ -122,7 +122,7 @@ const Tasks = (): JSX.Element => {
               description={`سالن ${seat?.hall?.name}، صندلی ${seat?.slug}`}
             />
             <AverageSpeed
-              successRate={taskStatus?.done / taskStatus?.total || 0}
+              successRate={taskStatus?.done / taskStatus?.total || 1 / 2}
               passedTime={passedTime}
               speedRate={passedTime / EventDuration}
               time={passedTime / EventDuration}

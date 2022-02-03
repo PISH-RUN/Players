@@ -11,7 +11,7 @@ import {
   notification,
   PageHeader,
   Radio,
-  Row,
+  Row, Select,
 } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 import moment from 'jalali-moment';
@@ -139,7 +139,14 @@ const Setting: FC = () => {
               </Input.Group>
             </Form.Item>
             <Form.Item label="مدرک تحصیلی" name="degree">
-              <Input />
+              <Select>
+                <Select.Option value="حوزوی">حوزوی</Select.Option>
+                <Select.Option value="دیپلم">دیپلم</Select.Option>
+                <Select.Option value="فوق دیپلم">فوق دیپلم</Select.Option>
+                <Select.Option value="لیسانس">لیسانس</Select.Option>
+                <Select.Option value="فوق لیسانس">فوق لیسانس</Select.Option>
+                <Select.Option value="دکتری">دکتری</Select.Option>
+              </Select>
             </Form.Item>
             <Form.Item label="رشته تحصیلی" name="fieldStudy">
               <Input />
