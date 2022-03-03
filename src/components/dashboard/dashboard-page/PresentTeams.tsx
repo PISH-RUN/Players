@@ -17,11 +17,11 @@ export const PresentTeams: FC<PresentTeamsProps> = ({ teams }) => {
       <Title type={Type.BOLD}>تیم‌های حاضر</Title>
       <div>
         {teams?.map((team, index) => {
-          const Icon = teamsIcon[index];
+          const Icon = teamsIcon[index % 5];
           return (
             <TeamProgress
               key={team.id}
-              color={teamsColor[index]}
+              color={teamsColor[index % 5]}
               count={team.participants}
               percentage={
                 team.tasks.total > 0 ? ((team.tasks.done / team.tasks.total) * 100).toFixed(1).toString() : '0'
