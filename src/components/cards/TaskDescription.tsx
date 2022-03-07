@@ -18,7 +18,7 @@ export const TaskDescription = (props: TaskDescriptionProps): JSX.Element => {
       <Title type={Type.MEDIUM} style={{ color: '#1890FF' }}>
         توضیح وظیفه
       </Title>
-      <div className="task-desc">
+      <div className="task-desc" style={{ whiteSpace: 'pre-line' }}>
         <ReactMarkdown>{props.description}</ReactMarkdown>
       </div>
     </Card>
