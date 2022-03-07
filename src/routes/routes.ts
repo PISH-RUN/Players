@@ -11,6 +11,21 @@ export const routes: Array<RouteType> = [
     component: lazy(() => import('../pages/auth')),
   },
   {
+    path: '/video/:id',
+    exact: true,
+    component: lazy(() => import('../pages/media/video')),
+  },
+  {
+    path: '/audio/:id',
+    exact: true,
+    component: lazy(() => import('../pages/media/audio')),
+  },
+  {
+    path: '/pdf/:id',
+    exact: true,
+    component: lazy(() => import('../pages/media/pdf')),
+  },
+  {
     path: '/auth',
     exact: true,
     component: lazy(() => import('../pages/auth')),

@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import './styles/const.less'
+import './styles/const.less';
 import './App.css';
 import { routes, RenderComponent } from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -20,11 +20,7 @@ const queryClient = new QueryClient();
 
 const AppRouter: React.ComponentType = () => {
   return (
-    <Suspense
-      fallback={
-        <></>
-      }
-    >
+    <Suspense fallback={<></>}>
       <BrowserRouter>
         <Routes>
           {routes.map(({ path, subRoutes, exact, ...rest }) => (
@@ -44,13 +40,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <CookiesProvider>
-        <AuthProvider>
-          <Provider store={store}>
-            <ConfigProvider direction='rtl' locale={fa_IR}>
-              <AppRouter />
-            </ConfigProvider>
-          </Provider>
-        </AuthProvider>
+        <Provider store={store}>
+          <ConfigProvider direction="rtl" locale={fa_IR}>
+            <AppRouter />
+          </ConfigProvider>
+        </Provider>
       </CookiesProvider>
     </QueryClientProvider>
   );
