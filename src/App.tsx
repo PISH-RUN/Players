@@ -5,7 +5,6 @@ import { routes, RenderComponent } from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { CookiesProvider } from 'react-cookie';
-import AuthProvider from 'contexts/auth/auth';
 import store from './redux/store';
 import fa_IR from 'antd/lib/locale/fa_IR';
 import { ConfigProvider } from 'antd';
