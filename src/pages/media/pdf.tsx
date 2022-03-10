@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './pdf.less';
 // @ts-ignore
 import { Document, Page, pdfjs } from 'react-pdf';
-
-const url = 'http://localhost:3001/pdf/pdf.pdf';
+import { useLocation } from 'react-router-dom';
+import { parseUrl } from 'query-string';
 
 const Pdf = () => {
+  const { search } = useLocation();
+  const { url } = parseUrl(search).query;
+
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
   const [inputValue, setInputValue] = useState(1);
   const [numPages, setNumPages] = useState(null);

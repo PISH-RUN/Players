@@ -6,17 +6,17 @@ import { RouteType } from './types/route';
  */
 export const routes: Array<RouteType> = [
   {
-    path: '/video/:id',
+    path: '/video',
     exact: true,
     component: lazy(() => import('../pages/media/video')),
   },
   {
-    path: '/audio/:id',
+    path: '/audio',
     exact: true,
     component: lazy(() => import('../pages/media/audio')),
   },
   {
-    path: '/pdf/:id',
+    path: '/pdf',
     exact: true,
     component: lazy(() => import('../pages/media/pdf')),
   },

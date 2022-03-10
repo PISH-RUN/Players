@@ -2,15 +2,17 @@ import React, { useState, useRef } from 'react';
 import './style.less';
 // @ts-ignore
 import VideoPlayer from 'react-video-js-player';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import AudioBackground from 'public/images/audio.jpg';
+import { parseUrl } from 'query-string';
 
 const Audio = () => {
-  const { id } = useParams();
+  const { search } = useLocation();
+  const { url } = parseUrl(search).query;
   const time = useRef();
   const state = {
     video: {
-      src: 'http://localhost:3001/audio.mp4',
+      src: url,
       poster: AudioBackground,
     },
   };
