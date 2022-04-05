@@ -11,6 +11,11 @@ export const routes: Array<RouteType> = [
     component: lazy(() => import('../pages/media/video')),
   },
   {
+    path: '/game',
+    exact: true,
+    component: lazy(() => import('../pages/media/game')),
+  },
+  {
     path: '/audio',
     exact: true,
     component: lazy(() => import('../pages/media/audio')),
