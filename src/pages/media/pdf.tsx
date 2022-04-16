@@ -58,7 +58,13 @@ const Pdf = () => {
           </button>
         </div>
       </div>
-      <Document loading="در حال بارگذاری..." file={url} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document
+        error="مشکلی در بارگذاری فایل رخ داده است"
+        loading="در حال بارگذاری..."
+        noData="فایل مورد نظر یافت نشد"
+        file={url}
+        onLoadSuccess={onDocumentLoadSuccess}
+      >
         <Page pageNumber={pageNumber} />
       </Document>
     </div>
