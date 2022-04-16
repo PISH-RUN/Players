@@ -58,7 +58,7 @@ const Pdf = () => {
           </button>
         </div>
       </div>
-      <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document loading="در حال بارگذاری..." file={url} onLoadSuccess={onDocumentLoadSuccess}>
         <Page pageNumber={pageNumber} />
       </Document>
     </div>
